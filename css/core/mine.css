@@ -1,0 +1,125 @@
+html,
+body {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.GlassPlate {
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.FullPlate {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.FloatTablePlate {
+    position: absolute;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+    border-width: 0px;
+    cursor: default;
+}
+
+.homeTitle {
+    font-weight: 700;
+    letter-spacing: 10px;
+    color: transparent;
+    -webkit-text-stroke: 1px #ffffff;
+    text-align: center;
+    font-family: 'kunlunxiyuan';
+    margin-top: 1%;
+    /* background-image: -webkit-linear-gradient(92deg, #1f89bb, #eef0f1); */
+    font-size: 56px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 60s infinite linear;
+    opacity: 0.7;
+    text-shadow: 0 0 20px #0e6792, 0 0 15px #fff;
+}
+
+.nav-bar {
+    position: absolute;
+    text-align: center;
+    right: 1%;
+    top: 1%;
+    width: 20%;
+    display: grid;
+}
+
+.nav-box {
+    border: none;
+    background-color: #cfd1d612;
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    width: 280px;
+    height: 35px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.nav-box:hover {
+    width: 310px;
+    transition: 0.3s;
+}
+
+.btn {
+    font-family: "幼圆";
+    color: #a7aec378;
+    font-size: 18px;
+    text-decoration: none;
+    width: 250px;
+    text-align: center;
+}
+
+.btn span {
+    display: inline-block;
+    position: relative;
+    transition: 0.2s;
+}
+
+.btn span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -10px;
+    transition: 0.2s;
+}
+
+.menuButton {
+    margin: 5px;
+}
+
+.btn_delay:hover span {
+    padding-right: 25px;
+    font-size: 20px;
+    color: #fdfdffb5;
+    text-shadow: 0 0 8px #fff;
+}
+
+.btn_delay:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+[v-cloak] {
+    display: none;
+}

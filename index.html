@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<!--
+    
+-->
+
+<head>
+    <title>极地大屏可视化平台</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- css configuration -->
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/other/button.css">
+    <link rel="stylesheet" href="./css/other/animate.css">
+    <link rel="stylesheet" href="./css/core/mine.css">
+    <link rel="stylesheet" href="./css/core/tableConf.css">
+    <!-- basic reference (isn't AMD module) -->
+    <script type="text/javascript" src="./js/threeJs/three.min.js"></script>
+    <script type="text/javascript" src="./js/other/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./js/layer/layer.js"></script>
+</head>
+
+<body>
+    <div id="MainApp" class="GlassPlate">
+        <!-- mask layer -->
+        <iframe v-cloak v-show="!loaded" v-bind:src="fakePage" class="GlassPlate" style="z-index: 20000;"></iframe>
+        <!-- main layer -->
+        <template v-cloak v-show="loaded">
+            <div id="threeJsView" class="GlassPlate"></div>
+            <div class="FullPlate"><h1 class="homeTitle">{{ title }}</h1></div>
+            <div id="tableView" class="FullPlate animate bounceIn"></div>
+            <div id="menu" class="nav-bar">
+                <div v-for="mbtn in mbuttons" class="button button-small button-plain button-border button-pill animated bounceInLeft menuButton"
+                    v-bind:style="mbtn.delay" v-on:click="mbtnEvent(mbtn.event);">
+                    <span>{{ mbtn.name }}</span>
+                </div>
+            </div>
+            <div v-bind:id="tips.id" v-show="tips.visiable" v-bind:style="{cursor: tips.cursor, position: tips.position, left: tips.left, top: tips.top, width: tips.width, height: tips.height}"></div>
+        </template>
+    </div>
+    <!-- core code -->
+    <script type="text/javascript" src="./js/other/require.min.js" defer async="true"></script>
+    <script type="text/javascript" src="./js/other/require.min.js" data-main="./mineJs/core/MainActivity.js"></script>
+</body>
+
+</html>
