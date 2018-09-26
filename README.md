@@ -2,4 +2,5 @@
 This is a project of polar visualization
 
 authors:
-ZX - ÖÜÐñ
+ZX - å‘¨æ—­
+deamon - å­¦ä¿­
