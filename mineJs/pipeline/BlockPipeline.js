@@ -298,6 +298,12 @@ define([
                                     }
                                 }
                             });
+                            __addEvent__(newWorld, "onresize", function() {
+                                let camera = newWorld.get("Cameras")[0];
+                                camera.aspect = window.innerWidth / window.innerHeight;        
+                                camera.updateProjectionMatrix();        
+                                _renderer.setSize( window.innerWidth, window.innerHeight );
+                            });
                             __addEvent__(newWorld, "onmousemove", function (event) {
                                 _mouse.x = (event.clientX / _prop.cwidth) * 2 - 1;
                                 _mouse.y = -(event.clientY / _prop.cheight) * 2 + 1;

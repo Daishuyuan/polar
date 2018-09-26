@@ -19,12 +19,12 @@ define(function () {
                         "name": "极地大屏可视化系统",
                         "style": "chart_title",
                         "height": 5,
-                        "column": "6",
+                        "column": "col-md-6",
                         "descrip": "第一列"
                     }, {
                         type: "capsule",
                         descrip: "内部",
-                        column: "6",
+                        column: "col-md-6",
                         rows: [{
                             height: 40,
                             descrip: "内部分行",
@@ -33,14 +33,14 @@ define(function () {
                                 "name": "1",
                                 "style": "chart_title",
                                 "height": 5,
-                                "column": "4",
+                                "column": "col-md-4",
                                 "descrip": "第一列"
                             }, {
                                 "type": "title",
                                 "name": "2",
                                 "style": "chart_title",
                                 "height": 5,
-                                "column": "4",
+                                "column": "col-md-4",
                                 "descrip": "第二列"
                             }]
                         }]
@@ -54,7 +54,7 @@ define(function () {
                             "width": 30,
                             "height": 30,
                             "url": "./gauge.html",
-                            "column": "4",
+                            "column": "col-md-4",
                             "descrip": "第一列"
                         },
                         {
@@ -62,7 +62,7 @@ define(function () {
                             "width": 30,
                             "height": 30,
                             "url": "./gauge.html",
-                            "column": "4",
+                            "column": "col-md-4",
                             "descrip": "第二列"
                         },
                         {
@@ -70,7 +70,7 @@ define(function () {
                             "width": 30,
                             "height": 30,
                             "url": "./gauge.html",
-                            "column": "4",
+                            "column": "col-md-4",
                             "descrip": "第三列"
                         }
                     ]
@@ -83,7 +83,7 @@ define(function () {
                         "name": "呵呵",
                         "style": "chart_title",
                         "height": 5,
-                        "column": "6",
+                        "column": "col-md-6",
                         "descrip": "第一列"
                     }]
                 }

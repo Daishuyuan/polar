@@ -20,10 +20,9 @@ define(["Echarts", "BasicTools"], function (echarts, tools) {
                 // cols processing
                 function __col_owner__(i, row, cols) {
                     for (let j = 0; j < cols.length; j++) {
-                        let node = cols[j],
-                            column = parseInt(node.column);
-                        if (!isNaN(column)) {
-                            tbcnt.push(`<div class='col-md-${column}' style='${FHEIGHT}'>`);
+                        let node = cols[j];
+                        if (node.column) {
+                            tbcnt.push(`<div class='${node.column}' style='${FHEIGHT}'>`);
                             switch (node.type) {
                                 case "title":
                                     tbcnt.push(`<p class='${node.style}'>${node.name}</p>`);
