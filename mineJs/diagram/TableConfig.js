@@ -81,7 +81,7 @@ define(function () {
                     "type": "chart",
                     "width": 50,
                     "height": 30,
-                    "url": "http://localhost:3000/gauge",
+                    "url": "http://localhost:3000/liquidFill",
                     "column": "col-md-6",
                     "descrip": "第一列"
                 },
@@ -89,7 +89,7 @@ define(function () {
                     "type": "chart",
                     "width": 30,
                     "height": 30,
-                    "url": "http://localhost:3000/gauge",
+                    "url": "http://localhost:3000/windRose",
                     "column": "col-md-6",
                     "descrip": "第二列"
                 }
