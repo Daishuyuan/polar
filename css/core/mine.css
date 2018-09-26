@@ -1,3 +1,10 @@
+@font-face
+{
+	font-family: 'chartTitleFont';
+	src: url('‪../../../../fonts/kunlunxiyuan.ttf') format('truetype');
+    	/*,url('Sansation_Bold.eot'); */
+}
+
 html,
 body {
     overflow: hidden;

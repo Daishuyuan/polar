@@ -1,10 +1,3 @@
-@font-face
-{
-	font-family: 'chartTitleFont';
-	src: url('‪/polar/fonts/kunlunxiyuan.ttf');
-    	/*,url('Sansation_Bold.eot'); */
-}
-
 .chart_title {
     color: #cce4f9;
     margin-top: -2px;
