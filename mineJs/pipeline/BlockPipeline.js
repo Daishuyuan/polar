@@ -280,7 +280,7 @@ define([
                                     return _raycaster.intersectObject(obj);
                                 }
                             });
-                            // register inner event
+                            // after proccess include recycle resource\update camera\delete unused animation
                             __addEvent__(newWorld, "afterProc", function (clock) {
                                 let camera = newWorld.get("Cameras")[0],
                                     _animation = newWorld.get("Animation").get(defaultScene);
@@ -298,12 +298,14 @@ define([
                                     }
                                 }
                             });
+                            // when resize window recalculate scenes
                             __addEvent__(newWorld, "onresize", function() {
                                 let camera = newWorld.get("Cameras")[0];
                                 camera.aspect = window.innerWidth / window.innerHeight;        
                                 camera.updateProjectionMatrix();        
                                 _renderer.setSize( window.innerWidth, window.innerHeight );
                             });
+                            // when mouse move recording position
                             __addEvent__(newWorld, "onmousemove", function (event) {
                                 _mouse.x = (event.clientX / _prop.cwidth) * 2 - 1;
                                 _mouse.y = -(event.clientY / _prop.cheight) * 2 + 1;

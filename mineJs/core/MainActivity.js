@@ -29,8 +29,7 @@ require.config({
     },
     shim: {
         "/polar/js/echarts/echarts-liquidfill.min.js": {
-            deps: ["Echarts"],
-            exports: "echarts-liquidfill"
+            deps: ["Echarts"]
         },
         "/polar/js/threeJs/extras/utils/GeometryUtils.js": {
             deps: ["THREE"],

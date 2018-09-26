@@ -68,23 +68,27 @@ define(["Echarts", "BasicTools"], function (echarts, tools) {
 
                 // pane processing
                 !function() {
-                    if (config.pane) {
-                        for (let name in config.pane)
-                            jqDom.css(name, config.pane[name]);
-                    } else {
-                        console.error("pane not in config.");
-                    }
-                    tbcnt.push(`<div class='container-fluid' style='${FHEIGHT}'>`);
-                    if (config.rows) {
-                        __row_owner__(config.rows);
-                    } else {
-                        tools.mutter("rows not in config.", "error");
-                    }
-                    tbcnt.push("</div>");
-                    jqDom.append(tbcnt.join('\n'));
-                    for (let i = 0; i < echDelay.length; ++i) {
-                        let node = echDelay[i];
-                        addChart(node.id, node.url);
+                    try {
+                        if (config.pane) {
+                            for (let name in config.pane)
+                                jqDom.css(name, config.pane[name]);
+                        } else {
+                            console.error("pane not in config.");
+                        }
+                        tbcnt.push(`<div class='container-fluid' style='${FHEIGHT}'>`);
+                        if (config.rows) {
+                            __row_owner__(config.rows);
+                        } else {
+                            tools.mutter("rows not in config.", "error");
+                        }
+                        tbcnt.push("</div>");
+                        jqDom.append(tbcnt.join('\n'));
+                        for (let i = 0; i < echDelay.length; ++i) {
+                            let node = echDelay[i];
+                            addChart(node.id, node.url);
+                        }
+                    } catch(e) {
+                        tools.mutter(e, "error");
                     }
                 }();
             });
