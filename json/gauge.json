@@ -15,6 +15,10 @@
     "liquidFill": {
         "series": [{
             "type": "liquidFill",
+            "outline": {
+                "show": false
+            },
+            "radius": "80%",
             "data": [0.6]
         }]
 
