@@ -258,7 +258,7 @@ define([
                     world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                         toX: 0,
                         toY: 0,
-                        toZ: 2000
+                        toZ: 2010
                     }));
                 },
                 polarSituation: function (id = 1) {

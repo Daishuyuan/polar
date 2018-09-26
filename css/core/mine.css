@@ -53,7 +53,7 @@ body {
     font-family: 'kunlunxiyuan';
     margin-top: 1%;
     /* background-image: -webkit-linear-gradient(92deg, #1f89bb, #eef0f1); */
-    font-size: 50px;
+    font-size: 30px;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-animation: hue 60s infinite linear;
