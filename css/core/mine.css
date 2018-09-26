@@ -63,10 +63,7 @@ body {
     position: absolute;
     text-align: center;
     right: 0%;
-    /* left: 68%; */
     top: 1%;
-    /* width: 40%; */
-    /* display: grid; */
     display: flex;
 }
 

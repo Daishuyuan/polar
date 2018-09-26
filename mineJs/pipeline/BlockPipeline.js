@@ -53,7 +53,8 @@ define([
             _container.innerHTML && (_container.innerHTML = "");
             // configure the renderer
             _renderer = new THREE.WebGLRenderer({
-                antialias: true
+                antialias: true,
+                alpha: true
             });
             _renderer.setClearColor(_prop.clearColor);
             _renderer.setPixelRatio(window.devicePixelRatio);

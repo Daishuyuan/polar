@@ -56,7 +56,7 @@ define([
                     path = path ? path : "ufo";
                     throw new Error(`[${type}] resource(${path}) could not be preloaded.`);
                 }
-            } catch(e) {
+            } catch (e) {
                 tools.mutter(e, "error");
             }
         }
@@ -196,17 +196,28 @@ define([
                 _utils.__defaultParam__(props, "atmosphere", null);
                 _utils.__defaultParam__(props, "opacity", 1);
                 _utils.__defaultParam__(props, "ring", null);
-                const ratio = 1.0015696123057605;
+                const GEO_RATIO = 1.0015696123057605;
                 var earthGroup = new THREE.Group(),
                     labels = new THREE.Group();
+                // build ring
+                if (props.ring) {
+                    // var res = __getRes__(_cts.RES_TYPE_TEXTURES, props.ring);
+                    // var ringMaterial = new THREE.SpriteMaterial({
+                    //     map: res,
+                    //     color: 0xffffff
+                    // }), ring = new THREE.Sprite(ringMaterial);
+                    // ring.position.y = props.radius / 2;
+                    // ring.scale.set(props.radius * 1.2, props.radius, 0);
+                    // earthGroup.add(ring);
+                }
                 // build earth
                 var sphere = new THREE.SphereGeometry(props.radius, props.widthSeg, props.heightSeg);
                 sphere.computeVertexNormals();
                 var material = new THREE.MeshPhongMaterial({
                     bumpMap: __getRes__(_cts.RES_TYPE_TEXTURES, props.bumpMap),
-                    // bumpScale: props.bumpScale,
-                    // specularMap: __getRes__(_cts.RES_TYPE_TEXTURES, props.spec),
-                    // specular: new THREE.Color('grey'),
+                    bumpScale: props.bumpScale,
+                    specularMap: __getRes__(_cts.RES_TYPE_TEXTURES, props.spec),
+                    specular: new THREE.Color('grey'),
                     transparent: true,
                     opacity: props.opacity,
                     map: __getRes__(_cts.RES_TYPE_TEXTURES, props.surface),
@@ -216,12 +227,12 @@ define([
                 var earth = new THREE.Mesh(sphere, material);
                 earthGroup.add(earth);
                 // build atmosphere
-                var atmosphereGeo = new THREE.SphereGeometry(props.radius * ratio, props.widthSeg, props.heightSeg);
+                var atmosphereGeo = new THREE.SphereGeometry(props.radius * GEO_RATIO, props.widthSeg, props.heightSeg);
                 var atMaterial = new THREE.MeshBasicMaterial({
                     map: __getRes__(_cts.RES_TYPE_TEXTURES, props.atmosphere),
                     transparent: true,
                     side: THREE.DoubleSide,
-                    opacity: 0.5,
+                    opacity: props.opacity,
                     depthWrite: false
                 });
                 var atmosphere = new THREE.Mesh(atmosphereGeo, atMaterial);
@@ -230,7 +241,7 @@ define([
                 earthGroup.add(labels);
                 // add function to exert outside
                 _utils.__addProperty__(earthGroup, "ltlg2xyz", function (lat, lon) {
-                    return ltlg2xyz(lat, lon, atmosphere);
+                    return ltlg2xyz(lat, lon, earth);
                 });
                 _utils.__addProperty__(earthGroup, "getLabels", function () {
                     return labels;
@@ -243,6 +254,7 @@ define([
                     _utils.__defaultParam__(props, "scale", 1.01);
                     _utils.__defaultParam__(props, "path", null);
                     _utils.__defaultParam__(props, "attr", {});
+                    _utils.__defaultParam__(props, "change", null);
                     var worldPt = ltlg2xyz(props.lat, props.lon, atmosphere),
                         spriteMaterial = new THREE.SpriteMaterial({
                             map: __getRes__(_cts.RES_TYPE_TEXTURES, props.path),
@@ -302,15 +314,15 @@ define([
                 _utils.__defaultParam__(props, "thetaLength", 1);
                 _utils.__defaultParam__(props, "color", 0xffff00);
                 var geometry = new THREE.CylinderBufferGeometry(
-                        props.radiusTop,
-                        props.radiusBottom,
-                        props.height,
-                        props.radialSegments,
-                        props.heightSegments,
-                        props.openEnded,
-                        props.thetaStart,
-                        props.thetaLength
-                    ),
+                    props.radiusTop,
+                    props.radiusBottom,
+                    props.height,
+                    props.radialSegments,
+                    props.heightSegments,
+                    props.openEnded,
+                    props.thetaStart,
+                    props.thetaLength
+                ),
                     material = null;
                 material = new THREE.MeshBasicMaterial({
                     color: props.color

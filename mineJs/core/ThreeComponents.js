@@ -275,7 +275,8 @@ define([
                         name: "高空物理",
                         event: "eventHighAltitudePhysics"
                     }]);
-                    TableFactory("#tableView", TableConfig.onlyone);
+                    TableFactory("#tableView", TableConfig.leftPanel);
+                    TableFactory("#tableView", TableConfig.rightPanel);
                     world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                         toX: 0,
                         toY: -1300,
