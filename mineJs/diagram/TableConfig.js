@@ -30,7 +30,6 @@ define(function () {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    class: "chart_boby_1",
                     url: "http://localhost:3000/gauge",
                     column: "col-md-6",
                     descrip: "第一列"
@@ -38,7 +37,6 @@ define(function () {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    class: "chart_boby_1",
                     url: "http://localhost:3000/gauge",
                     column: "col-md-6",
                     descrip: "第二列"
@@ -51,7 +49,6 @@ define(function () {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    class: "chart_boby_1",
                     url: "http://localhost:3000/gauge",
                     column: "col-md-6",
                     descrip: "第一列"
@@ -59,7 +56,6 @@ define(function () {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    class: "chart_boby_1",
                     url: "http://localhost:3000/gauge",
                     column: "col-md-6",
                     descrip: "第二列"
@@ -85,7 +81,6 @@ define(function () {
                     "type": "chart",
                     "width": 50,
                     "height": 30,
-                    "class": "chart_boby_1",
                     "url": "http://localhost:3000/gauge",
                     "column": "col-md-6",
                     "descrip": "第一列"
@@ -94,7 +89,6 @@ define(function () {
                     "type": "chart",
                     "width": 30,
                     "height": 30,
-                    "class": "chart_boby_1",
                     "url": "http://localhost:3000/gauge",
                     "column": "col-md-6",
                     "descrip": "第二列"
@@ -108,7 +102,6 @@ define(function () {
                     "type": "chart",
                     "width": 50,
                     "height": 30,
-                    "class": "chart_boby_1",
                     "url": "http://localhost:3000/gauge",
                     "column": "col-md-6",
                     "descrip": "第一列"
@@ -117,7 +110,6 @@ define(function () {
                     "type": "chart",
                     "width": 30,
                     "height": 30,
-                    "class": "chart_boby_1",
                     "url": "http://localhost:3000/gauge",
                     "column": "col-md-6",
                     "descrip": "第二列"
