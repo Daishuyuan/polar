@@ -20,4 +20,5 @@ This is a project of polar visualization
 3. PPY 魏新宇
 4. LSM 刘诗梦 237645045@qq.com
 5. SynchronizedThread 戴舒原 2250649759@qq.com
+6. WXY  武欣怡  1349301283@qq.com
 
