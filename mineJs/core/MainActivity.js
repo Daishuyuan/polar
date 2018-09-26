@@ -28,6 +28,10 @@ require.config({
         TableConfig: "/polar/mineJs/diagram/TableConfig"
     },
     shim: {
+        "/polar/js/echarts/echarts-liquidfill.min.js": {
+            deps: ["Echarts"],
+            exports: "echarts-liquidfill"
+        },
         "/polar/js/threeJs/extras/utils/GeometryUtils.js": {
             deps: ["THREE"],
             exports: "GeometryUtils"
