@@ -3,5 +3,5 @@ This is a project of polar visualization
 
 ## authors
 ZX - 周旭
-deamon - 张学俭
+demon - 张学俭 775198768@qq.com
 PPY-魏新宇
