@@ -52,7 +52,7 @@ define(function () {
                     type: "chart",
                     width: 30,
                     height: 30,
-                    url: "./gauge.html",
+                    url: "http://localhost:3000/gauge",
                     column: "col-md-4",
                     descrip: "第一列"
                 }, {
