@@ -34,6 +34,7 @@ define(function () {
                                 "style": "chart_title",
                                 "height": 5,
                                 "column": "col-md-4",
+                                "url": "http://localhost:3000/gauge",
                                 "descrip": "第一列"
                             }, {
                                 "type": "title",
@@ -41,6 +42,7 @@ define(function () {
                                 "style": "chart_title",
                                 "height": 5,
                                 "column": "col-md-4",
+                                "url": "http://localhost:3000/liquidFill",
                                 "descrip": "第二列"
                             }]
                         }]

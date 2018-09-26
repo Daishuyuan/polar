@@ -91,35 +91,20 @@ define(["Echarts", "BasicTools"], function (echarts, tools) {
         }
 
         function addChart(id, url) {
-            let option = {
-                tooltip: {
-                    formatter: "{a} <br/>{b} : {c}%"
-                },
-                toolbox: {
-                    feature: {
-                        restore: {},
-                        saveAsImage: {}
-                    }
-                },
-                series: [{
-                    name: '口可口可',
-                    type: 'gauge',
-                    detail: {
-                        formatter: '{value}%'
-                    },
-                    data: [{
-                        value: 50,
-                        name: '湿度'
-                    }]
-                }]
-            };
-            $(`#${id}`).ready(function () {
-                var myChar = echarts.init(document.getElementById(id));
-                myChar.setOption(option);
-                setInterval(function () {
-                    option.series[0].data[0].value = parseFloat((Math.random() * 100 + 1).toFixed(1));
-                    myChar.setOption(option, true);
-                }, 2000);
+            $.ajax({
+                url: url, //json文件位置
+                type: "GET", //请求方式为get
+                dataType: "json", //返回数据格式为json
+                success: function (option) { //请求成功完成后要执行的方法
+                    $("#" + id).ready(function () {
+                        var myChar = echarts.init(document.getElementById(id));
+                        myChar.setOption(option);
+                        // setInterval(function () {
+                        // 	option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
+                        // 	myChar.setOption(option, true);
+                        // }, 2000);
+                    });
+                }
             });
         }
     }

@@ -1,0 +1,22 @@
+{
+    "gauge": {
+        "series": [{
+            "name": "口可口可",
+            "type": "gauge",
+            "detail": {
+                "formatter": "{value}%"
+            },
+            "data": [{
+                "value": 50,
+                "name": "湿度"
+            }]
+        }]
+    },
+    "liquidFill": {
+        "series": [{
+            "type": "liquidFill",
+            "data": [0.6]
+        }]
+
+    }
+}
