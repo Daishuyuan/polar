@@ -10,7 +10,7 @@ require.config({
     paths: {
         d3: "/polar/js/other/d3.min",
         domReady: "/polar/js/other/require-domReady.min",
-        Echarts: "/polar/js/echarts/echarts.min",
+        echarts: "/polar/js/echarts/echarts.min",
         Vue: "/polar/js/other/vue.min",
         JQuery: "/polar/js/other/jquery-3.3.1.min",
         THREE: "/polar/js/threeJs/three.min",
@@ -28,9 +28,6 @@ require.config({
         TableConfig: "/polar/mineJs/diagram/TableConfig"
     },
     shim: {
-        "/polar/js/echarts/echarts-liquidfill.min.js": {
-            deps: ["Echarts"]
-        },
         "/polar/js/threeJs/extras/utils/GeometryUtils.js": {
             deps: ["THREE"],
             exports: "GeometryUtils"
@@ -63,6 +60,9 @@ require.config({
         },
         "/polar/js/threeJs/extras/libs/stats.min.js": {
             exports: "Stats"
+        },
+        "/polar/js/echarts/echarts-liquidfill.min.js": {
+            deps: ["echarts"]
         }
     }
 });
