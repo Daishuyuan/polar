@@ -1,4 +1,4 @@
-define(["Echarts", "BasicTools"], function (echarts, tools) {
+define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"], function (echarts, tools) {
     'use strict';
 
     // super table generator
@@ -101,8 +101,12 @@ define(["Echarts", "BasicTools"], function (echarts, tools) {
                 dataType: "json", //返回数据格式为json
                 success: function (option) { //请求成功完成后要执行的方法
                     $("#" + id).ready(function () {
-                        var myChar = echarts.init(document.getElementById(id));
-                        myChar.setOption(option);
+                        try {
+                            var myChar = echarts.init(document.getElementById(id));
+                            myChar.setOption(option);
+                        } catch(e) {
+                            tools.mutter(e, "error");
+                        }
                         // setInterval(function () {
                         // 	option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
                         // 	myChar.setOption(option, true);
