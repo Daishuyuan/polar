@@ -15,13 +15,13 @@
     - **TableConfig.js** 图表配置<临时模块>
     - **TableFactory.js** 图表生成器
   - **pipeline** ThreeJs三维可视化的所有功能模块
-    - **BlockPipeline.js** 渲染引擎主要代码区域
-    - **Constants.js** 渲染所需常量声明区域
-    - **Controller.js** 控制摄像机的控制器区域
-    - **Gaffer.js** 灯光控制器区域
-    - **Producer.js** 复杂物体生成器区域
-    - **ShaderFactory** 复杂材质生成器区域
-    - **Utils.js** 渲染所需的通用函数库区域
+    - **BlockPipeline.js** 渲染引擎模块
+    - **Constants.js** 渲染所需常量声明模块
+    - **Controller.js** 控制摄像机的控制器
+    - **Gaffer.js** 灯光控制器
+    - **Producer.js** 复杂物体生成器
+    - **ShaderFactory** 复杂材质生成器
+    - **Utils.js** 渲染所需的通用函数库
 
 ## Operation
 1. 下载安装git、nodeJs、tomcat、visual code
