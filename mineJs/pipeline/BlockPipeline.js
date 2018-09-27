@@ -142,21 +142,21 @@ define([
                             // execute inilization process
                             _prop.innerEvents.initProc(_prop.clock.getDelta());
                             (function _v_innerCycle_v_() {
-                                // update the picking ray with the camera and mouse position
-                                _raycaster.setFromCamera(_mouse, camera);
-                                // execute process before rendering
-                                _prop.innerEvents.beforeProc(_prop.clock.getDelta());
-                                if (_renderer && scene && camera) {
-                                    // rendering scene by the view of camera
-                                    _renderer.render(scene, camera);
-                                } else {
-                                    throw new Error("current scene or default camera is invalid.");
-                                }
-                                // update state of appication
-                                stats && stats.update();
-                                // execute process after rendering
-                                _prop.innerEvents.afterProc(_prop.clock.getDelta());
                                 if (!Utils.__tableDebug__ && !props.once && restrainedName === _cwName) {
+                                    // update the picking ray with the camera and mouse position
+                                    _raycaster.setFromCamera(_mouse, camera);
+                                    // execute process before rendering
+                                    _prop.innerEvents.beforeProc(_prop.clock.getDelta());
+                                    if (_renderer && scene && camera) {
+                                        // rendering scene by the view of camera
+                                        _renderer.render(scene, camera);
+                                    } else {
+                                        throw new Error("current scene or default camera is invalid.");
+                                    }
+                                    // update state of appication
+                                    stats && stats.update();
+                                    // execute process after rendering
+                                    _prop.innerEvents.afterProc(_prop.clock.getDelta());
                                     // request next animation frame
                                     requestAnimationFrame(_v_innerCycle_v_);
                                 } else {
@@ -300,11 +300,11 @@ define([
                                 }
                             });
                             // when resize window recalculate scenes
-                            __addEvent__(newWorld, "onresize", function() {
+                            __addEvent__(newWorld, "onresize", function () {
                                 let camera = newWorld.get("Cameras")[0];
-                                camera.aspect = window.innerWidth / window.innerHeight;        
-                                camera.updateProjectionMatrix();        
-                                _renderer.setSize( window.innerWidth, window.innerHeight );
+                                camera.aspect = window.innerWidth / window.innerHeight;
+                                camera.updateProjectionMatrix();
+                                _renderer.setSize(window.innerWidth, window.innerHeight);
                             });
                             // when mouse move recording position
                             __addEvent__(newWorld, "onmousemove", function (event) {

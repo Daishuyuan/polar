@@ -1,7 +1,7 @@
 define(function () {
     'use strict';
 
-    var innerUtils = {
+    return {
         __defaultParam__(props, name, value) {
             if (typeof props === "object" && !props.hasOwnProperty(name)) {
                 props[name] = value;
@@ -31,10 +31,4 @@ define(function () {
         __debug__: false,
         __tableDebug__: false
     };
-
-    if (innerUtils.__debug__) {
-        console.log("current project: debugger running!");
-    }
-
-    return innerUtils;
 });
