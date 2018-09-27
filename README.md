@@ -1,20 +1,48 @@
-﻿# polar
-This is a project of polar visualization
+﻿# 极地大屏可视化系统
 
-## operating
-1. 配置你的用户:
+---
+
+## Architecture
+- **mineJs** 核心代码区域
+  - **basic** 存放项目中通用的代码模块
+  - **core** 核心部分存放requireJs的配置、三维场景和图表场景模块
+  - **diagram** 存放与图表生成相关的模块
+  - **pipeline** ThreeJs三维可视化的所有功能模块
+    - **BlockPipeline.js** 渲染引擎主要代码区域
+    - **Constants.js** 渲染所需常量声明区域
+    - **Controller.js** 控制摄像机的控制器区域
+    - **Gaffer.js** 灯光控制器区域
+    - **Producer.js** 复杂物体生成器区域
+    - **ShaderFactory** 复杂材质生成器区域
+    - **Utils.js** 渲染所需的通用函数库区域
+
+## Operation
+1. 下载安装git、nodeJs、tomcat、visual code
+- git version 2.18.0.windows up
+- nodeJs version v8.11.4 up
+- tomcat version 8.0 up
+- vc no limit
+2. 下载私钥id_rsa到系统盘Users下的<你的用户>里的.ssh文件中
+- 先删除里面所有内容
+3. 使用git bash cd 至tomcat 目录下的webapps/ROOT中
+- 键入git clone git@github.com:SynchronizedThread/polar.git（第一次拉取代码）
+4. cd 进入polar后，配置你的用户:
 - git config --global user.name '你的名字'
 - git config --global user.email '你的邮箱'
-2. 上传代码步骤:
-- git pull （拉取别人的代码）
-- git add --all (添加所有你修改的代码) 或者 git add 某个文件
+5. 上传代码步骤:
+- git pull （注意，上传前必须先拉取别人的代码）
+- git add --all (添加所有你修改的代码) 或者 git add 某个文件（推荐使用）
 - git commit -m '修改信息备注'
 - git push （上传所有修改代码）
-3. 下载代码步骤:
-- git clone git@github.com:SynchronizedThread/polar.git（第一次拉取代码）
-- git pull （之后拉取代码）
+6. 下载代码步骤:
+- git pull （拉取代码）
+7. 如果发现冲突，无法上传代码，禁止使用git push -f
+- 如未更改冲突的文件，可以直接删除后拉取代码
+- 如果已经更改了冲突文件，可以先将冲突文件保存至桌面，
+  然后参照上一条操作之后改回文件，再上传代码
+- 如果更改的冲突文件不重要，也可以直接删除
 
-## authors
+## Authors
 1. ZX 周旭 1352059589@qq.com
 2. demon 张学俭 775198768@qq.com
 3. PPY 魏新宇
