@@ -5,8 +5,15 @@
 ## Architecture
 - **mineJs** 核心代码区域
   - **basic** 存放项目中通用的代码模块
-  - **core** 核心部分存放requireJs的配置、三维场景和图表场景模块
+    - **BasicTools.js** 基础通用模块
+    - **DataReceiver.js** 数据请求和接收模块
+  - **core** 核心部分
+    - **MainActivity.js** 所有requireJs配置项和工程初始化
+    - **ThreeComponents.js** 三维场景控制
+    - **VueComponents.js** Dom元素控制
   - **diagram** 存放与图表生成相关的模块
+    - **TableConfig.js** 图表配置<临时模块>
+    - **TableFactory.js** 图表生成器
   - **pipeline** ThreeJs三维可视化的所有功能模块
     - **BlockPipeline.js** 渲染引擎主要代码区域
     - **Constants.js** 渲染所需常量声明区域
@@ -36,7 +43,12 @@
 - git push （上传所有修改代码）
 6. 下载代码步骤:
 - git pull （拉取代码）
-7. 如果发现冲突，无法上传代码，禁止使用git push -f
+7. 安装json-server <beta阶段>
+- npm install -g json-server
+8. 启动工程
+- 开启tomcat/bin下的startup.bat
+- 用json-server开启polar/json下的gauge.json <beta阶段>
+9. 如果发现冲突，无法上传代码，禁止使用git push -f
 - 如未更改冲突的文件，可以直接删除后拉取代码
 - 如果已经更改了冲突文件，可以先将冲突文件保存至桌面，
   然后参照上一条操作之后改回文件，再上传代码
