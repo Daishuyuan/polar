@@ -28,19 +28,19 @@ define(function () {
             pane: {
                 position: "absolute",
                 left: "0%",
-                top: "10%",
+                top: "8%",
                 width: "31%",
                 height: "100%"
             },
             rows: [{
-                height: 5,
+                height: 6,
                 descrip: "第一行",
                 class: "title_row",
                 cols: [{
                     type: "title",
                     name: "南极科考站实时气象信息",
                     style: "chart_title",
-                    height: 5,
+                    height: 6,
                     column: "col-md-8",
                     descrip: "第一列"
                 }]
@@ -88,14 +88,14 @@ define(function () {
                 }
                 ]
             }, {
-                height: 5,
+                height: 6,
                 descrip: "第三行",
                 class: "title_row",
                 cols: [{
                     type: "title",
                     name: "雪龙船实时气象信息",
                     style: "chart_title",
-                    height: 5,
+                    height: 6,
                     column: "col-md-8",
                     descrip: "第一列"
                 }]
@@ -148,19 +148,19 @@ define(function () {
             pane: {
                 position: "absolute",
                 right: "0%",
-                top: "10%",
+                top: "8%",
                 width: "35%",
                 height: "100%"
             },
             rows: [{
-                height: 5,
+                height: 6,
                 descrip: "第一行",
                 class: "title_row",
                 cols: [{
                     type: "title",
                     name: "激光雷达数据展示",
                     style: "chart_title",
-                    height: 5,
+                    height: 6,
                     column: "col-md-8",
                     descrip: "第一列"
                 }]
@@ -188,14 +188,14 @@ define(function () {
                     descrip: "第二列"
                 }]
             }, {
-                height: 5,
+                height: 6,
                 descrip: "第三行",
                 class: "title_row",
                 cols: [{
                     type: "title",
                     name: "高空物理数据展示",
                     style: "chart_title",
-                    height: 5,
+                    height: 6,
                     column: "col-md-8",
                     descrip: "第一列"
                 }]
