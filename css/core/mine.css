@@ -1,8 +1,11 @@
-@font-face
-{
+@font-face {
 	font-family: 'chartTitleFont';
-	src: url('‪../../../../fonts/kunlunxiyuan.ttf') format('truetype');
-    	/*,url('Sansation_Bold.eot'); */
+	src: url('‪../../../../polar/fonts/kunlunxiyuan.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'sciFont';
+    src: url('../../../../polar/fonts/sciFont.ttf') format('truetype');
 }
 
 html,
@@ -45,12 +48,12 @@ body {
 }
 
 .homeTitle {
-     font-weight: 700;
+    font-weight: 700;
     letter-spacing: 10px;
     color: transparent;
     -webkit-text-stroke: 1px #cce4f9;
     text-align: center;
-    font-family: 'kunlunxiyuan';
+    font-family: 'sciFont';
     margin-top: 1%;
     font-size: 30px;
     -webkit-text-fill-color: transparent;
