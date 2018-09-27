@@ -58,7 +58,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                     for (let i = 0; i < rows.length; i++) {
                         if (rows[i]) {
                             let row = rows[i];
-                            tbcnt.push(`<div class='row ${sstd(row.class)}' style='height:${nstd(height)}%;'>`);
+                            tbcnt.push(`<div class='row ${sstd(row.class)}' style='height:${nstd(row.height)}%;'>`);
                             __col_owner__(i, row, row.cols);
                             tbcnt.push("</div>");
                         } else {
