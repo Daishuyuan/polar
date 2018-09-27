@@ -7,7 +7,7 @@ define(function () {
                 position: "absolute",
                 left: "0%",
                 top: "12%",
-                width: "30%",
+                width: "31%",
                 height: "100%"
             },
             rows: [{
@@ -109,7 +109,7 @@ define(function () {
                 position: "absolute",
                 right: "0%",
                 top: "12%",
-                width: "30%",
+                width: "35%",
                 height: "100%"
             },
             rows: [{
