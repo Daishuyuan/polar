@@ -74,15 +74,16 @@ define([
             }));
 
             // build background of chaos
-            let chaos = producer.getChaos({
-                right: './img/skybox/px.jpg',
-                left: './img/skybox/nx.jpg',
-                top: './img/skybox/py.jpg',
-                bottom: './img/skybox/ny.jpg',
-                back: './img/skybox/pz.jpg',
-                front: './img/skybox/nz.jpg',
-                size: CHAOS_SIZE
-            });
+            // let chaos = producer.getChaos({
+            //     right: './img/skybox/px.jpg',
+            //     left: './img/skybox/nx.jpg',
+            //     top: './img/skybox/py.jpg',
+            //     bottom: './img/skybox/ny.jpg',
+            //     back: './img/skybox/pz.jpg',
+            //     front: './img/skybox/nz.jpg',
+            //     size: CHAOS_SIZE
+            // });
+            // mineCraft.add(chaos);
 
             // build sphere of earth
             let earth = producer.getEarth({
@@ -219,7 +220,6 @@ define([
             });
 
             // composition of each object
-            mineCraft.add(chaos);
             mineCraft.add(earth);
             world.add(mineCraft);
 

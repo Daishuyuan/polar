@@ -218,11 +218,11 @@ define([
                     bumpScale: props.bumpScale,
                     specularMap: __getRes__(_cts.RES_TYPE_TEXTURES, props.spec),
                     specular: new THREE.Color('grey'),
-                    transparent: true,
-                    opacity: props.opacity,
+                    // transparent: true,
+                    // opacity: props.opacity,
                     map: __getRes__(_cts.RES_TYPE_TEXTURES, props.surface),
-                    shininess: 60,
-                    depthWrite: false
+                    // shininess: 60,
+                    // depthWrite: false
                 });
                 var earth = new THREE.Mesh(sphere, material);
                 earthGroup.add(earth);

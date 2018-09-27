@@ -56,7 +56,7 @@ define([
                 antialias: true,
                 alpha: true
             });
-            _renderer.setClearColor(_prop.clearColor);
+            _renderer.setClearColor(_prop.clearColor, 0);
             _renderer.setPixelRatio(window.devicePixelRatio);
             _renderer.setSize(_prop.cwidth, _prop.cheight);
             _renderer.shadowMap.enabled = true;
