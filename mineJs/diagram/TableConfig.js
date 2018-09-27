@@ -2,7 +2,7 @@ define(function () {
     'use strict';
 
     return {
-        rightPanel: {
+        leftPanel: {
             pane: {
                 position: "absolute",
                 right: "0%",
@@ -30,31 +30,31 @@ define(function () {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    url: "http://localhost:3000/line_geo",
+                    url: "http://localhost:3000/gauge",
                     column: "col-md-3",
                     descrip: "第一列"
                 }, {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    url: "http://localhost:3000/line_datazoom",
+                    url: "http://localhost:3000/gauge",
                     column: "col-md-3",
                     descrip: "第二列"
                 }, {
-                    "type": "chart",
-                    "width": 50,
-                    "height": 30,
-                    "url": "http://localhost:3000/liquidFill",
-                    "column": "col-md-3",
-                    "descrip": "第三列"
+                    type: "chart",
+                    width: 50,
+                    height: 30,
+                    url: "http://localhost:3000/liquidFill",
+                    column: "col-md-3",
+                    descrip: "第三列"
                 },
                 {
-                    "type": "chart",
-                    "width": 30,
-                    "height": 30,
-                    "url": "http://localhost:3000/windRose",
-                    "column": "col-md-3",
-                    "descrip": "第四列"
+                    type: "chart",
+                    width: 30,
+                    height: 30,
+                    url: "http://localhost:3000/windRose",
+                    column: "col-md-3",
+                    descrip: "第四列"
                 }]
             }, {
                 height: 5,
@@ -87,24 +87,24 @@ define(function () {
                     column: "col-md-3",
                     descrip: "第二列"
                 }, {
-                    "type": "chart",
-                    "width": 50,
-                    "height": 30,
-                    "url": "http://localhost:3000/liquidFill",
-                    "column": "col-md-3",
-                    "descrip": "第三列"
+                    type: "chart",
+                    width: 50,
+                    height: 30,
+                    url: "http://localhost:3000/liquidFill",
+                    column: "col-md-3",
+                    descrip: "第三列"
                 },
                 {
-                    "type": "chart",
-                    "width": 30,
-                    "height": 30,
-                    "url": "http://localhost:3000/windRose",
-                    "column": "col-md-3",
-                    "descrip": "第四列"
+                    type: "chart",
+                    width: 30,
+                    height: 30,
+                    url: "http://localhost:3000/windRose",
+                    column: "col-md-3",
+                    descrip: "第四列"
                 }]
             }]
         },
-        leftPanel: {
+        rightPanel: {
             pane: {
                 position: "absolute",
                 left: "0%",
@@ -142,21 +142,6 @@ define(function () {
                     url: "http://localhost:3000/line_datazoom",
                     column: "col-md-3",
                     descrip: "第二列"
-                }, {
-                    "type": "chart",
-                    "width": 50,
-                    "height": 30,
-                    "url": "http://localhost:3000/liquidFill",
-                    "column": "col-md-3",
-                    "descrip": "第三列"
-                },
-                {
-                    "type": "chart",
-                    "width": 30,
-                    "height": 30,
-                    "url": "http://localhost:3000/windRose",
-                    "column": "col-md-3",
-                    "descrip": "第四列"
                 }]
             }, {
                 height: 5,
@@ -178,31 +163,31 @@ define(function () {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    url: "http://localhost:3000/gauge",
+                    url: "http://localhost:3000/line_geo",
                     column: "col-md-3",
                     descrip: "第一列"
                 }, {
                     type: "chart",
                     width: 50,
                     height: 30,
-                    url: "http://localhost:3000/gauge",
+                    url: "http://localhost:3000/line_geo",
                     column: "col-md-3",
                     descrip: "第二列"
                 }, {
-                    "type": "chart",
-                    "width": 50,
-                    "height": 30,
-                    "url": "http://localhost:3000/liquidFill",
-                    "column": "col-md-3",
-                    "descrip": "第三列"
+                    type: "chart",
+                    width: 50,
+                    height: 30,
+                    url: "http://localhost:3000/line_geo",
+                    column: "col-md-3",
+                    descrip: "第三列"
                 },
                 {
-                    "type": "chart",
-                    "width": 30,
-                    "height": 30,
-                    "url": "http://localhost:3000/windRose",
-                    "column": "col-md-3",
-                    "descrip": "第四列"
+                    type: "chart",
+                    width: 30,
+                    height: 30,
+                    url: "http://localhost:3000/windRose",
+                    column: "col-md-3",
+                    descrip: "第四列"
                 }]
             }]
         }
