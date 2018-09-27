@@ -118,7 +118,7 @@ define(function () {
                 class: "title_row",
                 cols: [{
                     type: "title",
-                    name: "南极科考站实时气象信息",
+                    name: "激光雷达数据展示",
                     style: "chart_title",
                     height: 5,
                     column: "col-md-8",
@@ -164,7 +164,7 @@ define(function () {
                 class: "title_row",
                 cols: [{
                     type: "title",
-                    name: "雪龙船实时气象信息",
+                    name: "高空物理数据展示",
                     style: "chart_title",
                     height: 5,
                     column: "col-md-8",
