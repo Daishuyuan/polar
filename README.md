@@ -48,6 +48,7 @@
 8. 启动工程
 - 开启tomcat/bin下的startup.bat
 - 用json-server开启polar/json下的gauge.json <beta阶段>
+- 访问http://localhost:8080/polar
 9. 如果发现冲突，无法上传代码，禁止使用git push -f
 - 如未更改冲突的文件，可以直接删除后拉取代码
 - 如果已经更改了冲突文件，可以先将冲突文件保存至桌面，
