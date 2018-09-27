@@ -488,7 +488,8 @@
     .button-border.button-plain, .button-plain.button-border-thin, .button-plain.button-border-thick,
     .button-border-thin.button-plain,
     .button-border-thick.button-plain {
-      color: #FFF; }
+        color: #ffffff;
+        }
       .button-border.button-plain:hover, .button-plain.button-border-thin:hover, .button-plain.button-border-thick:hover, .button-border.button-plain:focus, .button-plain.button-border-thin:focus, .button-plain.button-border-thick:focus,
       .button-border-thin.button-plain:hover,
       .button-border-thin.button-plain:focus,
