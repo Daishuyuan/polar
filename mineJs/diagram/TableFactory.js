@@ -3,7 +3,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
 
     // super table generator
     function XPaneLoader(id, config) {
-        const TITLE_DEFAULT_HEIGHT = 15;
+        const TITLE_DEFAULT_HEIGHT = 10;
         const guid = tools.sGuid;
         const sstd = (x) => !!x ? x : "";
         const nstd = (x) => !isNaN(parseFloat(x)) ? x : 0;
@@ -31,10 +31,11 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                                     break;
                                 case "chart":
                                     let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`,
-                                        height = node.title_height? node.title_height: TITLE_DEFAULT_HEIGHT;
+                                        height = node.title_height? node.title_height: TITLE_DEFAULT_HEIGHT,
+                                        content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
                                     height = Math.min(Math.max(0, height), 100);
+                                    tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${height}%;text-align: center;margin:0;">${content_title}</div>`);
                                     tbcnt.push(`<div id='${_id}' style='height:${100 - height}%;' class='${sstd(node.class)}'></div>`);
-                                    tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${height}%;text-align: center;"><p>${sstd(node.name)}</p></div>`)
                                     echDelay.push({
                                         id: _id,
                                         url: node.url
