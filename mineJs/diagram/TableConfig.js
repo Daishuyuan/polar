@@ -125,7 +125,7 @@ define(function () {
                     descrip: "第一列"
                 }]
             }, {
-                height: 34,
+                height: 38,
                 descrip: "第二行",
                 class: "body_row",
                 cols: [{
@@ -156,7 +156,7 @@ define(function () {
                     descrip: "第一列"
                 }]
             }, {
-                height: 34,
+                height: 20,
                 descrip: "第四行",
                 class: "body_row",
                 cols: [{
@@ -164,31 +164,37 @@ define(function () {
                     width: 50,
                     height: 30,
                     url: "http://localhost:3000/line_geo",
-                    column: "col-md-3",
+                    column: "col-md-6",
                     descrip: "第一列"
                 }, {
                     type: "chart",
                     width: 50,
                     height: 30,
                     url: "http://localhost:3000/line_geo",
-                    column: "col-md-3",
+                    column: "col-md-6",
                     descrip: "第二列"
-                }, {
-                    type: "chart",
-                    width: 50,
-                    height: 30,
-                    url: "http://localhost:3000/line_geo",
-                    column: "col-md-3",
-                    descrip: "第三列"
-                },
-                {
-                    type: "chart",
-                    width: 30,
-                    height: 30,
-                    url: "http://localhost:3000/windRose",
-                    column: "col-md-3",
-                    descrip: "第四列"
                 }]
+            }, {
+                height: 20,
+                descrip: "第五行",
+                class: "body_row",
+                cols: [{
+                        type: "chart",
+                        width: 50,
+                        height: 30,
+                        url: "http://localhost:3000/line_geo",
+                        column: "col-md-6",
+                        descrip: "第一列"
+                    },
+                    {
+                        type: "chart",
+                        width: 30,
+                        height: 30,
+                        url: "http://localhost:3000/windRose",
+                        column: "col-md-6",
+                        descrip: "第二列"
+                    }
+                ]
             }]
         }
     };
