@@ -27,35 +27,44 @@ define(function () {
                 descrip: "第二行",
                 class: "body_row",
                 cols: [{
-                    type: "chart",
-                    width: 50,
-                    height: 30,
-                    url: "http://localhost:3000/gauge",
-                    column: "col-md-3",
-                    descrip: "第一列"
-                }, {
-                    type: "chart",
-                    width: 50,
-                    height: 30,
-                    url: "http://localhost:3000/gauge",
-                    column: "col-md-3",
-                    descrip: "第二列"
-                }, {
-                    type: "chart",
-                    width: 50,
-                    height: 30,
-                    url: "http://localhost:3000/liquidFill",
-                    column: "col-md-3",
-                    descrip: "第三列"
-                },
-                {
-                    type: "chart",
-                    width: 30,
-                    height: 30,
-                    url: "http://localhost:3000/windRose",
-                    column: "col-md-3",
-                    descrip: "第四列"
-                }]
+                        type: "chart",
+                        name: "温度",
+                        title_class: "title_col",
+                        width: 50,
+                        height: 30,
+                        url: "http://localhost:3000/gauge",
+                        column: "col-md-3",
+                        descrip: "第一列"
+                    }, {
+                        type: "chart",
+                        name: "气压",
+                        title_class: "title_col",
+                        width: 50,
+                        height: 30,
+                        url: "http://localhost:3000/gauge",
+                        column: "col-md-3",
+                        descrip: "第二列"
+                    }, {
+                        type: "chart",
+                        name: "湿度",
+                        title_class: "title_col",
+                        width: 50,
+                        height: 30,
+                        url: "http://localhost:3000/liquidFill",
+                        column: "col-md-3",
+                        descrip: "第三列"
+                    },
+                    {
+                        type: "chart",
+                        name: "风速",
+                        title_class: "title_col",
+                        width: 30,
+                        height: 30,
+                        url: "http://localhost:3000/windRose",
+                        column: "col-md-3",
+                        descrip: "第四列"
+                    }
+                ]
             }, {
                 height: 5,
                 descrip: "第三行",
@@ -73,35 +82,44 @@ define(function () {
                 descrip: "第四行",
                 class: "body_row",
                 cols: [{
-                    type: "chart",
-                    width: 50,
-                    height: 30,
-                    url: "http://localhost:3000/gauge",
-                    column: "col-md-3",
-                    descrip: "第一列"
-                }, {
-                    type: "chart",
-                    width: 50,
-                    height: 30,
-                    url: "http://localhost:3000/gauge",
-                    column: "col-md-3",
-                    descrip: "第二列"
-                }, {
-                    type: "chart",
-                    width: 50,
-                    height: 30,
-                    url: "http://localhost:3000/liquidFill",
-                    column: "col-md-3",
-                    descrip: "第三列"
-                },
-                {
-                    type: "chart",
-                    width: 30,
-                    height: 30,
-                    url: "http://localhost:3000/windRose",
-                    column: "col-md-3",
-                    descrip: "第四列"
-                }]
+                        type: "chart",
+                        name: "温度",
+                        title_class: "title_col",
+                        width: 50,
+                        height: 30,
+                        url: "http://localhost:3000/gauge",
+                        column: "col-md-3",
+                        descrip: "第一列"
+                    }, {
+                        type: "chart",
+                        name: "气压",
+                        title_class: "title_col",
+                        width: 50,
+                        height: 30,
+                        url: "http://localhost:3000/gauge",
+                        column: "col-md-3",
+                        descrip: "第二列"
+                    }, {
+                        type: "chart",
+                        name: "湿度",
+                        title_class: "title_col",
+                        width: 50,
+                        height: 30,
+                        url: "http://localhost:3000/liquidFill",
+                        column: "col-md-3",
+                        descrip: "第三列"
+                    },
+                    {
+                        type: "chart",
+                        name: "风速",
+                        title_class: "title_col",
+                        width: 30,
+                        height: 30,
+                        url: "http://localhost:3000/windRose",
+                        column: "col-md-3",
+                        descrip: "第四列"
+                    }
+                ]
             }]
         },
         rightPanel: {
@@ -130,13 +148,17 @@ define(function () {
                 class: "body_row",
                 cols: [{
                     type: "chart",
+                    name: "地磁数据",
+                    title_class: "title_col",
                     width: 50,
                     height: 30,
-                    url: "http://localhost:3000/line_geo",
+                    url: "http://localhost:3000/line_geo_all",
                     column: "col-md-6",
                     descrip: "第一列"
                 }, {
                     type: "chart",
+                    name: "工作电压和实际电压",
+                    title_class: "title_col",
                     width: 50,
                     height: 30,
                     url: "http://localhost:3000/line_datazoom",
@@ -161,6 +183,8 @@ define(function () {
                 class: "body_row",
                 cols: [{
                     type: "chart",
+                    name: "地磁X分量",
+                    title_class: "title_col",
                     width: 50,
                     height: 30,
                     url: "http://localhost:3000/line_geo",
@@ -168,6 +192,8 @@ define(function () {
                     descrip: "第一列"
                 }, {
                     type: "chart",
+                    name: "地磁Y分量",
+                    title_class: "title_col",
                     width: 50,
                     height: 30,
                     url: "http://localhost:3000/line_geo",
@@ -180,6 +206,8 @@ define(function () {
                 class: "body_row",
                 cols: [{
                         type: "chart",
+                        name: "地磁Z分量",
+                        title_class: "title_col",
                         width: 50,
                         height: 30,
                         url: "http://localhost:3000/line_geo",
@@ -188,6 +216,8 @@ define(function () {
                     },
                     {
                         type: "chart",
+                        name: "电离层",
+                        title_class: "title_col",
                         width: 30,
                         height: 30,
                         url: "http://localhost:3000/windRose",
