@@ -5,7 +5,7 @@ define(function () {
         leftPanel: {
             pane: {
                 position: "absolute",
-                right: "0%",
+                left: "0%",
                 top: "12%",
                 width: "30%",
                 height: "100%"
@@ -107,7 +107,7 @@ define(function () {
         rightPanel: {
             pane: {
                 position: "absolute",
-                left: "0%",
+                right: "0%",
                 top: "12%",
                 width: "30%",
                 height: "100%"
@@ -133,14 +133,14 @@ define(function () {
                     width: 50,
                     height: 30,
                     url: "http://localhost:3000/line_geo",
-                    column: "col-md-3",
+                    column: "col-md-2",
                     descrip: "第一列"
                 }, {
                     type: "chart",
                     width: 50,
                     height: 30,
                     url: "http://localhost:3000/line_datazoom",
-                    column: "col-md-3",
+                    column: "col-md-2",
                     descrip: "第二列"
                 }]
             }, {
