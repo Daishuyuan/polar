@@ -24,14 +24,14 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                     for (let j = 0; j < cols.length; j++) {
                         if (cols[j]) {
                             let node = cols[j];
-                            tbcnt.push(`<div class='${sstd(node.column)}' style='${FHEIGHT};padding:1%;'>`);
+                            tbcnt.push(`<div class='${sstd(node.column)}' style='${FHEIGHT}padding-left:1%;padding-right:0;'>`);
                             switch (node.type) {
                                 case "title":
                                     tbcnt.push(`<p class='${sstd(node.style)}'>${sstd(node.name)}</p>`);
                                     break;
                                 case "chart":
                                     let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`;
-                                    tbcnt.push(`<div id='${_id}' style='${FHEIGHT}; class='${sstd(node.class)}'></div>`);
+                                    tbcnt.push(`<div id='${_id}' style='${FHEIGHT}' class='${sstd(node.class)}'></div>`);
                                     echDelay.push({
                                         id: _id,
                                         url: node.url
