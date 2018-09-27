@@ -83,7 +83,7 @@
             }
         },
         "polar": {
-            "radius": "70%"
+            "radius": "65%"
         },
         "series": [{
             "type": "bar",
@@ -101,13 +101,6 @@
     "line_datazoom": {
         "tooltip": {
             "trigger": "axis"
-        },
-        "toolbox": {
-            "feature": {
-                "dataZoom": {
-                    "yAxisIndex": "none"
-                }
-            }
         },
         "xAxis": {
             "type": "category",
@@ -129,6 +122,12 @@
                 }
             }
         },
+         "grid": {
+             "top": "10%",
+             "right": "5%",
+             "left": "10%",
+             "bottom": "33%"
+         },
         "dataZoom": [{
             "type": "inside",
             "start": 0,
@@ -151,9 +150,6 @@
             "type": "line",
             "smooth": true,
             "symbol": "none",
-            "grid": {
-                "x": 90
-            },
             "sampling": "average",
             "itemStyle": {
                 "normal": {
@@ -186,13 +182,6 @@
         "tooltip": {
             "trigger": "axis"
         },
-        "toolbox": {
-            "feature": {
-                "dataZoom": {
-                    "yAxisIndex": "none"
-                }
-            }
-        },
         "xAxis": {
             "type": "category",
             "boundaryGap": false,
@@ -212,6 +201,12 @@
                     "color": "#fff"
                 }
             }
+        },
+        "grid": {
+            "top": "10%",
+            "right": "5%",
+            "left": "10%",
+            "bottom": "33%"
         },
         "dataZoom": [{
             "type": "inside",
@@ -234,9 +229,6 @@
             "name": "模拟数据",
             "type": "line",
             "smooth": true,
-            "grid": {
-                "x": 90
-            },
             "symbol": "none",
             "sampling": "average",
             "itemStyle": {
