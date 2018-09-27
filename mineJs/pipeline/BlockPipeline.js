@@ -156,7 +156,7 @@ define([
                                 stats && stats.update();
                                 // execute process after rendering
                                 _prop.innerEvents.afterProc(_prop.clock.getDelta());
-                                if (!props.once && restrainedName === _cwName) {
+                                if (!Utils.__tableDebug__ && !props.once && restrainedName === _cwName) {
                                     // request next animation frame
                                     requestAnimationFrame(_v_innerCycle_v_);
                                 } else {

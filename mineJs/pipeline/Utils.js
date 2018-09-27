@@ -28,7 +28,8 @@ define(function () {
             array[id1] = array[id2];
             array[id2] = cache;
         },
-        __debug__: false
+        __debug__: false,
+        __tableDebug__: false
     };
 
     if (innerUtils.__debug__) {
