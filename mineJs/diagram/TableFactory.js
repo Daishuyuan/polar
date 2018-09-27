@@ -24,7 +24,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                     for (let j = 0; j < cols.length; j++) {
                         if (cols[j]) {
                             let node = cols[j];
-                            tbcnt.push(`<div class='${sstd(node.column)}' style='${FHEIGHT};padding:0px;'>`);
+                            tbcnt.push(`<div class='${sstd(node.column)}' style='${FHEIGHT};padding:1%;'>`);
                             switch (node.type) {
                                 case "title":
                                     tbcnt.push(`<p class='${sstd(node.style)}'>${sstd(node.name)}</p>`);
@@ -86,6 +86,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                                 tools.mutter("rows not in config.", "error");
                             }
                             tbcnt.push("</div>");
+                            // echarts 
                             jqDom.append(tbcnt.join('\n'));
                             for (let i = 0; i < echDelay.length; ++i) {
                                 let node = echDelay[i];
@@ -103,10 +104,10 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
 
         function addChart(id, url) {
             $.ajax({
-                url: url, //json文件位置
-                type: "GET", //请求方式为get
-                dataType: "json", //返回数据格式为json
-                success: function (option) { //请求成功完成后要执行的方法
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function (option) {
                     $("#" + id).ready(function () {
                         try {
                             var myChar = echarts.init(document.getElementById(id));
