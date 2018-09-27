@@ -1,6 +1,6 @@
 define(function () {
     'use strict';
-
+    
     return {
         __defaultParam__(props, name, value) {
             if (typeof props === "object" && !props.hasOwnProperty(name)) {

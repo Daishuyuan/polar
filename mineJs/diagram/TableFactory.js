@@ -3,10 +3,10 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
 
     // super table generator
     function XPaneLoader(id, config) {
-        const FHEIGHT = "height:100%;";
+        const TITLE_DEFAULT_HEIGHT = 15;
         const guid = tools.sGuid;
-        const sstd = (x) => !!x? x: "";
-        const nstd = (x) => !isNaN(parseFloat(x))? x: 0;
+        const sstd = (x) => !!x ? x : "";
+        const nstd = (x) => !isNaN(parseFloat(x)) ? x : 0;
         (function () {
             let dom = document.createElement("div");
             __init__($(dom));
@@ -24,14 +24,17 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                     for (let j = 0; j < cols.length; j++) {
                         if (cols[j]) {
                             let node = cols[j];
-                            tbcnt.push(`<div class='${sstd(node.column)}' style='${FHEIGHT}padding-left:1%;padding-right:0;'>`);
+                            tbcnt.push(`<div class='${sstd(node.column)}' style='height:100%;padding-left:1%;padding-right:0;'>`);
                             switch (node.type) {
                                 case "title":
                                     tbcnt.push(`<p class='${sstd(node.style)}'>${sstd(node.name)}</p>`);
                                     break;
                                 case "chart":
-                                    let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`;
-                                    tbcnt.push(`<div id='${_id}' style='${FHEIGHT}' class='${sstd(node.class)}'></div>`);
+                                    let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`,
+                                        height = node.title_height? node.title_height: TITLE_DEFAULT_HEIGHT;
+                                    height = Math.min(Math.max(0, height), 100);
+                                    tbcnt.push(`<div id='${_id}' style='height:${100 - height}%;' class='${sstd(node.class)}'></div>`);
+                                    tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${height}%;text-align: center;"><p>${sstd(node.name)}</p></div>`)
                                     echDelay.push({
                                         id: _id,
                                         url: node.url
@@ -41,7 +44,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                                     __row_owner__(node.rows);
                                     break;
                                 default:
-                                    tools.mutter(`unknown type:${node.type? node.type: "null"}`, "error");
+                                    tools.mutter(`unknown type:${node.type ? node.type : "null"}`, "error");
                                     break;
                             }
                             tbcnt.push("</div>");
@@ -62,14 +65,14 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                             __col_owner__(i, row, row.cols);
                             tbcnt.push("</div>");
                         } else {
-                            let descrip = row.descrip? row.descrip: i + 1;
+                            let descrip = row.descrip ? row.descrip : i + 1;
                             tools.mutter(`row error: ${descrip}`, "error");
                         }
                     }
                 }
 
                 // pane processing
-                !function() {
+                !function () {
                     try {
                         if (config) {
                             if (config.pane) {
@@ -79,7 +82,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                             } else {
                                 tools.mutter("pane not in config.", "error");
                             }
-                            tbcnt.push(`<div class='container-fluid' style='${FHEIGHT}'>`);
+                            tbcnt.push(`<div class='container-fluid' style='height:100%;'>`);
                             if (config.rows) {
                                 __row_owner__(config.rows);
                             } else {
@@ -95,7 +98,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                         } else {
                             tools.mutter("config is null", "error");
                         }
-                    } catch(e) {
+                    } catch (e) {
                         tools.mutter(e, "error");
                     }
                 }();
@@ -113,7 +116,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                             var myChar = echarts.init(document.getElementById(id));
                             myChar.setOption(option);
                             myChar.resize();
-                        } catch(e) {
+                        } catch (e) {
                             tools.mutter(e, "error");
                         }
                         // setInterval(function () {
