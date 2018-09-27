@@ -6,7 +6,7 @@ define(function () {
             pane: {
                 position: "absolute",
                 left: "0%",
-                top: "12%",
+                top: "10%",
                 width: "31%",
                 height: "100%"
             },
@@ -126,7 +126,7 @@ define(function () {
             pane: {
                 position: "absolute",
                 right: "0%",
-                top: "12%",
+                top: "10%",
                 width: "35%",
                 height: "100%"
             },
