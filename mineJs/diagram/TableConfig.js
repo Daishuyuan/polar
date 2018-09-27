@@ -165,7 +165,7 @@ define(function () {
                     descrip: "第一列"
                 }]
             }, {
-                height: 38,
+                height: 34,
                 descrip: "第二行",
                 class: "body_row",
                 cols: [{
