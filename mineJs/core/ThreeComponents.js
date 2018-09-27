@@ -22,7 +22,7 @@ define([
                 './models/Calipso/scene.gltf',
                 './img/earth/earth.jpg',
                 './img/earth/globe-topglow.png',
-                './img/earth/earth_nocloud.jpg',
+                './img/earth/earth_nocloud.png',
                 './img/earth/earth_bump.jpg',
                 './img/earth/earth_specular.jpg',
                 './img/earth/earth_clouds.png',
@@ -90,7 +90,7 @@ define([
                 radius: EARTH_RAD,
                 widthSeg: EARTH_SEG,
                 heightSeg: EARTH_SEG,
-                surface: './img/earth/earth_nocloud.jpg',
+                surface: './img/earth/earth_nocloud.png',
                 bumpMap: './img/earth/earth_bump.jpg',
                 spec: './img/earth/earth_specular.jpg',
                 atmosphere: './img/earth/earth_clouds.png',
@@ -275,8 +275,9 @@ define([
                         name: "高空物理",
                         event: "eventHighAltitudePhysics"
                     }]);
-                    TableFactory("#tableView", TableConfig.leftPanel);
-                    TableFactory("#tableView", TableConfig.rightPanel);
+                    for(let name in TableConfig) {
+                        TableFactory("#tableView", TableConfig[name]);
+                    }
                     world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                         toX: 0,
                         toY: -1300,
