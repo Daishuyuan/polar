@@ -22,14 +22,14 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                     for (let j = 0; j < cols.length; j++) {
                         let node = cols[j];
                         if (node.column) {
-                            tbcnt.push(`<div class='${node.column}' style='${FHEIGHT}'>`);
+                            tbcnt.push(`<div class='${node.column}' style='${FHEIGHT};padding:0px;'>`);
                             switch (node.type) {
                                 case "title":
                                     tbcnt.push(`<p class='${node.style}'>${node.name}</p>`);
                                     break;
                                 case "chart":
                                     let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`;
-                                    tbcnt.push(`<div id='${_id}' style='${FHEIGHT}'></div>`);
+                                    tbcnt.push(`<div id='${_id}' style='${FHEIGHT};'></div>`);
                                     echDelay.push({
                                         id: _id,
                                         url: node.url
@@ -57,7 +57,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                         let row = rows[i],
                             height = parseInt(row.height);
                         if (!isNaN(height)) {
-                            tbcnt.push(`<div class='row ${row.class}' style='height:${height}%'>`);
+                            tbcnt.push(`<div class='row ${row.class}' style='height:${height}%;'>`);
                             __col_owner__(i, row, row.cols);
                             tbcnt.push("</div>");
                         } else {
@@ -104,6 +104,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                         try {
                             var myChar = echarts.init(document.getElementById(id));
                             myChar.setOption(option);
+                            myChar.resize();
                         } catch(e) {
                             tools.mutter(e, "error");
                         }

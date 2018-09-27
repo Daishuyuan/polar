@@ -1,6 +1,6 @@
 !function() {
     var singleton = null;
-    define(["Vue", "d3", "domReady"], function (Vue, d3) {
+    define(["Vue", "d3","BasicTools","domReady"], function (Vue, d3, tools) {
         'use strict';
         const MAIN_APP_ID = "MainApp";
         function createVueComponentsSingleton() {
@@ -36,7 +36,7 @@
                                 offset: 't',
                                 anim: 6
                             });
-                            console.warn(`uninitialized event: ${event}`);
+                            tools.mutter(`uninitialized event: ${event}`, "warn");
                         }
                     }
                 }
