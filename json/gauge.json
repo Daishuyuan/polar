@@ -1760,7 +1760,7 @@
     },
     "series": [
       {
-        "name": "Gaussian",
+        "name": "分布值",
         "type": "heatmap",
         "data": [
           [0, 0, 0.1],
