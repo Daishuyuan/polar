@@ -28,7 +28,7 @@ define(function () {
             pane: {
                 position: "absolute",
                 left: "0%",
-                top: "8%",
+                top: "10%",
                 width: "31%",
                 height: "100%"
             },
@@ -148,8 +148,8 @@ define(function () {
             pane: {
                 position: "absolute",
                 right: "0%",
-                top: "8%",
-                width: "35%",
+                top: "10%",
+                width: "33%",
                 height: "100%"
             },
             rows: [{
