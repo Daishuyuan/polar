@@ -24,6 +24,12 @@
 .title_row {
     background-color: #7f9cb563;
     width: 102%;
+    font-family: 'sciFont';
+}
+
+.title_col{
+    font-family: 'sciFont';
+    color: #cce4f9;
 }
 
 .body_row{
