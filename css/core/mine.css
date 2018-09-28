@@ -48,14 +48,14 @@ body {
 }
 
 .homeTitle {
-    font-weight: 700;
-    letter-spacing: 10px;
+    font-weight: bolder;
+    letter-spacing: 5px;
     color: transparent;
     -webkit-text-stroke: 1px #cce4f9;
     text-align: center;
     font-family: 'sciFont';
     margin-top: 1%;
-    font-size: 30px;
+    font-size: 38px;
     -webkit-text-fill-color: transparent;
     opacity: 0.7;
     text-shadow: 0 0 20px #0085f7ed, 0 0 15px #0085f7d6; 
