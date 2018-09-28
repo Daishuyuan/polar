@@ -242,7 +242,7 @@ define(function () {
                     title_class: "title_col",
                     width: 30,
                     height: 30,
-                    url: "http://localhost:3000/windRose",
+                    url: "http://localhost:3000/heatmap",
                     column: "col-md-6",
                     descrip: "第二列"
                 }
