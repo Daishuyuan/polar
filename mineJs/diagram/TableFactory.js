@@ -120,10 +120,13 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                         } catch (e) {
                             tools.mutter(e, "error");
                         }
-                        // setInterval(function () {
-                        // 	option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
-                        // 	myChar.setOption(option, true);
-                        // }, 2000);
+                        if (option.series[0].type === "gauge") {
+                            setInterval(function () {
+                            	option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
+                            	myChar.setOption(option, true);
+                            }, 2000);
+                        }
+                        
                     });
                 }
             });
