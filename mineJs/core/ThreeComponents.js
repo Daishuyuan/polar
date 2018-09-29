@@ -2,10 +2,11 @@ define([
         "BlockPipeline",
         "VueComponents",
         "TableFactory",
-        "TableConfig",
+        // "TableConfig",
         "BasicTools"
     ],
-    function (BlockPipeline, vuePanel, TableFactory, TableConfig, tools) {
+    //function (BlockPipeline, vuePanel, TableFactory, TableConfig, tools) {
+    function (BlockPipeline, vuePanel, TableFactory, tools) {
         const backgroundViewId = "threeJsView";
         const Producer = "Producer";
         const Gaffer = "Gaffer";
@@ -275,9 +276,20 @@ define([
                         name: "高空物理",
                         event: "eventHighAltitudePhysics"
                     }]);
-                    for(let name in TableConfig) {
-                        TableFactory("#tableView", TableConfig[name]);
-                    }
+                    // 加载南极区域场景json数据 demon 2018年9月28日
+                    $.ajax({
+                        url: 'http://localhost:3000/Antarctica',
+                        type: "GET",
+                        dataType: "json",
+                        success: function (Antarctica) {
+                            for (let name in Antarctica) {
+                                TableFactory("#tableView", Antarctica[name]);
+                            }
+                        }
+                    });
+                    // for(let name in TableConfig) {
+                    //     TableFactory("#tableView", TableConfig[name]);
+                    // }
                     world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                         toX: 0,
                         toY: -1300,

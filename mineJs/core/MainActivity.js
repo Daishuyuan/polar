@@ -25,7 +25,7 @@ require.config({
         Constants: "/polar/mineJs/pipeline/Constants",
         TableFactory: "/polar/mineJs/diagram/TableFactory",
         TestSet: "/polar/mineJs/test/TestSet",
-        TableConfig: "/polar/mineJs/diagram/TableConfig"
+        // TableConfig: "/polar/mineJs/diagram/TableConfig"
     },
     shim: {
         "/polar/js/threeJs/extras/utils/GeometryUtils.js": {
