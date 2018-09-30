@@ -2,7 +2,7 @@ define([
         "BlockPipeline",
         "VueComponents",
         "TableFactory",
-        // "TableConfig",
+        //"TableConfig",
         "BasicTools"
     ],
     //function (BlockPipeline, vuePanel, TableFactory, TableConfig, tools) {
@@ -276,7 +276,7 @@ define([
                         name: "高空物理",
                         event: "eventHighAltitudePhysics"
                     }]);
-                    // 加载南极区域场景json数据 demon 2018年9月28日
+                    //加载南极区域场景json数据 demon 2018年9月28日
                     $.ajax({
                         url: 'http://localhost:3000/Antarctica',
                         type: "GET",
