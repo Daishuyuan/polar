@@ -283,7 +283,7 @@ define([
                         dataType: "json",
                         success: function (Antarctica) {
                             for (let name in Antarctica.tableLayer) {
-                                TableFactory("#tableView", Antarctica.tableLayer[name]);
+                                TableFactory.generate("#tableView", Antarctica.tableLayer[name]);
                             }
                         }
                     });

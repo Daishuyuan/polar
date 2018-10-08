@@ -1,20 +1,35 @@
+
+/**
+ * TableFactory 图表配置工厂
+ * @author dsy 2018-10-08
+ * @summary 在给定的Div中依据配置信息生成
+ * @requires jQuery
+ * @requires echarts
+ * @requires echarts-liquidfill
+ * @requires BasicTools
+ * @exports XPaneLoader(图表配置工厂类)
+**/
 define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"], function (echarts, tools) {
     'use strict';
 
     // super table generator
-    function XPaneLoader(id, config) {
+    function XPaneLoader() {
         const TITLE_DEFAULT_HEIGHT = 10;
         const guid = tools.sGuid;
         const sstd = (x) => !!x ? x : "";
         const nstd = (x) => !isNaN(parseFloat(x)) ? x : 0;
-        (function () {
-            let dom = document.createElement("div");
-            __init__($(dom));
-            $(id).append(dom);
-        })();
+
+        // outter functions
+        if (!XPaneLoader.prototype.generate) {
+            XPaneLoader.prototype.generate = function (id, config) {
+                let dom = document.createElement("div");
+                __init__($(dom), config);
+                $(id).append(dom);
+            };
+        }
 
         // initialization by configuration
-        function __init__(jqDom) {
+        function __init__(jqDom, config) {
             jqDom.ready(function () {
                 var tbcnt = [],
                     echDelay = [];
@@ -31,7 +46,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                                     break;
                                 case "chart":
                                     let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`,
-                                        height = node.title_height? node.title_height: TITLE_DEFAULT_HEIGHT,
+                                        height = node.title_height ? node.title_height : TITLE_DEFAULT_HEIGHT,
                                         content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
                                     height = Math.min(Math.max(0, height), 100);
                                     tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${height}%;text-align: center;margin:0;">${content_title}</div>`);
@@ -72,7 +87,6 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                     }
                 }
 
-                // pane processing
                 !function () {
                     try {
                         if (config) {
@@ -106,6 +120,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
             });
         }
 
+        // generate charts
         function addChart(id, url) {
             $.ajax({
                 url: url,
@@ -117,21 +132,20 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                             var myChar = echarts.init(document.getElementById(id));
                             myChar.setOption(option);
                             myChar.resize();
+                            if (option.series[0].type === "gauge") {
+                                setInterval(function () {
+                                    option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
+                                    myChar.setOption(option, true);
+                                }, 2000);
+                            }
                         } catch (e) {
                             tools.mutter(e, "error");
                         }
-                        if (option.series[0].type === "gauge") {
-                            setInterval(function () {
-                            	option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
-                            	myChar.setOption(option, true);
-                            }, 2000);
-                        }
-                        
                     });
                 }
             });
         }
     }
 
-    return XPaneLoader;
+    return new XPaneLoader();
 });
