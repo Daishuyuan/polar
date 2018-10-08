@@ -1,7 +1,9 @@
 /**
- * @name Gaffer
+ * @name Gaffer 灯光渲染器
  * @author 戴舒原
- * @description 灯光渲染
+ * @description 灯光渲染相关的控制器
+ * @requires Utils
+ * @exports Gaffer
  */
 define(["Utils"], function (Utils) {
     'use strict';

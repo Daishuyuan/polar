@@ -1,3 +1,12 @@
+/**
+ * @name Controller 摄像机控制器
+ * @author dsy 2018-09-23
+ * @description 控制摄像机镜头的相关控制器
+ * @requires Utils
+ * @requires OrbitControls
+ * @requires FirstPersonControls
+ * @exports Controller
+ */
 define([
         "Utils",
         "/polar/js/threeJs/extras/controls/OrbitControls.js",

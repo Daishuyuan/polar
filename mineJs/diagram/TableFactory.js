@@ -2,7 +2,7 @@
 /**
  * @name TableFactory 图表配置工厂
  * @author dsy 2018-10-08
- * @summary 在给定的Div中依据配置信息生成并加载对应的图表,配置信息格式如下：
+ * @description 在给定的Div中依据配置信息生成并加载对应的图表,配置信息格式如下：
  * oneTablePane {} -> pane {} -> 浮动面板的css配置
  * ----------------------------> rows [] -> row {} -> descrip 行描述信息
  * --------------------------------------> height 行高度 >= 0
@@ -21,7 +21,7 @@
  * @requires echarts-liquidfill
  * @requires BasicTools
  * @requires bootstrap
- * @exports XPaneLoader(图表配置工厂类对象)
+ * @exports *XPaneLoader
 **/
 define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"], function (echarts, tools) {
     'use strict';

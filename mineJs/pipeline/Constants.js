@@ -1,3 +1,14 @@
+/**
+ * @name Constants 渲染器内部配置常量
+ * @author dsy 2018-09-22
+ * @description 渲染器内部配置常量
+ * - RES_TYPE_TEXTURES 标识纹理资源
+ * - RES_TYPE_FONTS 标识字体资源
+ * - RES_TYPE_MODELS 标识模型资源
+ * - allContent 获取所有标识
+ * - isElement 字符串是否是已知标识
+ * @exports *Utils
+ */
 define(function() {
     'use strict';
     var constants = {};

@@ -2,10 +2,8 @@ define([
         "BlockPipeline",
         "VueComponents",
         "TableFactory",
-        //"TableConfig",
         "BasicTools"
     ],
-    //function (BlockPipeline, vuePanel, TableFactory, TableConfig, tools) {
     function (BlockPipeline, vuePanel, TableFactory, tools) {
         const backgroundViewId = "threeJsView";
         const Producer = "Producer";

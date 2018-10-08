@@ -1,7 +1,12 @@
 /**
- * @name Producer
- * @author dsy
- * @description 产生三维物体或三维场景
+ * @name Producer 三维物体和场景生成器
+ * @author dsy 2018-09-20
+ * @description 产生三维物体或场景
+ * @requires Utils
+ * @requires Constants
+ * @requires ShaderFactory
+ * @requires BasicTools
+ * @exports Producer
  */
 define([
     "Utils",

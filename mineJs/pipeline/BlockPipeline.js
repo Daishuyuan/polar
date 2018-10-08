@@ -1,7 +1,22 @@
 /**
- * @name BlockPipeline
- * @author dsy
- * @description rendering kernel
+ * @name BlockPipeline ThreeJs渲染引擎核心
+ * @author dsy 2018-09-21
+ * @description 渲染引擎核心，提供的主要外部函数如下：
+ * - preLoad 预加载资源
+ * - waken 开启渲染循环
+ * - newWorld 创建一个世界，里面有全部需要调用的模块
+ * @requires jQuery
+ * @requires Constants
+ * @requires Producer
+ * @requires BasicTools
+ * @requires Utils
+ * @requires Gaffer
+ * @requires Controller
+ * @requires stats
+ * @requires d3
+ * @requires GLTFLoader
+ * @requires FBXLoader
+ * @exports BlockPipeline
  */
 define([
     "Constants",
@@ -14,7 +29,7 @@ define([
     "d3",
     "/polar/js/threeJs/extras/loaders/GLTFLoader.js",
     "/polar/js/threeJs/extras/loaders/FBXLoader.js",
-    "domReady"
+    "domReady!"
 ], function (Constants, Producer, tools, Utils, Gaffer, Controller, Stats, d3) {
     'use strict';
     const GLASSPLATE_STYLE = "position: absolute;left:0%;top:0%;width:100%;height:100%;";
