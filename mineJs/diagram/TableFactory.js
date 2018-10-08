@@ -1,21 +1,21 @@
 
 /**
- * TableFactory 图表配置工厂
+ * @name TableFactory 图表配置工厂
  * @author dsy 2018-10-08
  * @summary 在给定的Div中依据配置信息生成并加载对应的图表,配置信息格式如下：
  * oneTablePane {} -> pane {} -> 浮动面板的css配置
- *                 -> rows [] -> row {} -> descrip 行描述信息
- *                                      -> height 行高度 >= 0
- *                                      -> class css样式类名
- *                                      -> cols [] -> col {} -> type 类型 = title/chart/capsule
- *                                                           -> name(title/chart) 标题名称
- *                                                           -> title_class(chart) 标题的css类名
- *                                                           -> style(title/chart) 主体的css类名
- *                                                           -> height(title/chart) 列高度 >= 0
- *                                                           -> descrip(all) 列描述信息
- *                                                           -> column(all) 列样式，如col-md-?
- *                                                           -> url(chart) 图表加载的数据源地址
- *                                                           -> src(chart) 加载的数据源的名称
+ * ----------------------------> rows [] -> row {} -> descrip 行描述信息
+ * --------------------------------------> height 行高度 >= 0
+ * --------------------------------------> class css样式类名
+ * --------------------------------------> cols [] -> col {} -> type 类型 = title/chart/capsule
+ * -----------------------------------------------------------> name(title/chart) 标题名称
+ * -----------------------------------------------------------> title_class(chart) 标题的css类名
+ * -----------------------------------------------------------> style(title/chart) 主体的css类名
+ * -----------------------------------------------------------> height(title/chart) 列高度 >= 0
+ * -----------------------------------------------------------> descrip(all) 列描述信息
+ * -----------------------------------------------------------> column(all) 列样式，如col-md-?
+ * -----------------------------------------------------------> url(chart) 图表加载的数据源地址
+ * -----------------------------------------------------------> src(chart) 加载的数据源的名称
  * @requires jQuery
  * @requires echarts
  * @requires echarts-liquidfill
