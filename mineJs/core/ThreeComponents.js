@@ -282,8 +282,8 @@ define([
                         type: "GET",
                         dataType: "json",
                         success: function (Antarctica) {
-                            for (let name in Antarctica) {
-                                TableFactory("#tableView", Antarctica[name]);
+                            for (let name in Antarctica.tableLayer) {
+                                TableFactory("#tableView", Antarctica.tableLayer[name]);
                             }
                         }
                     });
