@@ -13,10 +13,6 @@ body {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .GlassPlate {
@@ -49,16 +45,16 @@ body {
 
 .homeTitle {
     font-weight: bolder;
-    letter-spacing: 5px;
+    letter-spacing: 1vw;
     color: transparent;
-    -webkit-text-stroke: 1px #cce4f9;
+    -webkit-text-stroke: 0.07vw #cce4f9;
     text-align: center;
     font-family: 'sciFont';
     margin-top: 1%;
-    font-size: 38px;
+    font-size: 2vw;
     -webkit-text-fill-color: transparent;
-    opacity: 0.7;
-    text-shadow: 0 0 20px #0085f7ed, 0 0 15px #0085f7d6; 
+    opacity: 0.8;
+    text-shadow: 0 0 1vw #0085f7ed, 0 0 1vw #0085f7d6; 
     /* text-decoration:none; 
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -86,24 +82,24 @@ body {
     background-color: #cfd1d612;
     -webkit-border-radius: 8;
     -moz-border-radius: 8;
-    border-radius: 8px;
-    width: 280px;
-    height: 35px;
+    border-radius: 0.42vw;
+    width: 14.7vw;
+    height: 1.84vw;
     text-align: center;
     cursor: pointer;
 }
 
 .nav-box:hover {
-    width: 310px;
+    width: 16.3vw;
     transition: 0.3s;
 }
 
 .btn {
     font-family: "幼圆";
     color: #a7aec378;
-    font-size: 18px;
+    font-size: 1vw;
     text-decoration: none;
-    width: 250px;
+    width: 13vw;
     text-align: center;
 }
 
@@ -118,7 +114,7 @@ body {
     position: absolute;
     opacity: 0;
     top: 0;
-    right: -10px;
+    right: -0.53vw;
     transition: 0.2s;
 }
 
@@ -127,10 +123,10 @@ body {
 }
 
 .btn_delay:hover span {
-    padding-right: 25px;
-    font-size: 20px;
+    padding-right: 1.3vw;
+    font-size: 1vw;
     color: #fdfdffb5;
-    text-shadow: 0 0 8px #fff;
+    text-shadow: 0 0 0.4vw #fff;
 }
 
 .btn_delay:hover span:after {
