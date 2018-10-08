@@ -4,7 +4,7 @@
  * @author dsy 2018-10-08
  * @description 在给定的Div中依据配置信息生成并加载对应的图表,配置信息格式如下：
  * oneTablePane {} -> pane {} -> 浮动面板的css配置
- * ----------------------------> rows [] -> row {} -> descrip 行描述信息
+ * -----------------> rows [] -> row {} -> descrip 行描述信息
  * --------------------------------------> height 行高度 >= 0
  * --------------------------------------> class css样式类名
  * --------------------------------------> cols [] -> col {} -> type 类型 = title/chart/capsule
@@ -16,6 +16,7 @@
  * -----------------------------------------------------------> column(all) 列样式，如col-md-?
  * -----------------------------------------------------------> url(chart) 图表加载的数据源地址
  * -----------------------------------------------------------> src(chart) 加载的数据源的名称
+ * -----------------------------------------------------------> rows(capsule) capsule中的行元素
  * @requires jQuery
  * @requires echarts
  * @requires echarts-liquidfill
@@ -28,6 +29,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
 
     // super table generator
     function XPaneLoader() {
+        const ROW_MARGIN_STYLE = "margin-right: -0.79vw;margin-left: -0.79vw;";
         const TITLE_DEFAULT_HEIGHT = 10;
         const guid = tools.sGuid;
         const sstd = (x) => !!x ? x : "";
@@ -91,7 +93,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                     for (let i = 0; i < rows.length; i++) {
                         if (rows[i]) {
                             let row = rows[i];
-                            tbcnt.push(`<div class='row ${sstd(row.class)}' style='height:${nstd(row.height)}%;'>`);
+                            tbcnt.push(`<div class='row ${sstd(row.class)}' style='height:${nstd(row.height)}%;${ROW_MARGIN_STYLE}'>`);
                             __col_owner__(i, row, row.cols);
                             tbcnt.push("</div>");
                         } else {
