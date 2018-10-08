@@ -2,12 +2,26 @@
 /**
  * TableFactory 图表配置工厂
  * @author dsy 2018-10-08
- * @summary 在给定的Div中依据配置信息生成
+ * @summary 在给定的Div中依据配置信息生成并加载对应的图表,配置信息格式如下：
+ * oneTablePane {} -> pane {} -> 浮动面板的css配置
+ *                 -> rows [] -> row {} -> descrip 行描述信息
+ *                                      -> height 行高度 >= 0
+ *                                      -> class css样式类名
+ *                                      -> cols [] -> col {} -> type 类型 = title/chart/capsule
+ *                                                           -> name(title/chart) 标题名称
+ *                                                           -> title_class(chart) 标题的css类名
+ *                                                           -> style(title/chart) 主体的css类名
+ *                                                           -> height(title/chart) 列高度 >= 0
+ *                                                           -> descrip(all) 列描述信息
+ *                                                           -> column(all) 列样式，如col-md-?
+ *                                                           -> url(chart) 图表加载的数据源地址
+ *                                                           -> src(chart) 加载的数据源的名称
  * @requires jQuery
  * @requires echarts
  * @requires echarts-liquidfill
  * @requires BasicTools
- * @exports XPaneLoader(图表配置工厂类)
+ * @requires bootstrap
+ * @exports XPaneLoader(图表配置工厂类对象)
 **/
 define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"], function (echarts, tools) {
     'use strict';
@@ -17,7 +31,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
         const TITLE_DEFAULT_HEIGHT = 10;
         const guid = tools.sGuid;
         const sstd = (x) => !!x ? x : "";
-        const nstd = (x) => !isNaN(parseFloat(x)) ? x : 0;
+        const nstd = (x) => !isNaN(parseFloat(x)) && x > 0? x : 0;
 
         // outter functions
         if (!XPaneLoader.prototype.generate) {
@@ -50,7 +64,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                                         content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
                                     height = Math.min(Math.max(0, height), 100);
                                     tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${height}%;text-align: center;margin:0;">${content_title}</div>`);
-                                    tbcnt.push(`<div id='${_id}' style='height:${100 - height}%;' class='${sstd(node.class)}'></div>`);
+                                    tbcnt.push(`<div id='${_id}' style='height:${100 - height}%;' class='${sstd(node.style)}'></div>`);
                                     echDelay.push({
                                         id: _id,
                                         url: node.url
