@@ -55,6 +55,13 @@
   然后参照上一条操作之后改回文件，再上传代码
 - 如果更改的冲突文件不重要，也可以直接删除
 - git checkout --force 强制丢弃本地所有更改
+10. 切换分支
+- git branch 分支名称
+- git checkout 分支名称
+11. 删除文件
+- git rm 文件名称
+- git commit -m '理由'
+- git push
 
 ## Authors
 1. ZX 周旭 1352059589@qq.com
