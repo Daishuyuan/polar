@@ -17,6 +17,8 @@
  * -----------------------------------------------------------> url(chart) 图表加载的数据源地址
  * -----------------------------------------------------------> src(chart) 加载的数据源的名称
  * -----------------------------------------------------------> rows(capsule) capsule中的行元素
+ * -----------------------------------------------------------> data_url(chart) 数据url拉取地址
+ * -----------------------------------------------------------> prefix(title) 标题装饰性前缀
  * @requires jQuery
  * @requires echarts
  * @requires echarts-liquidfill
@@ -29,6 +31,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
 
     // super table generator
     function XPaneLoader() {
+        const NO_MARGIN = "margin: 0px";
         const ROW_MARGIN_STYLE = "margin-right: -0.79vw;margin-left: -0.79vw;";
         const TITLE_DEFAULT_HEIGHT = 10;
         const guid = tools.sGuid;
@@ -58,15 +61,22 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                             tbcnt.push(`<div class='${sstd(node.column)}' style='height:100%;padding-left:1%;padding-right:0;'>`);
                             switch (node.type) {
                                 case "title":
-                                    tbcnt.push(`<p class='${sstd(node.style)}'>${sstd(node.name)}</p>`);
+                                    let prefix_content = "", title_content = "", control = "";
+                                    if (node.prefix) {
+                                        prefix_content = `<p class='${node.prefix}'></p>`;
+                                        control = "style='display: inline-flex;'";
+                                    }
+                                    title_content = `<p style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
+                                    tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
                                     break;
                                 case "chart":
-                                    let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`,
-                                        height = node.title_height ? node.title_height : TITLE_DEFAULT_HEIGHT,
-                                        content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
-                                    height = Math.min(Math.max(0, height), 100);
-                                    tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${height}%;text-align: center;margin:0;">${content_title}</div>`);
-                                    tbcnt.push(`<div id='${_id}' style='height:${100 - height}%;' class='${sstd(node.style)}'></div>`);
+                                    let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`, title_height = 0;
+                                    if (node.name) {
+                                        let content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
+                                        title_height = Math.min(Math.max(0, node.title_height ? node.title_height : TITLE_DEFAULT_HEIGHT), 100);
+                                        tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${title_height}%;text-align: center;margin:0;">${content_title}</div>`);
+                                    }
+                                    tbcnt.push(`<div id='${_id}' style='height:${100 - title_height}%;' class='${sstd(node.style)}'></div>`);
                                     echDelay.push({
                                         id: _id,
                                         url: node.url
@@ -122,9 +132,13 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                             tbcnt.push("</div>");
                             // echarts 
                             jqDom.append(tbcnt.join('\n'));
-                            for (let i = 0; i < echDelay.length; ++i) {
-                                let node = echDelay[i];
-                                addChart(node.id, node.url);
+                            try {
+                                for (let i = 0; i < echDelay.length; ++i) {
+                                    let node = echDelay[i];
+                                    addChart(node.id, node.url);
+                                }
+                            } catch(e) {
+                                tools.mutter(e, "error");
                             }
                         } else {
                             tools.mutter("config is null", "error");
@@ -138,27 +152,23 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
 
         // generate charts
         function addChart(id, url) {
-            $.ajax({
-                url: url,
-                type: "GET",
-                dataType: "json",
-                success: function (option) {
-                    $("#" + id).ready(function () {
-                        try {
-                            var myChar = echarts.init(document.getElementById(id));
-                            myChar.setOption(option);
-                            myChar.resize();
-                            if (option.series[0].type === "gauge") {
-                                setInterval(function () {
-                                    option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
-                                    myChar.setOption(option, true);
-                                }, 2000);
-                            }
-                        } catch (e) {
-                            tools.mutter(e, "error");
+            $("#" + id).ready(function () {
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (option) {
+                        var myChar = echarts.init(document.getElementById(id));
+                        myChar.setOption(option);
+                        myChar.resize();
+                        if (option.series[0].type === "gauge") {
+                            setInterval(function () {
+                                option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
+                                myChar.setOption(option, true);
+                            }, 2000);
                         }
-                    });
-                }
+                    }
+                });
             });
         }
     }

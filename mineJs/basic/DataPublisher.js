@@ -8,23 +8,23 @@ define(function () {
         setInterval(function () {
             $.ajax({
                 url: propsUrl,
-                type: "POST",
+                type: "GET",
                 dataType: "json",
                 success: function (props) {
                     for (let prop in props) {
                         if (props[prop] && subscribers.has(prop)) {
                             let subs = subscribers.get(prop);
                             for (let name in subs) {
-                                !function (myChart, url) {
+                                !function (url, func) {
                                     $.ajax({
                                         url: url,
-                                        type: "GET",
+                                        type: "POST",
                                         dataType: "json",
-                                        success: function (option) {
-                                            myChart.setOption(option, true);
+                                        success: function (data) {
+                                            func(data);
                                         }
                                     });
-                                }(subs[name].obj, subs[name].url);
+                                }(subs[name].url, subs[name].func);
                             }
                         }
                     }
@@ -33,14 +33,14 @@ define(function () {
         }, tick);
 
         if(!DataPublisher.prototype.add) {
-            DataPublisher.prototype.add = function (name, subscriber, url) {
+            DataPublisher.prototype.add = function (name, url, callback) {
                 if (!subscribers.has(name)) {
                     subscribers.set(name, []);
                 }
                 if (subscriber && url) {
                     subscribers.get(name).push({
-                        obj: subscriber,
-                        url: url
+                        url: url,
+                        func: callback
                     });
                 }
             }

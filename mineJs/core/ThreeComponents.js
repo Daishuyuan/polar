@@ -39,9 +39,9 @@ define([
         function GlobalFullSituation(world) {
             // foundation of this world
             const MC = 0;
-            const CHAOS_SIZE = 2100;
+            // const CHAOS_SIZE = 2100;
             const EARTH_RAD = 400;
-            const EARTH_SEG = 128;
+            const EARTH_SEG = 64;
 
             // request creater of this world
             let producer = world.get(Producer),
