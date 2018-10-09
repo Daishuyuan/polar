@@ -20,7 +20,7 @@
     <script type="text/javascript" src="./js/layer/layer.js"></script>
 </head>
 
-<body>
+<body oncontextmenu=self.event.returnValue=false>
     <div id="MainApp" class="GlassPlate">
         <!-- mask layer -->
         <iframe v-cloak v-show="!loaded" v-bind:src="fakePage" class="GlassPlate" style="z-index: 20000;"></iframe>

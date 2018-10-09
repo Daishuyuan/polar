@@ -157,10 +157,12 @@ define([
                     // composition of each object
                     mineCraft.add(earth);
                     world.add(mineCraft);
+                    world.addController(controller.addOrbitController(defaultCam));
 
                     // theme common init
                     function themeInit(name, wkid, menu) {
                         // clear before status
+                        world.enableControllers(false);
                         world.animateClear(switchAnimation);
                         $("#tableView").empty();
                         vuePanel.MainApp.title = name;
@@ -190,11 +192,13 @@ define([
                                 name: "北极区域场景",
                                 event: "eventArcticSituation"
                             }]);
-                            controller.addOrbitController(defaultCam);
                             world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                                 toX: 0,
                                 toY: 0,
-                                toZ: 2010
+                                toZ: 2010,
+                                callback: function() {
+                                    world.enableControllers(true);
+                                }
                             }));
                         },
                         polarSituation: function (id = 1) {
@@ -217,7 +221,10 @@ define([
                                 toX: 0,
                                 toY: -1300,
                                 toZ: 0,
-                                lookAt: southPole
+                                lookAt: southPole,
+                                callback: function() {
+                                    world.enableControllers(true);
+                                }
                             }));
                         },
                         arcticSituation: function (id = 2) {
@@ -229,7 +236,10 @@ define([
                                 toX: 0,
                                 toY: 1300,
                                 toZ: 0,
-                                lookAt: northPole
+                                lookAt: northPole,
+                                callback: function() {
+                                    world.enableControllers(true);
+                                }
                             }));
                         },
                         lidarSituation: function (id = 3) {

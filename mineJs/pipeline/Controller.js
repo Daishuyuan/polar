@@ -39,7 +39,12 @@ define([
                         Math.abs(deltaZ) > EPSILON? camera.position.z += deltaZ * step: zMark = false;
                         props.speed += deltaTime * RATIO;
                         camera.lookAt(props.lookAt ? props.lookAt : world.get("Scene").position);
-                        return xMark || yMark || zMark || props.callback && props.callback() || false;
+                        if (xMark || yMark || zMark) {
+                            return true;
+                        } else {
+                            props.callback && props.callback();
+                            return false;
+                        }
                     }
                 },
                 addPersonalController: function (camera, props = {}) {
@@ -54,7 +59,7 @@ define([
                 },
                 addOrbitController: function (camera, props = {}) {
                     if (camera) {
-                        var controller = new THREE.OrbitControls(camera, _renderer.domElement);
+                        var controller = new THREE.OrbitControls(camera);
                         _utils.__setProperties__(controller, props);
                         _utils.__addProperty__(camera, "mineController", controller);
                         return controller;

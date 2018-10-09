@@ -153,7 +153,8 @@ define([
                                 scene = world.get("Scene"),
                                 camera = world.get("Cameras")[0],
                                 restrainedName = world.get("Name"),
-                                stats = world.has("curStats") ? world.get("curStats") : null;
+                                stats = world.has("curStats") ? world.get("curStats") : null,
+                                controllers = world.get("controllers");
                             // execute inilization process
                             _prop.innerEvents.initProc(_prop.clock.getDelta());
                             (function _v_innerCycle_v_() {
@@ -167,6 +168,10 @@ define([
                                         _renderer.render(scene, camera);
                                     } else {
                                         throw new Error("current scene or default camera is invalid.");
+                                    }
+                                    // update controllers
+                                    for (let i = 0; i < controllers.length; ++i) {
+                                        controllers[i].update();
                                     }
                                     // update state of appication
                                     stats && stats.update();
@@ -207,6 +212,7 @@ define([
                             newWorld.set("Resources", _resources);
                             newWorld.set("Container", _container);
                             newWorld.set("Animation", new Map());
+                            newWorld.set("controllers", []);
                             // build up inner functions
                             Object.assign(newWorld, {
                                 // inner glassPlate
@@ -294,6 +300,15 @@ define([
                                 // receive mouse select an object
                                 getIntersectObject: function (obj) {
                                     return _raycaster.intersectObject(obj);
+                                },
+                                // add controller to this world
+                                addController: function(controller) {
+                                    newWorld.get("controllers").push(controller);
+                                },
+                                enableControllers: function(bool) {
+                                    for(let arr = newWorld.get("controllers"), i=0; i < arr.length; ++i) {
+                                        arr[i].enabled = bool;
+                                    }
                                 }
                             });
                             // after proccess include recycle resource\update camera\delete unused animation
