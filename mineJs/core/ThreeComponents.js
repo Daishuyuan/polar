@@ -1,9 +1,21 @@
+// build background of chaos
+// let chaos = producer.getChaos({
+//     right: './img/skybox/px.jpg',
+//     left: './img/skybox/nx.jpg',
+//     top: './img/skybox/py.jpg',
+//     bottom: './img/skybox/ny.jpg',
+//     back: './img/skybox/pz.jpg',
+//     front: './img/skybox/nz.jpg',
+//     size: CHAOS_SIZE
+// });
+// mineCraft.add(chaos);
+
 define([
-        "BlockPipeline",
-        "VueComponents",
-        "TableFactory",
-        "BasicTools"
-    ],
+    "BlockPipeline",
+    "VueComponents",
+    "TableFactory",
+    "BasicTools"
+],
     function (BlockPipeline, vuePanel, TableFactory, tools) {
         const backgroundViewId = "threeJsView";
         const Producer = "Producer";
@@ -12,20 +24,55 @@ define([
 
         var pipeline = new BlockPipeline(backgroundViewId),
             switchAnimation = null;
+        var system = (function () {
+            function req(url) {
+                return $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "json"
+                });
+            }
 
-        function initScene(url) {
-            $.ajax({
-                url: url,
-                type: "GET",
-                dataType: "json"
-            }).then(function(scene) {
-                for (let name in scene.tableLayer) {
-                    TableFactory.generate("#tableView", scene.tableLayer[name]);
+            return {
+                initScene: function (url) {
+                    req(url).then(function (scene) {
+                        for (let name in scene.tableLayer) {
+                            TableFactory.generate("#tableView", scene.tableLayer[name]);
+                        }
+                    });
+                },
+                initShipsAndStations: function (earth, url) {
+                    req(url).then(function (common) {
+                        for (let i = 0, len = common.data.ships.length; i < len; ++i) {
+                            let ship = common.data.ships[i];
+                            earth.addLabelToEarth({
+                                height: 15,
+                                width: 15,
+                                lon: ship.lon,
+                                lat: ship.lat,
+                                path: './img/ui/ship.png',
+                                attr: {
+                                    name: ship.name
+                                }
+                            });
+                        }
+                        for (let j = 0, len = common.data.stations.length; j < len; ++j) {
+                            let station = common.data.stations[j];
+                            earth.addLabelToEarth({
+                                height: 15,
+                                width: 15,
+                                lon: station.lon,
+                                lat: station.lat,
+                                path: './img/ui/location.png',
+                                attr: {
+                                    name: station.name
+                                }
+                            });
+                        }
+                    })
                 }
-            }).catch(function(e) {
-                tools.mutter(e, "error");
-            });
-        }
+            }
+        })();
 
         function requestRes() {
             return pipeline.preLoad([
@@ -73,7 +120,6 @@ define([
                 near: 1,
                 far: 20000
             });
-
             // add light to environment
             world.add(gaffer.getAmbientLight({
                 color: 0xffffff
@@ -85,19 +131,6 @@ define([
                 z: 400,
                 intensity: 0.15
             }));
-
-            // build background of chaos
-            // let chaos = producer.getChaos({
-            //     right: './img/skybox/px.jpg',
-            //     left: './img/skybox/nx.jpg',
-            //     top: './img/skybox/py.jpg',
-            //     bottom: './img/skybox/ny.jpg',
-            //     back: './img/skybox/pz.jpg',
-            //     front: './img/skybox/nz.jpg',
-            //     size: CHAOS_SIZE
-            // });
-            // mineCraft.add(chaos);
-
             // build sphere of earth
             let earth = producer.getEarth({
                 radius: EARTH_RAD,
@@ -109,93 +142,8 @@ define([
                 atmosphere: './img/earth/earth_clouds.png',
                 ring: './img/earth/globe-topglow.png'
             });
-
-            // add labels in earth
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: 76.96,
-                lat: -67.21,
-                path: './img/ui/ship.png',
-                attr: {
-                    name: "白濑"
-                }
-            });
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: 85.76,
-                lat: -60.50,
-                path: './img/ui/ship.png',
-                attr: {
-                    name: "海洋六号"
-                }
-            });
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: 61.14,
-                lat: -62.96,
-                path: './img/ui/ship.png',
-                attr: {
-                    name: "向阳红10号"
-                }
-            });
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: -56.58,
-                lat: -62.24,
-                path: './img/ui/ship.png',
-                attr: {
-                    name: "雪龙号"
-                }
-            });
-            // Great Wall Station
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: -58.5772,
-                lat: -62.1305,
-                path: './img/ui/location.png',
-                attr: {
-                    name: "长城站"
-                }
-            });
-            // Kunlun Station
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: 77.0659,
-                lat: -80.2502,
-                path: './img/ui/location.png',
-                attr: {
-                    name: "昆仑站"
-                }
-            });
-            // Taishan Station           
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: 76.5829,
-                lat: -73.5150,
-                path: './img/ui/location.png',
-                attr: {
-                    name: "泰山站"
-                }
-            });
-            // Zhongshan Station
-            earth.addLabelToEarth({
-                height: 15,
-                width: 15,
-                lon: 76.2218,
-                lat: -69.2225,
-                path: './img/ui/location.png',
-                attr: {
-                    name: "中山站"
-                }
-            });
-
+            // ships and stations initialization
+            system.initShipsAndStations(earth, "http://localhost:3000/Common");
             // add satellite to synchronous track
             earth.addObjToSyncOrbit({
                 lon: 90,
@@ -205,7 +153,6 @@ define([
                     scale: 0.01
                 })
             });
-
             // scene animation
             world.on("beforeProc", function (event) {
                 rotateSceneFlag && mineCraft.rotateY(event * 0.01);
@@ -213,16 +160,16 @@ define([
             world.on("afterProc", function () {
                 let list = world.getIntersectObjects(earth.getLabels().children),
                     tips = vuePanel.MainApp.tips;
-                if(list.length > 0) {
+                if (list.length > 0) {
                     rotateSceneFlag = false;
-                    for(let i=0; i<list.length; ++i) {
+                    for (let i = 0; i < list.length; ++i) {
                         let obj = list[i].object,
                             vec2 = list[i].point.project(defaultCam),
                             vec = world.camXY2ScreenXY(vec2);
                         if (!tips.visiable) {
                             tips.visiable = true;
-                            tips.left = `${parseInt(vec.x - parseInt(tips.width)/2)}px`;
-                            tips.top = `${parseInt(vec.y - parseInt(tips.height)/2)}px`;
+                            tips.left = `${parseInt(vec.x - parseInt(tips.width) / 2)}px`;
+                            tips.top = `${parseInt(vec.y - parseInt(tips.height) / 2)}px`;
                             tips.text = obj.attr.name;
                         }
                     }
@@ -277,8 +224,8 @@ define([
                 polarSituation: function (id = 1) {
                     themeInit("南极区域场景", "polarSituation", [{
                         name: "返回",
-                        event: "eventGlobalSituation"  
-                    },{
+                        event: "eventGlobalSituation"
+                    }, {
                         name: "激光雷达",
                         event: "eventLadar"
                     }, {
@@ -289,7 +236,7 @@ define([
                         event: "eventHighAltitudePhysics"
                     }]);
                     //加载南极区域场景json数据 demon 2018年9月28日
-                    initScene("http://localhost:3000/Antarctica");
+                    system.initScene("http://localhost:3000/Antarctica");
                     world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                         toX: 0,
                         toY: -1300,
@@ -297,10 +244,10 @@ define([
                         lookAt: southPole
                     }));
                 },
-                arcticSituation: function(id = 2) {
+                arcticSituation: function (id = 2) {
                     themeInit("北极区域场景", "arcticSituation", [{
                         name: "返回",
-                        event: "eventGlobalSituation"  
+                        event: "eventGlobalSituation"
                     }]);
                     world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                         toX: 0,
@@ -309,12 +256,12 @@ define([
                         lookAt: northPole
                     }));
                 },
-                lidarSituation: function(id = 3) {
+                lidarSituation: function (id = 3) {
                     themeInit("激光雷达场景", "lidarSituation", [{
                         name: "返回",
-                        event: "eventAntarcticSituation"  
+                        event: "eventAntarcticSituation"
                     }]);
-                    initScene("http://localhost:3000/Lidar");
+                    system.initScene("http://localhost:3000/Lidar");
                 }
             }
         }
@@ -322,7 +269,7 @@ define([
         function init() {
             // set theme function
             function setThemeFunc(panel, name, func) {
-                panel.menuEvents.set(name, function() {
+                panel.menuEvents.set(name, function () {
                     func && func();
                 });
             }
@@ -338,10 +285,6 @@ define([
                 setThemeFunc(vuePanel, "eventAntarcticSituation", worldManager.polarSituation);
                 setThemeFunc(vuePanel, "eventArcticSituation", worldManager.arcticSituation);
                 setThemeFunc(vuePanel, "eventLadar", worldManager.lidarSituation);
-                // setThemeFunc(vuePanel, "eventLadar", );
-                // vuePanel.menuEvents.set("eventLadar", function() {});
-                // vuePanel.menuEvents.set("eventIceLakeDrilling", function() {});
-                // vuePanel.menuEvents.set("eventHighAltitudePhysics", function() {});
             });
             // show this world
             pipeline.waken("origin");
