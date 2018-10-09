@@ -85,8 +85,8 @@ define([
                         gaffer = world.get(Gaffer),
                         controller = world.get(Controller),
                         mineCraft = new THREE.Group(),
-                        southPole = new THREE.Vector3(0, 400, 0),
-                        northPole = new THREE.Vector3(0, -400, 0),
+                        southPole = new THREE.Vector3(0, EARTH_RAD, 0),
+                        northPole = new THREE.Vector3(0, -EARTH_RAD, 0),
                         defaultCam = null,
                         rotateSceneFlag = true;
 
