@@ -15,14 +15,15 @@ define([
 
         function initScene(url) {
             $.ajax({
-                url: url, // 'http://localhost:3000/Antarctica'
+                url: url,
                 type: "GET",
-                dataType: "json",
-                success: function (scene) {
-                    for (let name in scene.tableLayer) {
-                        TableFactory.generate("#tableView", scene.tableLayer[name]);
-                    }
+                dataType: "json"
+            }).then(function(scene) {
+                for (let name in scene.tableLayer) {
+                    TableFactory.generate("#tableView", scene.tableLayer[name]);
                 }
+            }).catch(function(e) {
+                tools.mutter(e, "error");
             });
         }
 
