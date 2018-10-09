@@ -196,7 +196,7 @@ define([
                 _utils.__defaultParam__(props, "heightSeg", 20);
                 _utils.__defaultParam__(props, "surface", null);
                 _utils.__defaultParam__(props, "bumpMap", null);
-                _utils.__defaultParam__(props, "bumpScale", 10);
+                _utils.__defaultParam__(props, "bumpScale", 0.8);
                 _utils.__defaultParam__(props, "spec", null);
                 _utils.__defaultParam__(props, "atmosphere", null);
                 _utils.__defaultParam__(props, "opacity", 1);
@@ -226,14 +226,14 @@ define([
                     transparent: true,
                     opacity: props.opacity,
                     map: __getRes__(_cts.RES_TYPE_TEXTURES, props.surface),
-                    shininess: 60,
+                    shininess: 60
                     // depthWrite: false
                 });
                 var earth = new THREE.Mesh(sphere, material);
                 earthGroup.add(earth);
                 // build atmosphere
                 var atmosphereGeo = new THREE.SphereGeometry(props.radius * GEO_RATIO, props.widthSeg, props.heightSeg);
-                var atMaterial = new THREE.MeshBasicMaterial({
+                var atMaterial = new THREE.MeshLambertMaterial({
                     map: __getRes__(_cts.RES_TYPE_TEXTURES, props.atmosphere),
                     transparent: true,
                     side: THREE.DoubleSide,

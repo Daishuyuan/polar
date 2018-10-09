@@ -43,12 +43,13 @@ define([
                     });
                 },
                 initShipsAndStations: function (earth, url) {
+                    const SIZE = 3;
                     req(url).then(function (common) {
                         for (let i = 0, len = common.data.ships.length; i < len; ++i) {
                             let ship = common.data.ships[i];
                             earth.addLabelToEarth({
-                                height: 15,
-                                width: 15,
+                                height: SIZE,
+                                width: SIZE,
                                 lon: ship.lon,
                                 lat: ship.lat,
                                 path: './img/ui/ship.png',
@@ -60,8 +61,8 @@ define([
                         for (let j = 0, len = common.data.stations.length; j < len; ++j) {
                             let station = common.data.stations[j];
                             earth.addLabelToEarth({
-                                height: 15,
-                                width: 15,
+                                height: SIZE,
+                                width: SIZE,
                                 lon: station.lon,
                                 lat: station.lat,
                                 path: './img/ui/location.png',
@@ -76,7 +77,7 @@ define([
                     // foundation of this world
                     const MC = 0;
                     // const CHAOS_SIZE = 2100;
-                    const EARTH_RAD = 400;
+                    const EARTH_RAD = 100;
                     const EARTH_SEG = 64;
 
                     // request creater of this world
@@ -101,9 +102,9 @@ define([
                     }));
                     world.add(gaffer.getDirctionLight({
                         color: 0xffffff,
-                        x: 500,
-                        y: 600,
-                        z: 400,
+                        x: 250,
+                        y: 300,
+                        z: 200,
                         intensity: 0.15
                     }));
                     // build sphere of earth
@@ -125,7 +126,7 @@ define([
                         lat: 0,
                         item: producer.getItem({
                             path: './models/Calipso/scene.gltf',
-                            scale: 0.01
+                            scale: 0.0025
                         })
                     });
                     // scene animation
@@ -195,7 +196,7 @@ define([
                             world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                                 toX: 0,
                                 toY: 0,
-                                toZ: 2010,
+                                toZ: 500,
                                 callback: function() {
                                     world.enableControllers(true);
                                 }
@@ -219,7 +220,7 @@ define([
                             system.initScene("http://localhost:3000/Antarctica");
                             world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                                 toX: 0,
-                                toY: -1300,
+                                toY: -325,
                                 toZ: 0,
                                 lookAt: southPole,
                                 callback: function() {
@@ -234,7 +235,7 @@ define([
                             }]);
                             world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                                 toX: 0,
-                                toY: 1300,
+                                toY: 325,
                                 toZ: 0,
                                 lookAt: northPole,
                                 callback: function() {
