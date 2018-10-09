@@ -327,7 +327,11 @@ define([
                                 _mouse.y = -(event.clientY / _prop.cheight) * 2 + 1;
                             });
                             _worlds.set(name, newWorld);
-                            behaviors(newWorld);
+                            return {
+                                then: function(callback) {
+                                    callback(newWorld);
+                                }
+                            }
                         } else {
                             throw new Error(`This world: ${name} isn't created.`);
                         }

@@ -1,6 +1,7 @@
-define(function () {
+define("BasicTools", function (tools) {
     'use strict';
-    var publisher = new DataPublisher("", 2000);
+    const PROP_URl = "";  // url of props
+    const TICK = 2000;    // cycle of pull props
 
     function DataPublisher(propsUrl, tick) {
         var subscribers = new Map();
@@ -9,26 +10,28 @@ define(function () {
             $.ajax({
                 url: propsUrl,
                 type: "GET",
-                dataType: "json",
-                success: function (props) {
-                    for (let prop in props) {
-                        if (props[prop] && subscribers.has(prop)) {
-                            let subs = subscribers.get(prop);
-                            for (let name in subs) {
-                                !function (url, func) {
-                                    $.ajax({
-                                        url: url,
-                                        type: "POST",
-                                        dataType: "json",
-                                        success: function (data) {
-                                            func(data);
-                                        }
-                                    });
-                                }(subs[name].url, subs[name].func);
-                            }
+                dataType: "json"
+            }).progress(function(option) {
+                for (let prop in props) {
+                    if (props[prop] && subscribers.has(prop)) {
+                        let subs = subscribers.get(prop);
+                        for (let name in subs) {
+                            !function (url, system_call) {
+                                $.ajax({
+                                    url: url,
+                                    type: "POST",
+                                    dataType: "json"
+                                }).progress(function(data) {
+                                    system_call(data);
+                                }).catch(function(e) {
+                                    tools.mutter(e, "error");
+                                });
+                            }(subs[name].url, subs[name].func);
                         }
                     }
                 }
+            }).catch(function(e) {
+                tools.mutter(e, "error");
             });
         }, tick);
 
@@ -40,12 +43,12 @@ define(function () {
                 if (subscriber && url) {
                     subscribers.get(name).push({
                         url: url,
-                        func: callback
+                        func: new Function("data", callback)
                     });
                 }
             }
         }
     }
 
-    return publisher;
+    return new DataPublisher(PROP_URl, TICK);
 });

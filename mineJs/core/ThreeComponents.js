@@ -13,6 +13,19 @@ define([
         var pipeline = new BlockPipeline(backgroundViewId),
             switchAnimation = null;
 
+        function initScene(url) {
+            $.ajax({
+                url: url, // 'http://localhost:3000/Antarctica'
+                type: "GET",
+                dataType: "json",
+                success: function (scene) {
+                    for (let name in scene.tableLayer) {
+                        TableFactory.generate("#tableView", scene.tableLayer[name]);
+                    }
+                }
+            });
+        }
+
         function requestRes() {
             return pipeline.preLoad([
                 './img/terrain/terrainBack.jpg',
@@ -275,19 +288,7 @@ define([
                         event: "eventHighAltitudePhysics"
                     }]);
                     //加载南极区域场景json数据 demon 2018年9月28日
-                    $.ajax({
-                        url: 'http://localhost:3000/Antarctica',
-                        type: "GET",
-                        dataType: "json",
-                        success: function (Antarctica) {
-                            for (let name in Antarctica.tableLayer) {
-                                TableFactory.generate("#tableView", Antarctica.tableLayer[name]);
-                            }
-                        }
-                    });
-                    // for(let name in TableConfig) {
-                    //     TableFactory("#tableView", TableConfig[name]);
-                    // }
+                    initScene("http://localhost:3000/Antarctica");
                     world.animate(switchAnimation = controller.createPullPushAnimation(defaultCam, {
                         toX: 0,
                         toY: -1300,
@@ -306,6 +307,13 @@ define([
                         toZ: 0,
                         lookAt: northPole
                     }));
+                },
+                lidarSituation: function(id = 3) {
+                    themeInit("激光雷达场景", "lidarSituation", [{
+                        name: "返回",
+                        event: "eventAntarcticSituation"  
+                    }]);
+                    initScene("http://localhost:3000/Lidar");
                 }
             }
         }
@@ -319,7 +327,7 @@ define([
             }
 
             // create new world
-            pipeline.newWorld("origin", function (world) {
+            pipeline.newWorld("origin").then(function (world) {
                 // init params
                 let worldManager = new GlobalFullSituation(world);
                 // first situation
@@ -328,6 +336,7 @@ define([
                 setThemeFunc(vuePanel, "eventGlobalSituation", worldManager.globalSituation);
                 setThemeFunc(vuePanel, "eventAntarcticSituation", worldManager.polarSituation);
                 setThemeFunc(vuePanel, "eventArcticSituation", worldManager.arcticSituation);
+                setThemeFunc(vuePanel, "eventLadar", worldManager.lidarSituation);
                 // setThemeFunc(vuePanel, "eventLadar", );
                 // vuePanel.menuEvents.set("eventLadar", function() {});
                 // vuePanel.menuEvents.set("eventIceLakeDrilling", function() {});
