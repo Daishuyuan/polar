@@ -51,10 +51,7 @@
                 MainApp: mainApp,
                 menuEvents: menuButtonEvents,
                 DelayTime: function*(i, step) {
-                    while (true) {
-                        i += step;
-                        yield `animation-delay: ${i}s;-webkit-animation-delay: ${i}s;`;
-                    }
+                    while (i += step) yield `animation-delay: ${i}s;-webkit-animation-delay: ${i}s;`;
                 }
             };
         }

@@ -167,7 +167,7 @@ define([
                         // common process
                         tools.mutter(`current scene:${name}-${wkid}`, "info");
                         let delay = vuePanel.DelayTime(0, 0.1);
-                        $("#menu").children().hide();
+                        $("#menu").children().removeClass("hover").hide().show();
                         vuePanel.MainApp.mbuttons = menu.map((x) => {
                             return {
                                 name: x.name,
@@ -175,7 +175,6 @@ define([
                                 event: x.event
                             }
                         });
-                        $("#menu").children().show();
                     }
 
                     return {
