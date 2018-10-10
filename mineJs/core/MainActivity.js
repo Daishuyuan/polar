@@ -23,8 +23,8 @@
             Producer: "/polar/mineJs/pipeline/Producer",
             ShaderFactory: "/polar/mineJs/pipeline/ShaderFactory",
             Constants: "/polar/mineJs/pipeline/Constants",
-            TableFactory: "/polar/mineJs/diagram/TableFactory",
-            TestSet: "/polar/mineJs/test/TestSet",
+            TableFactory: "/polar/mineJs/diagram/TableFactory"
+            // TestSet: "/polar/mineJs/test/TestSet",
             //TableConfig: "/polar/mineJs/diagram/TableConfig"
         },
         shim: {
