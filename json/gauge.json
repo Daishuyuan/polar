@@ -132,7 +132,7 @@
                         "url": "",
                         "column": "col-md-6",
                         "descrip": "第一列"
-                      }
+                      },
                       {
                         "type": "chart",
                         "height": 10,
