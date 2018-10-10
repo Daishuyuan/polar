@@ -9,13 +9,14 @@ import {VueLayer} from "./VueLayer.js";
 import {SceneLayer} from "./SceneLayer.js";
 import {Tools as tools} from "../basic/BasicTools.js";
 
+export var MAIN_APP_ID = "#MainApp";
+export var TABLEVIEW_ID = "#tableView";
+export var MENU_ID = "#menu";
+export var MASK_HTML_PATH = "/polar/cutscene.html";
+
 !function() {
     tools.honour();
     try {
-        const MAIN_APP_ID = "#MainApp";
-        const TABLEVIEW_ID = "#tableView";
-        const MENU_ID = "#menu";
-        const MASK_HTML_PATH = "/polar/cutscene.html";
         let vueLayer = new VueLayer(MASK_HTML_PATH, MAIN_APP_ID);
         let sceneLayer = new SceneLayer({
             vuePanel: vueLayer,

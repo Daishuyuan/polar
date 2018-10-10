@@ -1,12 +1,14 @@
 import { TableFactory } from "../diagram/TableFactory.js";
 import { Tools as tools } from "../basic/BasicTools.js";
 import { DelayTime } from "./VueLayer.js";
+import { TABLEVIEW_ID } from "./MainActivity.js";
 
 export class SceneLayer {
     constructor(props) {
         this.vuePanel = props.vuePanel;
         this.tableViewId = props.tableViewId;
         this.menuId = props.menuId;
+        var factory = new TableFactory();
         // request resource from url
         this.req = (url) => {
             return $.ajax({
@@ -15,11 +17,11 @@ export class SceneLayer {
                 dataType: "json"
             });
         }
-
+        // init tables in panel
         this.initTables = (url) => {
-            req(url).then(function (scene) {
+            this.req(url).then(function (scene) {
                 for (let name in scene.tableLayer) {
-                    TableFactory.generate("#tableView", scene.tableLayer[name]);
+                    factory.generate(TABLEVIEW_ID, scene.tableLayer[name]);
                 }
             });
         }
@@ -42,6 +44,19 @@ export class SceneLayer {
                 }
             });
         }
+        // registery event
+        this.vuePanel.menuEvents.set("eventGlobalScene", () => {
+            this.loadGlobalScene();
+        });
+        this.vuePanel.menuEvents.set("eventAntarcticScene", () => {
+            this.loadAntarcticaScene();
+        });
+        this.vuePanel.menuEvents.set("eventArcticScene", () => {
+            this.loadArcticScene();
+        });
+        this.vuePanel.menuEvents.set("eventLidarScene", () => {
+            this.loadLidarScene();
+        });
     }
 
     preloaded() {
@@ -56,16 +71,16 @@ export class SceneLayer {
     loadGlobalScene() {
         this.themeInit({
             name: "全球尺度场景",
-            wkid: "globalSituation",
+            wkid: "globalScene",
             menu: [{
                 name: "全球尺度场景",
-                event: "eventGlobalSituation"
+                event: "eventGlobalScene"
             }, {
                 name: "南极区域场景",
-                event: "eventAntarcticSituation"
+                event: "eventAntarcticScene"
             }, {
                 name: "北极区域场景",
-                event: "eventArcticSituation"
+                event: "eventArcticScene"
             }]
         });
     }
@@ -74,19 +89,19 @@ export class SceneLayer {
     loadAntarcticaScene() {
         this.themeInit({
             name: "南极区域场景",
-            wkid: "polarSituation",
+            wkid: "antarcticScene",
             menu: [{
                 name: "返回",
-                event: "eventGlobalSituation"
+                event: "eventGlobalScene"
             }, {
                 name: "激光雷达",
-                event: "eventLadar"
+                event: "eventLidarScene"
             }, {
                 name: "冰下湖钻探",
-                event: "eventIceLakeDrilling"
+                event: "eventIceLakeDrillingScene"
             }, {
                 name: "高空物理",
-                event: "eventHighAltitudePhysics"
+                event: "eventHighAltitudePhysicsScene"
             }]
         });
         this.initTables("http://localhost:3000/Antarctica");
@@ -96,22 +111,22 @@ export class SceneLayer {
     loadArcticScene() {
         this.themeInit({
             name: "北极区域场景",
-            wkid: "arcticSituation",
+            wkid: "arcticScene",
             menu: [{
                 name: "返回",
-                event: "eventGlobalSituation"
+                event: "eventGlobalScene"
             }]
         });
     }
 
     // 加载激光雷达场景布局
     loadLidarScene() {
-        themeInit({
+        this.themeInit({
             name: "激光雷达场景",
-            wkid: "lidarSituation",
+            wkid: "lidarScene",
             menu: [{
                 name: "返回",
-                event: "eventAntarcticSituation"
+                event: "eventAntarcticScene"
             }]
         });
         this.initTables("http://localhost:3000/Lidar");

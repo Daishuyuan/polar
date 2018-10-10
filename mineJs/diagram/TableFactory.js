@@ -31,7 +31,7 @@ import {Tools as tools} from "../basic/BasicTools.js"
 
 export class TableFactory {
 
-    constructor(jqDom, config) {
+    constructor() {
         const NO_MARGIN = "margin: 0px";
         const ROW_MARGIN_STYLE = "margin-right: -0.79vw;margin-left: -0.79vw;";
         const TITLE_DEFAULT_HEIGHT = 10;
@@ -61,7 +61,7 @@ export class TableFactory {
             });
         }
 
-        this.__init__ = () => {
+        this.__init__ = (jqDom, config) => {
             jqDom.ready(function () {
                 var tbcnt = [],
                     echDelay = [];
