@@ -25,13 +25,13 @@
  * @requires echarts-liquidfill
  * @requires BasicTools
  * @requires bootstrap
- * @exports *XPaneLoader
+ * @exports TableFactory
 **/
-define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"], function (echarts, tools) {
-    'use strict';
+import {Tools as tools} from "../basic/BasicTools.js"
 
-    // super table generator
-    function XPaneLoader() {
+export class TableFactory {
+
+    constructor(jqDom, config) {
         const NO_MARGIN = "margin: 0px";
         const ROW_MARGIN_STYLE = "margin-right: -0.79vw;margin-left: -0.79vw;";
         const TITLE_DEFAULT_HEIGHT = 10;
@@ -39,17 +39,29 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
         const sstd = (x) => !!x ? x : "";
         const nstd = (x) => !isNaN(parseFloat(x)) && x > 0? x : 0;
 
-        // outter functions
-        if (!XPaneLoader.prototype.generate) {
-            XPaneLoader.prototype.generate = function (id, config) {
-                let dom = document.createElement("div");
-                __init__($(dom), config);
-                $(id).append(dom);
-            };
+        // load chart
+        function loadChart(id, url) {
+            $("#" + id).ready(function () {
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (option) {
+                        var myChar = echarts.init(document.getElementById(id));
+                        myChar.setOption(option);
+                        myChar.resize();
+                        if (option.series[0].type === "gauge") {
+                            setInterval(function () {
+                                option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
+                                myChar.setOption(option, true);
+                            }, 2000);
+                        }
+                    }
+                });
+            });
         }
 
-        // initialization by configuration
-        function __init__(jqDom, config) {
+        this.__init__ = () => {
             jqDom.ready(function () {
                 var tbcnt = [],
                     echDelay = [];
@@ -74,7 +86,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                                     let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`, title_height = 0;
                                     if (node.name) {
                                         let content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
-                                        title_height = Math.min(Math.max(0, node.title_height ? node.title_height : TITLE_DEFAULT_HEIGHT), 100);
+                                        title_height = parseInt(Math.min(Math.max(0, node.title_height ? node.title_height : TITLE_DEFAULT_HEIGHT), 100));
                                         tbcnt.push(`<div class='${sstd(node.title_class)}' style="height: ${title_height}%;text-align: center;margin:0;">${content_title}</div>`);
                                     }
                                     tbcnt.push(`<div id='${_id}' style='height:${100 - title_height}%;' class='${sstd(node.style)}'></div>`);
@@ -136,7 +148,7 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                             try {
                                 for (let i = 0; i < echDelay.length; ++i) {
                                     let node = echDelay[i];
-                                    addChart(node.id, node.url);
+                                    loadChart(node.id, node.url);
                                 }
                             } catch(e) {
                                 tools.mutter(e, "error");
@@ -150,29 +162,11 @@ define(["echarts", "BasicTools", "/polar/js/echarts/echarts-liquidfill.min.js"],
                 }();
             });
         }
-
-        // generate charts
-        function addChart(id, url) {
-            $("#" + id).ready(function () {
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    dataType: "json",
-                    success: function (option) {
-                        var myChar = echarts.init(document.getElementById(id));
-                        myChar.setOption(option);
-                        myChar.resize();
-                        if (option.series[0].type === "gauge") {
-                            setInterval(function () {
-                                option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
-                                myChar.setOption(option, true);
-                            }, 2000);
-                        }
-                    }
-                });
-            });
-        }
     }
 
-    return new XPaneLoader();
-});
+    generate(id, config) {
+        let dom = document.createElement("div");
+        this.__init__($(dom), config);
+        $(id).append(dom);
+    }
+}

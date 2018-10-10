@@ -1,5 +1,4 @@
-define(["/polar/js/threeJs/Detector.js", "/polar/js/threeJs/extras/libs/system.min.js"], function (Detector, System) {
-    'use strict';
+export var Tools = (function() {
     const generator = idGenerator();
 
     function guid() {
@@ -16,17 +15,6 @@ define(["/polar/js/threeJs/Detector.js", "/polar/js/threeJs/extras/libs/system.m
     }
 
     return {
-        envirNotPermit: function () {
-            for (var column in System.support) {
-                if (!System.support[column]) {
-                    throw new Error(`the module of ${column} can't be linked.`);
-                }
-            }
-            if (!Detector.webgl) {
-                throw new Error(`webgl error: ${Detector.getWebGLErrorMessage()}`);
-            }
-            return false;
-        },
         sleep: function (milliseconds) {
             var deferred = $.Deferred();
             setTimeout(function () {
@@ -94,4 +82,4 @@ define(["/polar/js/threeJs/Detector.js", "/polar/js/threeJs/extras/libs/system.m
             }
         }
     }
-});
+})();

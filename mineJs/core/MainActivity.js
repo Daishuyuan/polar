@@ -5,83 +5,28 @@
  * @requires VueComponents
  * @requires BasicTools
  */
-!function () {
-    require.config({
-        paths: {
-            d3: "/polar/js/other/d3.min",
-            domReady: "/polar/js/other/require-domReady.min",
-            echarts: "/polar/js/echarts/echarts.min",
-            Vue: "/polar/js/other/vue.min",
-            JQuery: "/polar/js/other/jquery-3.3.1.min",
-            THREE: "/polar/js/threeJs/three.min",
-            BasicTools: "/polar/mineJs/basic/BasicTools",
-            DataReceiver: "/polar/mineJs/basic/DataReceiver",
-            BlockPipeline: "/polar/mineJs/pipeline/BlockPipeline",
-            Controller: "/polar/mineJs/pipeline/Controller",
-            Utils: "/polar/mineJs/pipeline/Utils",
-            Gaffer: "/polar/mineJs/pipeline/Gaffer",
-            Producer: "/polar/mineJs/pipeline/Producer",
-            ShaderFactory: "/polar/mineJs/pipeline/ShaderFactory",
-            Constants: "/polar/mineJs/pipeline/Constants",
-            TableFactory: "/polar/mineJs/diagram/TableFactory"
-            // TestSet: "/polar/mineJs/test/TestSet",
-            //TableConfig: "/polar/mineJs/diagram/TableConfig"
-        },
-        shim: {
-            "/polar/js/threeJs/extras/utils/GeometryUtils.js": {
-                deps: ["THREE"],
-                exports: "GeometryUtils"
-            },
-            "/polar/js/layer/layer.js": {
-                deps: ["JQuery"],
-                exports: "Layer"
-            },
-            "/polar/js/threeJs/extras/libs/system.min.js": {
-                exports: "System"
-            },
-            "/polar/js/threeJs/extras/controls/OrbitControls.js": {
-                deps: ["THREE"],
-                exports: "THREE.OrbitControls"
-            },
-            "/polar/js/threeJs/extras/controls/FirstPersonControls.js": {
-                deps: ["THREE"],
-                exports: "THREE.FirstPersonControls"
-            },
-            "/polar/js/threeJs/extras/loaders/FBXLoader.js": {
-                deps: ["THREE"],
-                exports: "THREE.FBXLoader"
-            },
-            "/polar/js/threeJs/extras/loaders/GLTFLoader.js": {
-                deps: ["THREE"],
-                exports: "THREE.GLTFLoader"
-            },
-            "/polar/js/threeJs/Detector.js": {
-                exports: "Detector"
-            },
-            "/polar/js/threeJs/extras/libs/stats.min.js": {
-                exports: "Stats"
-            },
-            "/polar/js/echarts/echarts-liquidfill.min.js": {
-                deps: ["echarts"]
-            }
-        }
-    });
+import {VueLayer} from "./VueLayer.js";
+import {SceneLayer} from "./SceneLayer.js";
+import {Tools as tools} from "../basic/BasicTools.js";
 
-    require([
-        "ThreeComponents",
-        "VueComponents",
-        "BasicTools"
-    ], function (tc, vc, tools) {
-        try {
-            tools.honour();
-            if (!tools.envirNotPermit()) {
-                tc.requestRes().then(function () {
-                    tc.init();
-                    vc.MainApp.loaded = true;
-                });
-            }
-        } catch (e) {
-            tools.mutter(`outermost error msg: ${e}`, "fatal");
-        }
-    });
+!function() {
+    tools.honour();
+    try {
+        const MAIN_APP_ID = "#MainApp";
+        const TABLEVIEW_ID = "#tableView";
+        const MENU_ID = "#menu";
+        const MASK_HTML_PATH = "/polar/cutscene.html";
+        let vueLayer = new VueLayer(MASK_HTML_PATH, MAIN_APP_ID);
+        let sceneLayer = new SceneLayer({
+            vuePanel: vueLayer,
+            tableViewId: TABLEVIEW_ID,
+            menuId: MENU_ID
+        });
+        sceneLayer.preloaded().then(function() {
+            sceneLayer.init();
+            sceneLayer.loadGlobalScene();
+        });
+    } catch(e) {
+        tools.mutter(`outermost error msg: ${e}`, "fatal");
+    }
 }()
