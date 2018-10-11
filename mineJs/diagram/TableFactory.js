@@ -1,4 +1,3 @@
-
 /**
  * @name TableFactory 图表配置工厂
  * @author dsy 2018-10-08
@@ -26,8 +25,10 @@
  * @requires BasicTools
  * @requires bootstrap
  * @exports TableFactory
-**/
-import {Tools as tools} from "../basic/BasicTools.js"
+ **/
+import {
+    Tools as tools
+} from "../basic/BasicTools.js"
 
 export class TableFactory {
 
@@ -37,7 +38,7 @@ export class TableFactory {
         const TITLE_DEFAULT_HEIGHT = 10;
         const guid = tools.sGuid;
         const sstd = (x) => !!x ? x : "";
-        const nstd = (x) => !isNaN(parseFloat(x)) && x > 0? x : 0;
+        const nstd = (x) => !isNaN(parseFloat(x)) && x > 0 ? x : 0;
 
         // load chart
         function loadChart(id, url) {
@@ -74,7 +75,9 @@ export class TableFactory {
                             tbcnt.push(`<div class='${sstd(node.column)}' style='height:100%;padding-left:1%;padding-right:0;'>`);
                             switch (node.type) {
                                 case "title":
-                                    let prefix_content = "", title_content = "", control = "";
+                                    let prefix_content = "",
+                                        title_content = "",
+                                        control = "";
                                     if (node.prefix) {
                                         prefix_content = `<p class='${node.prefix}'></p>`;
                                         control = "style='display: inline-flex;'";
@@ -83,7 +86,8 @@ export class TableFactory {
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
                                     break;
                                 case "chart":
-                                    let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`, title_height = 0;
+                                    let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`,
+                                        title_height = 0;
                                     if (node.name) {
                                         let content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
                                         title_height = parseInt(Math.min(Math.max(0, node.title_height ? node.title_height : TITLE_DEFAULT_HEIGHT), 100));
@@ -126,7 +130,7 @@ export class TableFactory {
                     }
                 }
 
-                !function () {
+                ! function () {
                     try {
                         if (config) {
                             if (config.pane) {
@@ -150,7 +154,7 @@ export class TableFactory {
                                     let node = echDelay[i];
                                     loadChart(node.id, node.url);
                                 }
-                            } catch(e) {
+                            } catch (e) {
                                 tools.mutter(e, "error");
                             }
                         } else {

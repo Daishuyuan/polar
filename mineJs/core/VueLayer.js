@@ -1,10 +1,12 @@
-import {Tools as tools} from "../basic/BasicTools.js"
+import {
+    Tools as tools
+} from "../basic/BasicTools.js"
 
 export class VueLayer {
     constructor(MASK_HTML_PATH, MAIN_APP_ID) {
         // generate menu events
         var menuButtonEvents = new Map();
-    
+
         // initialize the application
         var mainApp = new Vue({
             el: MAIN_APP_ID,
@@ -40,7 +42,7 @@ export class VueLayer {
             }
         });
 
-        $(`#${MAIN_APP_ID.slice(1)}Tips`).mouseover(function() {
+        $(`#${MAIN_APP_ID.slice(1)}Tips`).mouseover(function () {
             layer.tips(mainApp.tips.text, this);
         });
 

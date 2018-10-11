@@ -1,10 +1,20 @@
-import { TableFactory } from "../diagram/TableFactory.js";
-import { Tools as tools } from "../basic/BasicTools.js";
-import { DelayTime } from "./VueLayer.js";
-import { TABLEVIEW_ID } from "./MainActivity.js";
+import {
+    TableFactory
+} from "../diagram/TableFactory.js";
+import {
+    Tools as tools
+} from "../basic/BasicTools.js";
+import {
+    DelayTime
+} from "./VueLayer.js";
+import {
+    TABLEVIEW_ID,
+    ARCGIS_SCENE
+} from "./MainActivity.js";
 
 export class SceneLayer {
     constructor(props) {
+        const TABLE_DEBUG = false;
         this.vuePanel = props.vuePanel;
         this.tableViewId = props.tableViewId;
         this.menuId = props.menuId;
@@ -44,6 +54,44 @@ export class SceneLayer {
                 }
             });
         }
+
+        // arcgis 3d map renderer
+        if (!TABLE_DEBUG) {
+            require([
+                "esri/Map",
+                "esri/views/SceneView"
+            ], (Map, SceneView) => {
+                this.map = new Map({
+                    basemap: "satellite",
+                    ground: "world-elevation"
+                });
+    
+                this.view = new SceneView({
+                    alphaCompositingEnabled: true,
+                    container: ARCGIS_SCENE,
+                    map: this.map,
+                    scale: 5000000000,
+                    center: [-101.17, 21.78],
+                    camera: {
+                        position: [
+                            -122, // lon
+                            38, // lat
+                            53000000 // elevation in meters
+                        ],
+                        heading: 95
+                    },
+                    environment: {
+                        background: {
+                            type: "color",
+                            color: [0, 0, 0, 0]
+                        },
+                        starsEnabled: false,
+                        atmosphereEnabled: false
+                    }
+                });
+            });
+        }
+
         // registery event
         this.vuePanel.menuEvents.set("eventGlobalScene", () => {
             this.loadGlobalScene();
