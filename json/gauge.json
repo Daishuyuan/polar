@@ -1,25 +1,25 @@
 {
   "Common": {
     "data": {
-      "stations": [
+      "stations": [{
+          "name": "长城站",
+          "lon": -58.5772,
+          "lat": -62.1305
+        },
         {
-        "name": "长城站",
-        "lon": -58.5772,
-        "lat": -62.1305
-      }, 
-      {
-        "name": "昆仑站",
-        "lon": 77.0659,
-        "lat": -80.2502
-      }, {
-        "name": "泰山站",
-        "lon": 76.5829,
-        "lat": -73.5150
-      }, {
-        "name": "中山站",
-        "lon": 76.2218,
-        "lat": -69.2225
-      }],
+          "name": "昆仑站",
+          "lon": 77.0659,
+          "lat": -80.2502
+        }, {
+          "name": "泰山站",
+          "lon": 76.5829,
+          "lat": -73.5150
+        }, {
+          "name": "中山站",
+          "lon": 76.2218,
+          "lat": -69.2225
+        }
+      ],
       "ships": [{
         "name": "白濑",
         "lon": 76.96,
@@ -91,7 +91,7 @@
                 "type": "capsule",
                 "column": "col-md-4",
                 "rows": [{
-                    "height": 50,
+                    "height": 45,
                     "descrip": "第一行",
                     "class": "body_row",
                     "cols": [{
@@ -113,7 +113,7 @@
                     ]
                   },
                   {
-                    "height": 50,
+                    "height": 45,
                     "descrip": "第二行",
                     "class": "body_row",
                     "cols": [{
@@ -265,7 +265,7 @@
                 "type": "capsule",
                 "column": "col-md-7",
                 "rows": [{
-                    "height": 33,
+                    "height": 30,
                     "descrip": "第一行",
                     "class": "body_row",
                     "cols": [{
@@ -279,7 +279,7 @@
                     }]
                   },
                   {
-                    "height": 33,
+                    "height": 30,
                     "descrip": "第二行",
                     "class": "body_row",
                     "cols": [{
@@ -291,7 +291,7 @@
                     }]
                   },
                   {
-                    "height": 33,
+                    "height": 30,
                     "descrip": "第三行",
                     "class": "body_row",
                     "cols": [{
@@ -28184,20 +28184,30 @@
       "formatter": "{a}:{c}m"
     },
     "grid": {
-      "left": "5%",
-      "right": "3%",
-      "top": "10%",
-      "bottom": "10%"
+      "left": "15%",
+      "right": "20%",
+      "top": "18%",
+      "bottom": "15%"
     },
     "calculable": true,
     "xAxis": [{
       "name": "时间",
       "type": "category",
+      "axisLine": {
+        "lineStyle": {
+          "color": "#fff"
+        }
+      },
       "boundaryGap": false,
       "data": ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00"]
     }],
     "yAxis": [{
       "name": "波长/m",
+      "axisLine": {
+        "lineStyle": {
+          "color": "#fff"
+        }
+      },
       "type": "value"
     }],
     "series": [{
@@ -28212,6 +28222,9 @@
     }]
   },
   "fileType": {
+    "tooltip": {
+      "formatter": "{a}:{c}"
+    },
     "angleAxis": {
       "type": "category",
       "data": ["第一次", "第二次", "第三次", "第四次", "第五次", "第六次", "第七次"],
@@ -28237,11 +28250,7 @@
       "coordinateSystem": "polar",
       "name": "其他",
       "stack": "a"
-    }],
-    "legend": {
-      "show": true,
-      "data": ["多媒体", "文本", "其他"]
-    }
+    }]
   },
   "complete": {
     "title": {
@@ -28334,32 +28343,13 @@
   "ringComplete": {
     "color": ["#85b6b2", "#6d4f8d", "#cd5e7e", "#e38980", "#f7db88"],
     "tooltip": {
-      "show": true,
       "formatter": "{a} <br/>{b} : {c} ({d}%)"
-    },
-    "toolbox": {
-      "show": true,
-      "feature": {
-        "mark": {
-          "show": true
-        },
-        "dataView": {
-          "show": true,
-          "readOnly": false
-        },
-        "restore": {
-          "show": true
-        },
-        "saveAsImage": {
-          "show": true
-        }
-      }
     },
     "series": [{
       "name": "gauge.json",
       "type": "pie",
       "clockWise": false,
-      "radius": [180, 200],
+      "radius": [35, 45],
       "itemStyle": {
         "normal": {
           "label": {
@@ -28396,7 +28386,7 @@
       "name": "index.html",
       "type": "pie",
       "clockWise": false,
-      "radius": [160, 180],
+      "radius": [25, 35],
       "itemStyle": {
         "normal": {
           "label": {
@@ -28434,7 +28424,7 @@
       "type": "pie",
       "clockWise": false,
       "hoverAnimation": false,
-      "radius": [140, 160],
+      "radius": [15, 25],
       "itemStyle": {
         "normal": {
           "label": {
@@ -28471,7 +28461,7 @@
       "type": "pie",
       "clockWise": false,
       "hoverAnimation": false,
-      "radius": [120, 140],
+      "radius": [5, 15],
       "itemStyle": {
         "normal": {
           "label": {
@@ -28513,10 +28503,21 @@
         "animation": false
       }
     },
+    "grid": {
+      "left": "15%",
+      "right": "20%",
+      "top": "18%",
+      "bottom": "25%"
+    },
     "xAxis": {
       "type": "time",
       "splitLine": {
         "show": false
+      },
+      "axisLine": {
+        "lineStyle": {
+          "color": "#fff"
+        }
       }
     },
     "yAxis": {
@@ -28525,6 +28526,11 @@
       "min": 550,
       "splitLine": {
         "show": false
+      },
+      "axisLine": {
+        "lineStyle": {
+          "color": "#fff"
+        }
       }
     },
     "series": [{
@@ -28843,10 +28849,21 @@
         "animation": false
       }
     },
+    "grid": {
+      "left": "15%",
+      "right": "20%",
+      "top": "18%",
+      "bottom": "25%"
+    },
     "xAxis": {
       "type": "time",
       "splitLine": {
         "show": false
+      },
+      "axisLine": {
+        "lineStyle": {
+          "color": "#fff"
+        }
       }
     },
     "yAxis": {
@@ -28855,6 +28872,11 @@
       "min": 550,
       "splitLine": {
         "show": false
+      },
+      "axisLine": {
+        "lineStyle": {
+          "color": "#fff"
+        }
       }
     },
     "series": [{
@@ -29170,12 +29192,10 @@
     "radar": {
       "name": {
         "textStyle": {
-          "color": "#fff",
-          "backgroundColor": "#999",
-          "borderRadius": 3,
-          "padding": [3, 5]
+          "color": "#fff"
         }
       },
+      "nameGap": 1,
       "indicator": [{
         "name": "温度",
         "max": 40
