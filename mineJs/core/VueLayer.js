@@ -1,6 +1,4 @@
-import {
-    Tools as tools
-} from "../basic/BasicTools.js"
+import { Tools as tools } from "../basic/BasicTools.js"
 
 export class VueLayer {
     constructor(MASK_HTML_PATH, MAIN_APP_ID) {

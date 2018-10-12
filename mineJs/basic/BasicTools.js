@@ -1,43 +1,57 @@
-export var Tools = (function() {
-    const generator = idGenerator();
+export var Tools = (() => {
+    const idGenerator = () => {
+        let id = 0;
 
-    function guid() {
+        function* __inner__() {
+            while (id += 1) yield id;
+        }
+        return __inner__();
+    }
+    const ider = idGenerator();
+    const guid = () => {
         let S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
-
-    function idGenerator() {
-        let id = 0;
-        function *idGenerator() {
-            while(id+=1) yield id;
-        }
-        return idGenerator();
-    }
+    window.watcher = {};
 
     return {
-        sleep: function (milliseconds) {
+        watch: (name, obj) => {
+            Object.defineProperty(window.watcher, name, {
+                get() {
+                    return obj;
+                }
+            })
+        },
+        sleep: (milliseconds) => {
             var deferred = $.Deferred();
             setTimeout(function () {
                 deferred.resolve();
             }, milliseconds);
             return deferred;
         },
-        calRunTime: function (callback) {
+        req: (url) => {
+            return $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json"
+            });
+        },
+        calRunTime: (callback) => {
             var curTime = Date.now();
             callback();
             return Date.now() - curTime;
         },
-        sGuid: function () {
-            return 'xxxxxx-xx-4x-yx-xxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        sGuid: () => {
+            return 'xxxxxx-xx-4x-yx-xxxxxxxxxx'.replace(/[xy]/g, (c) => {
                 var r = Math.random() * 16 | 0,
                     v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
             });
         },
-        guid: function () {
+        guid: () => {
             return guid();
         },
-        honour: function () {
+        honour: () => {
             var wxy = [
                 `<--  Macho Tears  -->`,
                 `!!;:;!;;;'\`:!!|||!||!||`,
@@ -61,8 +75,8 @@ export var Tools = (function() {
             ];
             console.log(`%c ${wxy.join('\n')}`, "color:green");
         },
-        mutter: function (msg, level) {
-            let content = `WXY(id:${generator.next().value},lv:wxy_${level}):%c ${msg}`;
+        mutter: (msg, level) => {
+            let content = `WXY(id:${ider.next().value},lv:wxy_${level}):%c ${msg}`;
             switch (level) {
                 case "fatal":
                     console.error(content, "color:#750000");

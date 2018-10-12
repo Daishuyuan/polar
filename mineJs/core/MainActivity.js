@@ -5,34 +5,30 @@
  * @requires VueComponents
  * @requires BasicTools
  */
-import {
-    VueLayer
-} from "./VueLayer.js";
-import {
-    SceneLayer
-} from "./SceneLayer.js";
-import {
-    Tools as tools
-} from "../basic/BasicTools.js";
+import { VueLayer } from "./VueLayer.js";
+import { SceneManager } from "../scene/SceneManager.js";
+import { Tools as tools } from "../basic/BasicTools.js";
 
 export var MAIN_APP_ID = "#MainApp";
 export var TABLEVIEW_ID = "#tableView";
 export var MENU_ID = "#menu";
 export var MASK_HTML_PATH = "/polar/cutscene.html";
 export var ARCGIS_SCENE = "threeJsView";
+export var PRE_DATA_URL = "http://localhost:3000";
 
 ! function () {
     tools.honour();
     try {
         let vueLayer = new VueLayer(MASK_HTML_PATH, MAIN_APP_ID);
-        let sceneLayer = new SceneLayer({
+        let manager = SceneManager({
             vuePanel: vueLayer,
             tableViewId: TABLEVIEW_ID,
-            menuId: MENU_ID
+            menuId: MENU_ID,
+            preDataUrl: PRE_DATA_URL,
+            container: ARCGIS_SCENE
         });
-        sceneLayer.preloaded().then(function () {
-            sceneLayer.init();
-            sceneLayer.loadGlobalScene();
+        manager.preloaded().then(function () {
+            manager.init();
         });
     } catch (e) {
         tools.mutter(`outermost error msg: ${e}`, "fatal");

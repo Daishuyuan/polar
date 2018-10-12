@@ -9,6 +9,7 @@
  * --------------------------------------> cols [] -> col {} -> type 类型 = title/chart/capsule
  * -----------------------------------------------------------> name(title/chart) 标题名称
  * -----------------------------------------------------------> title_class(chart) 标题的css类名
+ * -----------------------------------------------------------> title_height(chart) 标题高度
  * -----------------------------------------------------------> style(title/chart) 主体的css类名
  * -----------------------------------------------------------> height(title/chart) 列高度 >= 0
  * -----------------------------------------------------------> descrip(all) 列描述信息
@@ -26,19 +27,17 @@
  * @requires bootstrap
  * @exports TableFactory
  **/
-import {
-    Tools as tools
-} from "../basic/BasicTools.js"
+import { Tools as tools } from "../basic/BasicTools.js"
 
 export class TableFactory {
 
     constructor() {
-        const NO_MARGIN = "margin: 0px";
-        const ROW_MARGIN_STYLE = "margin-right: -0.79vw;margin-left: -0.79vw;";
-        const TITLE_DEFAULT_HEIGHT = 10;
-        const guid = tools.sGuid;
-        const sstd = (x) => !!x ? x : "";
-        const nstd = (x) => !isNaN(parseFloat(x)) && x > 0 ? x : 0;
+        const NO_MARGIN = "margin: 0px"; // no margin style
+        const ROW_MARGIN_STYLE = "margin-right: -0.79vw;margin-left: -0.79vw;"; // row margin style
+        const TITLE_DEFAULT_HEIGHT = 10; // default title height
+        const guid = tools.sGuid; // guid generator
+        const sstd = (x) => !!x ? x : ""; // string standard
+        const nstd = (x) => !isNaN(parseFloat(x)) && x > 0 ? x : 0; // number standard
 
         // load chart
         function loadChart(id, url) {

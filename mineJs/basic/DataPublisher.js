@@ -1,11 +1,8 @@
-define("BasicTools", function (tools) {
-    'use strict';
-    const PROP_URl = "";  // url of props
-    const TICK = 2000;    // cycle of pull props
+import { Tools as tools } from "./BasicTools.js"
 
-    function DataPublisher(propsUrl, tick) {
-        var subscribers = new Map();
-
+export class DataPublisher {
+    constructor(propsUrl, tick) {
+        this.subscribers = new Map();
         setInterval(function () {
             $.ajax({
                 url: propsUrl,
@@ -34,21 +31,17 @@ define("BasicTools", function (tools) {
                 tools.mutter(e, "error");
             });
         }, tick);
-
-        if(!DataPublisher.prototype.add) {
-            DataPublisher.prototype.add = function (name, url, callback) {
-                if (!subscribers.has(name)) {
-                    subscribers.set(name, []);
-                }
-                if (subscriber && url) {
-                    subscribers.get(name).push({
-                        url: url,
-                        func: new Function("data", callback)
-                    });
-                }
-            }
-        }
     }
 
-    return new DataPublisher(PROP_URl, TICK);
-});
+    subscrib(name, url, callback) {
+        if (!this.subscribers.has(name)) {
+            this.subscribers.set(name, []);
+        }
+        if (this.subscriber && url) {
+            this.subscribers.get(name).push({
+                url: url,
+                func: new Function("data", callback)
+            });
+        }
+    }
+}
