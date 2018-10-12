@@ -14,12 +14,12 @@ export class Scene {
         this._preDataUrl = props.preDataUrl;
     }
 
-    static get EVENT_NAME() {
+    get EVENT_NAME() {
         return this._eventName;
     }
 
-    initTables(url) {
-        tools.req(url).then((scene) => {
+    initTables(name) {
+        tools.req(`${this._preDataUrl}\${name}`).then((scene) => {
             for (let name in scene.tableLayer) {
                 this._factory.generate(this._tableViewId, scene.tableLayer[name]);
             }

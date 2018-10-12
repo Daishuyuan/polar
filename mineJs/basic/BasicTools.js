@@ -13,14 +13,29 @@ export var Tools = (() => {
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
     window.watcher = {};
+    var inner_lock = false;
 
     return {
         watch: (name, obj) => {
-            Object.defineProperty(window.watcher, name, {
-                get() {
-                    return obj;
-                }
-            })
+            if (name in window.watcher) {
+                inner_lock = true;
+                window.watcher[name] = obj;
+            } else {
+                (function() {
+                    var inner_value = obj;
+                    Object.defineProperty(window.watcher, name, {
+                        get() {
+                            return inner_value;
+                        },
+                        set (val) {
+                            if (inner_lock) {
+                                inner_lock = false;
+                                inner_value = val;
+                            }
+                        }
+                    });
+                })();
+            }
         },
         sleep: (milliseconds) => {
             var deferred = $.Deferred();

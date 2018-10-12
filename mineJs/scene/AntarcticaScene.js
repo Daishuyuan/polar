@@ -37,6 +37,6 @@ export class AntarcticaScene extends Scene {
             }],
             viewField: this.ANTARCTICA_VIEW_POINT
         });
-        super.initTables(`${PRE_DATA_URL}/Antarctica`);
+        super.initTables("Antarctica");
     }
 }

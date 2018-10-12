@@ -8,7 +8,6 @@ import { Tools as tools } from "../basic/BasicTools.js";
 export var SceneManager = (props) => {
     const TABLE_DEBUG = false;
     const __init__ = () => {
-        props.vuePanel.init();
         props.factory = new TableFactory();
         // arcgis 3d map renderer
         if (!TABLE_DEBUG) {
@@ -74,17 +73,8 @@ export var SceneManager = (props) => {
                 });
                 props.map.add(props.staticGLayer);
                 props.staticGLayer.addMany(ship_cache);
-            });
-        }
-    }
 
-    return {
-        preloaded: () => {
-            return $.when();
-        },
-        init: () => {
-            if (props) {
-                __init__(props);
+                // init scenes
                 let scenes = [];
                 scenes.push(new GlobalScene(props)); // scene 1
                 scenes.push(new LidarScene(props)); // scene 2
@@ -94,9 +84,17 @@ export var SceneManager = (props) => {
                     props.vuePanel.menuEvents.set(scene.EVENT_NAME, () => scene.load());
                 }); // load scene
                 scenes[0].load(); // load scene 1
-            } else {
-                tools.mutter("props unsettled.", "error");
-            }
+                props.vuePanel.init(); // vue panel init
+            });
+        }
+    }
+
+    return {
+        preloaded: () => {
+            return $.when();
+        },
+        init: () => {
+            props? __init__(): tools.mutter("props unsettled.", "error");
         }
     }
 };

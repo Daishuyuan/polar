@@ -14,6 +14,6 @@ export class LidarScene extends Scene {
                 event: "eventAntarcticScene"
             }]
         });
-        super.initTables(`${PRE_DATA_URL}/Lidar`);
+        super.initTables("Lidar");
     }
 }
