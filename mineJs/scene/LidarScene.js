@@ -3,7 +3,7 @@ import { Scene } from "./Scene.js"
 export class LidarScene extends Scene {
     constructor(props) {
         props.wkid = "LidarScene";
-        props.eventName = "eventArcticScene";
+        props.eventName = "eventLidarScene";
         super(props);
     }
 

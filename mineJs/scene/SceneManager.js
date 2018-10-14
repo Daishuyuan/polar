@@ -22,6 +22,7 @@ export var SceneManager = (props) => {
                     basemap: "satellite",
                     ground: "world-elevation"
                 });
+                tools.watch("map", props.map);
                 props.view = new SceneView({
                     alphaCompositingEnabled: true,
                     container: props.container,
@@ -40,6 +41,7 @@ export var SceneManager = (props) => {
                         atmosphereEnabled: false
                     }
                 });
+                tools.watch("view", props.view);
                 props.view.ui.empty('top-left'); // remove control panel in top left
                 props.view.ui._removeComponents(["attribution"]); // remove "Powered by esri"
                 props.staticGLayer = new GraphicsLayer();

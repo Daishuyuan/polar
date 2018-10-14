@@ -36,7 +36,7 @@ export class Scene {
         $(this._tableViewId).children().hide();
         if (props.name) {
             this._vuePanel.application.title = props.name;
-            tools.watch("curScene", `current scene:${props.name}-${this._wkid}`);
+            tools.watch("curScene", `current scene:${props.name}-${this._wkid}-${this._eventName}`);
         }
         // common process
         let delay = new DelayTime(0, 0.1);
