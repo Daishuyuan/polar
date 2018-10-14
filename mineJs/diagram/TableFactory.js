@@ -169,9 +169,8 @@ export class TableFactory {
 
     generate(id, config) {
         let dom = document.createElement("div");
-        dom.id = `ZXJ-Pane-${tools.guid()}`;
         this.__init__($(dom), config);
         $(id).append(dom);
-        return dom.id;
+        return dom;
     }
 }

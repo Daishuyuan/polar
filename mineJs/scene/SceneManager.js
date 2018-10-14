@@ -5,9 +5,9 @@ import { LidarScene } from "./LidarScene.js"
 import { TableFactory } from "../diagram/TableFactory.js";
 import { Tools as tools } from "../basic/BasicTools.js";
 
-export var SceneManager = (props) => {
+export var SceneManager = () => {
     const TABLE_DEBUG = false;
-    const __init__ = () => {
+    const __init__ = (props) => {
         props.factory = new TableFactory();
         // arcgis 3d map renderer
         if (!TABLE_DEBUG) {
@@ -31,14 +31,13 @@ export var SceneManager = (props) => {
                         lighting: {
                             directShadowsEnabled: false,
                             ambientOcclusionEnabled: false,
-                            cameraTrackingEnabled: false
+                            // cameraTrackingEnabled: false
                         },
                         background: {
                             type: "color",
                             color: [0, 0, 0, 0]
                         },
                         starsEnabled: false,
-                        atmosphereEnabled: false
                     }
                 });
                 tools.watch("view", props.view);
@@ -95,8 +94,8 @@ export var SceneManager = (props) => {
         preloaded: () => {
             return $.when();
         },
-        init: () => {
-            props? __init__(): tools.mutter("props unsettled.", "error");
+        init: (props) => {
+            props? __init__(props): tools.mutter("props unsettled.", "error");
         }
     }
 };

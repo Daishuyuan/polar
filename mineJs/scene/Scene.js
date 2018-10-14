@@ -22,11 +22,12 @@ export class Scene {
         SCENE_NAMES.set(this._wkid, this._eventName); // register wkid and eventName
     }
 
-    // must be override in sub class
+    // this must be override in sub class
     get eventName() {
         return this._eventName;
     }
 
+    // get eventName by name of sub class
     static get names() {
         return SCENE_NAMES;
     }
@@ -56,21 +57,21 @@ export class Scene {
         }
         // init tables
         if (INNER_DOMS.has(this._wkid)) {
-            INNER_DOMS.get(this._wkid).forEach((id) => $(`#${id}`).show());
+            INNER_DOMS.get(this._wkid).forEach((dom) => $(dom).show());
         } else {
             try {
-                let id_cache = [];
+                let dom_cache = [];
                 tools.req(`${this._preDataUrl}\\${this._wkid}`).then((scene) => {
                     if (scene.tableLayer) {
                         for (let name in scene.tableLayer) {
-                            let id = this._factory.generate(this._tableViewId, scene.tableLayer[name]);
-                            id_cache.push(id);
+                            let dom = this._factory.generate(this._tableViewId, scene.tableLayer[name]);
+                            dom_cache.push(dom);
                         }
                     } else {
                         tools.mutter("tableLayer isn't exist.", "error");
                     }
                 });
-                INNER_DOMS.set(this._wkid, id_cache);
+                INNER_DOMS.set(this._wkid, dom_cache);
             } catch (e) {
                 tools.mutter(e, "error");
             }

@@ -20,15 +20,15 @@ export var PRE_DATA_URL = "http://localhost:3000";
     tools.honour();
     try {
         let vueLayer = new VueLayer(MASK_HTML_PATH, MAIN_APP_ID);
-        let manager = SceneManager({
-            vuePanel: vueLayer,
-            tableViewId: TABLEVIEW_ID,
-            menuId: MENU_ID,
-            preDataUrl: PRE_DATA_URL,
-            container: ARCGIS_SCENE
-        });
+        let manager = SceneManager();
         manager.preloaded().then(function () {
-            manager.init();
+            manager.init({
+                vuePanel: vueLayer,
+                tableViewId: TABLEVIEW_ID,
+                menuId: MENU_ID,
+                preDataUrl: PRE_DATA_URL,
+                container: ARCGIS_SCENE
+            });
         });
     } catch (e) {
         tools.mutter(`outermost error msg: ${e}`, "fatal");

@@ -12,17 +12,34 @@ export var Tools = (() => {
         let S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
-    window.watcher = {};
+    const intValue = (num) => {
+        var MAX_VALUE = 0x7fffffff;
+        var MIN_VALUE = -0x80000000;
+        if (num > MAX_VALUE || num < MIN_VALUE) {
+            return num &= 0xFFFFFFFF;
+        }
+        return num;
+    }
+    window.watcher = new Object();
     var inner_lock = false;
 
     return {
+        hashCode: (strKey) => {
+            var hash = 0;
+            if (!(strKey == null || strKey.value == "")) {
+                for (var i = 0; i < strKey.length; i++) {
+                    hash = hash * 31 + strKey.charCodeAt(i);
+                    hash = intValue(hash);
+                }
+            }
+            return hash;
+        },
         watch: (name, obj) => {
             if (name in window.watcher) {
                 inner_lock = true;
                 window.watcher[name] = obj;
             } else {
-                (function() {
-                    var inner_value = obj;
+                (function(inner_value) {
                     Object.defineProperty(window.watcher, name, {
                         get() {
                             return inner_value;
@@ -34,7 +51,7 @@ export var Tools = (() => {
                             }
                         }
                     });
-                })();
+                })(obj);
             }
         },
         sleep: (milliseconds) => {
