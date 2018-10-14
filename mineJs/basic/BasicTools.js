@@ -12,24 +12,17 @@ export var Tools = (() => {
         let S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
-    const intValue = (num) => {
-        var MAX_VALUE = 0x7fffffff;
-        var MIN_VALUE = -0x80000000;
-        if (num > MAX_VALUE || num < MIN_VALUE) {
-            return num &= 0xFFFFFFFF;
-        }
-        return num;
-    }
+    const intValue = (num, MAX_VALUE, MIN_VALUE) => (num > MAX_VALUE || num < MIN_VALUE)? num &= 0xFFFFFFFF: num;
     window.watcher = new Object();
     var inner_lock = false;
 
     return {
-        hashCode: (strKey) => {
+        hashCode: (strKey, max = 0x7fffffff, min = -0x80000000) => {
             var hash = 0;
             if (!(strKey == null || strKey.value == "")) {
                 for (var i = 0; i < strKey.length; i++) {
                     hash = hash * 31 + strKey.charCodeAt(i);
-                    hash = intValue(hash);
+                    hash = intValue(hash, max, min);
                 }
             }
             return hash;

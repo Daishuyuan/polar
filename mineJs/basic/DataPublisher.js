@@ -1,5 +1,45 @@
 import { Tools as tools } from "./BasicTools.js"
 
+class ReqHashTable {
+    constructor(len) {
+        this.MAGIC_NUM = 0x9e353f7c;
+        this.nextIndex = (i) => i + 1 >= len? 0: i + 1;
+        if (len > 2**4 && !(len & (len - 1))) {
+            this.len = len;
+            this.threshold = parseInt(len * 2 / 3);
+            this.cycleArr = [];
+            this.size = 0;
+        } else {
+            tools.mutter(`len: ${len} must be the power of 2!`, "error");
+        }
+    }
+
+    addRes(name, params, data) {
+        let url = name + params,
+            hashcode = tools.hashCode(url, 0xFFFFFFFF, 0x0),
+            index = (hashcode + this.MAGIC_NUM) & (this.len - 1);
+        this.size++;
+        if (!this.cycleArr[index]) {
+            this.cycleArr[index] = {
+                url: name + params,
+                data: data
+            };
+        } else if (this.cycleArr[index].url === url) {
+            this.cycleArr[index].data = data;
+        } else {
+            while(this.cycleArr[index = this.nextIndex(index, this.len)]);
+            this.cycleArr[index] = {
+                url: name + params,
+                data: data
+            };
+        }
+        if (this.size >= this.threshold) {
+            this.len *= 2;
+            this.threshold = parseInt(this.len * 2 / 3);
+        }
+    }
+}
+
 export class DataPublisher {
     constructor(propsUrl, tick) {
         this.subscribers = new Map();
