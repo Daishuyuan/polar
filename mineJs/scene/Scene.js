@@ -32,6 +32,7 @@ export class Scene {
         return SCENE_NAMES;
     }
 
+    // do the work of themes initialization
     themeInit(props) {
         // clear before status
         $(this._tableViewId).children().hide();

@@ -1,4 +1,4 @@
-import {Scene} from "./Scene.js"
+import { Scene } from "./Scene.js"
 
 export class ArcticScene extends Scene {
     constructor(props) {

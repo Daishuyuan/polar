@@ -12,7 +12,7 @@ export class AntarcticaScene extends Scene {
                     y: -82.6, // lat
                     z: 18000000, // elevation in meters
                 }),
-                heading: 95, // facing due south
+                heading: 0, // facing due south
             });
         });
     }

@@ -29,8 +29,9 @@ export var SceneManager = () => {
                     map: props.map,
                     environment: {
                         lighting: {
-                            directShadowsEnabled: false,
-                            ambientOcclusionEnabled: false,
+                            date: Date.now(),
+                            // directShadowsEnabled: false,
+                            // ambientOcclusionEnabled: false,
                             // cameraTrackingEnabled: false
                         },
                         background: {
@@ -43,57 +44,59 @@ export var SceneManager = () => {
                 tools.watch("view", props.view);
                 props.view.ui.empty('top-left'); // remove control panel in top left
                 props.view.ui._removeComponents(["attribution"]); // remove "Powered by esri"
-                props.staticGLayer = new GraphicsLayer();
-                let ship_cache = [];
-                $.ajax(`${props.preDataUrl}/Common`).done((common) => {
-                    let ships = common.data.ships;
-                    for (let ship of ships) {
-                        if (!isNaN(parseFloat(ship.lon)) && !isNaN(parseFloat(ship.lat))) {
-                            ship_cache.push(new Graphic({
-                                geometry: {
-                                    type: "point",
-                                    x: parseFloat(ship.lon),
-                                    y: parseFloat(ship.lat),
-                                    z: 0
-                                },
-                                symbol: {
-                                    type: "point-3d",
-                                    symbolLayers: [{
-                                        type: "object",
-                                        width: 30000,
-                                        height: 30000,
-                                        depth: 30000,
-                                        resource: {
-                                            href: "../../models/warShip.json"
-                                        }
-                                    }],
-                                }
-                            }));
+                props.view.when(() => {
+                    // add bounded elements
+                    props.staticGLayer = new GraphicsLayer();
+                    let ship_cache = [];
+                    $.ajax(`${props.preDataUrl}/Common`).done((common) => {
+                        let ships = common.data.ships;
+                        for (let ship of ships) {
+                            if (!isNaN(parseFloat(ship.lon)) && !isNaN(parseFloat(ship.lat))) {
+                                ship_cache.push(new Graphic({
+                                    geometry: {
+                                        type: "point",
+                                        x: parseFloat(ship.lon),
+                                        y: parseFloat(ship.lat),
+                                        z: 0
+                                    },
+                                    symbol: {
+                                        type: "point-3d",
+                                        symbolLayers: [{
+                                            type: "object",
+                                            width: 30000,
+                                            height: 30000,
+                                            depth: 30000,
+                                            resource: {
+                                                href: "../../models/warShip.json"
+                                            }
+                                        }],
+                                    }
+                                }));
+                            }
                         }
-                    }
-                });
-                props.map.add(props.staticGLayer);
-                props.staticGLayer.addMany(ship_cache);
+                    });
+                    props.map.add(props.staticGLayer);
+                    props.staticGLayer.addMany(ship_cache);
 
-                // init scenes
-                let scenes = [];
-                scenes.push(new GlobalScene(props)); // scene 1
-                scenes.push(new LidarScene(props)); // scene 2
-                scenes.push(new AntarcticaScene(props)); // scene 3
-                scenes.push(new ArcticScene(props)); // scene 4
-                scenes.forEach((scene) => {
-                    props.vuePanel.menuEvents.set(scene.eventName, () => scene.load());
-                }); // load scene
-                scenes[0].load(); // load scene 1
-                props.vuePanel.init(); // vue panel init
+                    // init scenes
+                    let scenes = [];
+                    scenes.push(new GlobalScene(props)); // scene 1
+                    scenes.push(new LidarScene(props)); // scene 2
+                    scenes.push(new AntarcticaScene(props)); // scene 3
+                    scenes.push(new ArcticScene(props)); // scene 4
+                    scenes.forEach((scene) => {
+                        props.vuePanel.menuEvents.set(scene.eventName, () => scene.load());
+                    }); // load scene
+                    scenes[0].load(); // load scene 1
+                    props.vuePanel.init(); // vue panel init
+                }, (e)=> {
+                    tools.mutter(e, "error");
+                });
             });
         }
     }
 
     return {
-        preloaded: () => {
-            return $.when();
-        },
         init: (props) => {
             props? __init__(props): tools.mutter("props unsettled.", "error");
         }

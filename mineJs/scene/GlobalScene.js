@@ -12,7 +12,7 @@ export class GlobalScene extends Scene {
                     y: 30.8, // lat
                     z: 53000000 // elevation in meters
                 }),
-                heading: 95 // facing due south
+                heading: 0 // facing due south
             });
         });
     }
