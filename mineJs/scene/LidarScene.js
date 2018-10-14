@@ -2,18 +2,18 @@ import { Scene } from "./Scene.js"
 
 export class LidarScene extends Scene {
     constructor(props) {
+        props.wkid = "LidarScene";
+        props.eventName = "eventArcticScene";
         super(props);
     }
 
     load() {
         super.themeInit({
             name: "激光雷达场景",
-            wkid: "lidarScene",
             menu: [{
                 name: "返回",
-                event: "eventAntarcticScene"
+                event: Scene.names.get("AntarcticaScene")
             }]
         });
-        super.initTables("Lidar");
     }
 }

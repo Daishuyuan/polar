@@ -39,7 +39,10 @@
       }]
     }
   },
-  "Lidar": {
+  "GlobalScene": {
+    "tableLayer": {}
+  },
+  "LidarScene": {
     "tableLayer": {
       "titlePanel": {
         "pane": {
@@ -390,7 +393,7 @@
       }
     }
   },
-  "Antarctica": {
+  "AntarcticaScene": {
     "tableLayer": {
       "titlePanel": {
         "pane": {

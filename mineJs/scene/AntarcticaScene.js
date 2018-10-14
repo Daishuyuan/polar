@@ -1,9 +1,8 @@
 import { Scene } from "./Scene.js"
-import { GlobalScene } from "./GlobalScene.js"
-import { LidarScene } from "./LidarScene.js";
 
 export class AntarcticaScene extends Scene {
     constructor(props) {
+        props.wkid = "AntarcticaScene";
         props.eventName = "eventAntarcticScene";
         super(props);
         require(["esri/Camera", "esri/geometry/Point"], (Camera, Point) => {
@@ -21,13 +20,12 @@ export class AntarcticaScene extends Scene {
     load() {
         super.themeInit({
             name: "南极区域场景",
-            wkid: "antarcticScene",
             menu: [{
                 name: "返回",
-                event: GlobalScene.EVENT_NAME
+                event: Scene.names.get("GlobalScene")
             }, {
                 name: "激光雷达",
-                event: LidarScene.EVENT_NAME
+                event: Scene.names.get("LidarScene")
             }, {
                 name: "冰下湖钻探",
                 event: "eventIceLakeDrillingScene"
@@ -37,6 +35,5 @@ export class AntarcticaScene extends Scene {
             }],
             viewField: this.ANTARCTICA_VIEW_POINT
         });
-        super.initTables("Antarctica");
     }
 }

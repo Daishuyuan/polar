@@ -81,7 +81,7 @@ export var SceneManager = (props) => {
                 scenes.push(new AntarcticaScene(props)); // scene 3
                 scenes.push(new ArcticScene(props)); // scene 4
                 scenes.forEach((scene) => {
-                    props.vuePanel.menuEvents.set(scene.EVENT_NAME, () => scene.load());
+                    props.vuePanel.menuEvents.set(scene.eventName, () => scene.load());
                 }); // load scene
                 scenes[0].load(); // load scene 1
                 props.vuePanel.init(); // vue panel init

@@ -2,6 +2,7 @@ import {Scene} from "./Scene.js"
 
 export class ArcticScene extends Scene {
     constructor(props) {
+        props.wkid = "ArcticScene";
         props.eventName = "eventArcticScene";
         super(props);
         require(["esri/Camera", "esri/geometry/Point"], (Camera, Point) => {
@@ -19,10 +20,9 @@ export class ArcticScene extends Scene {
     load() {
         super.themeInit({
             name: "北极区域场景",
-            wkid: "arcticScene",
             menu: [{
                 name: "返回",
-                event: "eventGlobalScene"
+                event: Scene.names.get("GlobalScene")
             }],
             viewField: this.ARCTIC_VIEW_POINT
         });
