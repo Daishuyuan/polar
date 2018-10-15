@@ -7,6 +7,50 @@ import { Tools as tools } from "../basic/BasicTools.js";
 
 export var SceneManager = () => {
     const TABLE_DEBUG = false;
+
+    const __init_ship__= (layer, props) => {
+        require([
+            "esri/Graphic"
+        ], (Graphic) => {
+            $.ajax(`${props.preDataUrl}/Common`).done((common) => {
+                let ships = common.data.ships, stations = common.data.stations;
+                let ship_cache = [], lables_cache = [];
+                for (let ship of ships) {
+                    let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat);
+                    if (!isNaN(lon) && !isNaN(lat)) {
+                        ship_cache.push(new Graphic({
+                            geometry: {
+                                type: "point",
+                                x: lon,
+                                y: lat,
+                                z: -20
+                            },
+                            symbol: {
+                                type: "point-3d",
+                                symbolLayers: [{
+                                    type: "object",
+                                    width: 30000,
+                                    height: 30000,
+                                    depth: 30000,
+                                    resource: {
+                                        href: "./models/Ship/warShip.json"
+                                    }
+                                }],
+                            }
+                        }));
+                        lables_cache.push({
+                            
+                        });
+                    }
+                }
+                tools.watch("ships", ship_cache);
+                tools.watch("fullLayer", layer);
+                props.map.add(layer);
+                layer.addMany(ship_cache.concat(lables_cache));
+            });
+        });
+    }
+
     const __init__ = (props) => {
         props.factory = new TableFactory();
         // arcgis 3d map renderer
@@ -14,9 +58,8 @@ export var SceneManager = () => {
             require([
                 "esri/Map",
                 "esri/views/SceneView",
-                "esri/layers/GraphicsLayer",
-                "esri/Graphic"
-            ], (Map, SceneView, GraphicsLayer, Graphic) => {
+                "esri/layers/GraphicsLayer"
+            ], (Map, SceneView, GraphicsLayer,) => {
                 props.map = new Map({
                     logo: false,
                     basemap: "satellite",
@@ -46,38 +89,7 @@ export var SceneManager = () => {
                 props.view.ui._removeComponents(["attribution"]); // remove "Powered by esri"
                 props.view.when(() => {
                     // add bounded elements
-                    props.staticGLayer = new GraphicsLayer();
-                    let ship_cache = [];
-                    $.ajax(`${props.preDataUrl}/Common`).done((common) => {
-                        let ships = common.data.ships;
-                        for (let ship of ships) {
-                            let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat);
-                            if (!isNaN(lon) && !isNaN(lat)) {
-                                ship_cache.push(new Graphic({
-                                    geometry: {
-                                        type: "point",
-                                        x: lon,
-                                        y: lat,
-                                        z: 0
-                                    },
-                                    symbol: {
-                                        type: "point-3d",
-                                        symbolLayers: [{
-                                            type: "object",
-                                            width: 30000,
-                                            height: 30000,
-                                            depth: 30000,
-                                            resource: {
-                                                href: "../../models/warShip.json"
-                                            }
-                                        }],
-                                    }
-                                }));
-                            }
-                        }
-                    });
-                    props.map.add(props.staticGLayer);
-                    props.staticGLayer.addMany(ship_cache);
+                    __init_ship__(props.staticGLayer = new GraphicsLayer(), props);
 
                     // init scenes
                     let scenes = [], dom = null;
@@ -95,8 +107,8 @@ export var SceneManager = () => {
                     }); // load scene
                     scenes[0].load(); // load scene 1
                     props.vuePanel.init(); // vue panel init
-                }, (e)=> {
-                    tools.mutter(e, "error");
+                }, (error)=> {
+                    tools.mutter(error, "error");
                 });
             });
         }
