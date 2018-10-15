@@ -9,9 +9,8 @@ import { VueLayer } from "./VueLayer.js";
 import { SceneManager } from "../scene/SceneManager.js";
 import { Tools as tools } from "../basic/BasicTools.js";
 
-var MAIN_APP_ID = "#MainApp";
+var MAIN_APP_ID = "MainApp";
 var TABLEVIEW_ID = "threeJsView";
-var MENU_ID = "#menu";
 var MASK_HTML_PATH = "/polar/cutscene.html";
 var RECOV_BTN = ".homeTitle";
 var PRE_DATA_URL = "http://localhost:3000";
@@ -23,7 +22,6 @@ try {
     manager.init({
         vuePanel: vueLayer,
         tableViewId: TABLEVIEW_ID,
-        menuId: MENU_ID,
         preDataUrl: PRE_DATA_URL,
         container: TABLEVIEW_ID,
         recoverBtn: RECOV_BTN

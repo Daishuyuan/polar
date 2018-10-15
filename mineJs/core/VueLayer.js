@@ -9,7 +9,7 @@ export class VueLayer {
         var mainApp = new Vue({
             el: tools.identify(MAIN_APP_ID),
             data: {
-                fakePage: MASK_HTML_PATH,
+                fakePage: tools.identify(MASK_HTML_PATH),
                 loaded: false,
                 title: "",
                 mbuttons: []
