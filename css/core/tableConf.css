@@ -39,3 +39,44 @@
     margin: 0.26vw;
     /* background: linear-gradient(#02026f14,#02026f54,#02026fbf); */
 }
+
+.WXY_floating_window {
+    font-size: 11px;
+    background-color: #000;
+    color: #fff;
+    padding: 4px 8px;
+    font-family: 'Oswald', sans-serif;
+    transition: background-color 200ms ease-out;
+    /*box-shadow: 0 0 5px blue;*/
+    opacity: 50%;
+}
+
+.WXY_floating_window:hover {
+    box-shadow: 0 0 15px 1px blue;
+}
+
+.WXY_line {
+    /*position: absolute;*/
+    /*bottom: 50%;*/
+    /*left: 50%;*/
+    height: 30px;
+    width: 30px;
+    border-left: 2px solid black;
+    transform: skew(-40deg);
+    position: relative;
+    left: -12px;
+    top: -2px;
+}
+
+.WXY_img_font {
+    display: flex;
+    align-items: center;
+}
+
+.WXY_label_title {
+    font-size: larger;
+}
+
+.WXY_label {
+    position: absolute;
+}

@@ -11,7 +11,7 @@ export class Scene {
             tools.mutter("wkid and eventName both can't be null or undefined.", "error");
         }
         this._vuePanel = props.vuePanel;
-        this._tableViewId = props.tableViewId;
+        this._tableViewId = props.container;
         this._menuId = props.menuId;
         this._staticGLayer = props.staticGLayer;
         this._map = props.map;

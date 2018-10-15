@@ -10,20 +10,22 @@ export var SceneManager = () => {
 
     const __init_ship__= (layer, props) => {
         require([
-            "esri/Graphic"
-        ], (Graphic) => {
+            "esri/Graphic",
+            "esri/geometry/Point"
+        ], (Graphic, Point) => {
             $.ajax(`${props.preDataUrl}/Common`).done((common) => {
                 let ships = common.data.ships, stations = common.data.stations;
                 let ship_cache = [], lables_cache = [];
-                for (let ship of ships) {
+                ships.forEach((ship) => {
                     let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat);
+                    let tips = {};
                     if (!isNaN(lon) && !isNaN(lat)) {
                         ship_cache.push(new Graphic({
                             geometry: {
                                 type: "point",
                                 x: lon,
                                 y: lat,
-                                z: -20
+                                z: 0
                             },
                             symbol: {
                                 type: "point-3d",
@@ -35,19 +37,42 @@ export var SceneManager = () => {
                                     resource: {
                                         href: "./models/Ship/warShip.json"
                                     }
-                                }],
-                            }
+                                }]
+                            },
+                            attributes: tips
                         }));
-                        lables_cache.push({
-                            
+                        props.vuePanel.application.popups.push({
+                            id: `${ship.name}_id`,
+                            name: ship.name
+                        });
+                        tips.popup_id = setInterval(() => {
+                            let screen_point = props.view.toScreen(new Point({
+                                longitude: lon,
+                                latitude: lat
+                            }));
+                            let dom = $(tools.identify(`${ship.name}_id`));
+                            dom.css({
+                                "left": `${screen_point.x + 28}px`,
+                                "top": `${screen_point.y - dom.height()}px`
+                            });
                         });
                     }
-                }
+                });
+
                 tools.watch("ships", ship_cache);
                 tools.watch("fullLayer", layer);
                 props.map.add(layer);
                 layer.addMany(ship_cache.concat(lables_cache));
             });
+        });
+    }
+
+    const __init_popup__ = (sceneView) => {
+        sceneView.on("click", function(event) {
+            event.stopPropagation(); // stop all propagation
+            if (event && event.mapPoint) {
+                console.log(event);
+            }
         });
     }
 
@@ -90,6 +115,7 @@ export var SceneManager = () => {
                 props.view.when(() => {
                     // add bounded elements
                     __init_ship__(props.staticGLayer = new GraphicsLayer(), props);
+                    __init_popup__(props.view);
 
                     // init scenes
                     let scenes = [], dom = null;

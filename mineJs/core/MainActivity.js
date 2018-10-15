@@ -22,7 +22,6 @@ import { Tools as tools } from "../basic/BasicTools.js";
         let manager = SceneManager();
         manager.init({
             vuePanel: vueLayer,
-            tableViewId: TABLEVIEW_ID,
             preDataUrl: PRE_DATA_URL,
             container: TABLEVIEW_ID,
             recoverBtn: RECOV_BTN

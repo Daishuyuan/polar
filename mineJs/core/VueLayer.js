@@ -3,7 +3,8 @@ import { Tools as tools } from "../basic/BasicTools.js"
 export class VueLayer {
     constructor(MASK_HTML_PATH, MAIN_APP_ID) {
         // generate menu events
-        var menuButtonEvents = new Map();
+        var menuButtonEvents = new Map(),
+            popupButtonEvents = new Map();
 
         // initialize the application
         var mainApp = new Vue({
@@ -12,7 +13,8 @@ export class VueLayer {
                 fakePage: tools.identify(MASK_HTML_PATH),
                 loaded: false,
                 title: "",
-                mbuttons: []
+                mbuttons: [],
+                popups: []
             },
             methods: {
                 mbtnEvent: function (event) {
@@ -23,7 +25,14 @@ export class VueLayer {
                             offset: 't',
                             anim: 6
                         });
-                        tools.mutter(`uninitialized event: ${event}`, "warn");
+                        tools.mutter(`uninitialized menu event: ${event}`, "warn");
+                    }
+                },
+                pop: function(event) {
+                    if (popupButtonEvents.has(event)) {
+                        popupButtonEvents.get(event)();
+                    } else {
+                        tools.mutter(`uninitialized popup event: ${event}`, "warn");
                     }
                 }
             }
@@ -32,10 +41,15 @@ export class VueLayer {
         // private variables
         this.mainApp = mainApp;
         this.menuButtonEvents = menuButtonEvents;
+        this.popupButtonEvents = popupButtonEvents;
     }
 
     get menuEvents() {
         return this.menuButtonEvents;
+    }
+
+    get popupEvents() {
+        return this.popupButtonEvents;
     }
 
     get application() {
