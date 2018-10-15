@@ -40,14 +40,14 @@ export class TableFactory {
         const nstd = (x) => !isNaN(parseFloat(x)) && x > 0 ? x : 0; // number standard
 
         // load chart
-        function loadChart(id, url) {
-            $("#" + id).ready(function () {
+        function loadChart(dom, url) {
+            $(dom).ready(() => {
                 $.ajax({
                     url: url,
                     type: "GET",
                     dataType: "json",
                     success: function (option) {
-                        var myChar = echarts.init(document.getElementById(id));
+                        var myChar = echarts.init(dom[0]);
                         myChar.setOption(option);
                         myChar.resize();
                         if (option.series[0].type === "gauge") {
@@ -85,7 +85,7 @@ export class TableFactory {
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
                                     break;
                                 case "chart":
-                                    let _id = `ZXJ-${i + 1},${j + 1}-${guid()}`,
+                                    let _id = `ZXJ${guid()}`.replace(/-/g, ""),
                                         title_height = 0;
                                     if (node.name) {
                                         let content_title = `<p style='margin:0;'>${sstd(node.name)}</p>`;
@@ -146,12 +146,12 @@ export class TableFactory {
                                 tools.mutter("rows not in config.", "error");
                             }
                             tbcnt.push("</div>");
-                            // echarts 
+                            // echarts initialization
                             jqDom.append(tbcnt.join('\n'));
                             try {
                                 for (let i = 0; i < echDelay.length; ++i) {
                                     let node = echDelay[i];
-                                    loadChart(node.id, node.url);
+                                    loadChart(jqDom.find(tools.identify(node.id)), node.url);
                                 }
                             } catch (e) {
                                 tools.mutter(e, "error");
@@ -170,7 +170,7 @@ export class TableFactory {
     generate(id, config) {
         let dom = document.createElement("div");
         this.__init__($(dom), config);
-        $(id).append(dom);
+        $(tools.identify(id)).append(dom);
         return dom;
     }
 }

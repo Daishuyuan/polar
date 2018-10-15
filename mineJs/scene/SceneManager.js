@@ -29,10 +29,10 @@ export var SceneManager = () => {
                     map: props.map,
                     environment: {
                         lighting: {
-                            date: Date.now(),
+                            // date: Date.now(),
                             // directShadowsEnabled: false,
                             ambientOcclusionEnabled: true,
-                            // cameraTrackingEnabled: false
+                            cameraTrackingEnabled: true
                         },
                         background: {
                             type: "color",
@@ -85,7 +85,12 @@ export var SceneManager = () => {
                     scenes.push(new AntarcticaScene(props)); // scene 3
                     scenes.push(new ArcticScene(props)); // scene 4
                     scenes.forEach((scene) => {
-                        props.vuePanel.menuEvents.set(scene.eventName, () => scene.load());
+                        props.vuePanel.menuEvents.set(scene.eventName, () => {
+                            scene.load();
+                            if (props.recoverBtn) {
+                                $(props.recoverBtn).click(() => scene.recoverSite());
+                            }
+                        });
                     }); // load scene
                     scenes[0].load(); // load scene 1
                     props.vuePanel.init(); // vue panel init

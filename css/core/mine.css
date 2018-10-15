@@ -47,6 +47,14 @@ body {
     cursor: default;
 }
 
+.titleBar {
+    position: absolute;
+    margin-left: 40%;
+    width: 20%;
+    top: 0%;
+    cursor: pointer;
+}
+
 .homeTitle {
     font-weight: bolder;
     letter-spacing: 1vw;
@@ -78,7 +86,6 @@ body {
     text-align: center;
     right: 0%;
     top: 1%;
-    display: flex;
 }
 
 .nav-box {

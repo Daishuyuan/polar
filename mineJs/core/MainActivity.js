@@ -10,10 +10,10 @@ import { SceneManager } from "../scene/SceneManager.js";
 import { Tools as tools } from "../basic/BasicTools.js";
 
 var MAIN_APP_ID = "#MainApp";
-var TABLEVIEW_ID = "#tableView";
+var TABLEVIEW_ID = "threeJsView";
 var MENU_ID = "#menu";
 var MASK_HTML_PATH = "/polar/cutscene.html";
-var ARCGIS_SCENE = "threeJsView";
+var RECOV_BTN = ".homeTitle";
 var PRE_DATA_URL = "http://localhost:3000";
 
 tools.honour();
@@ -25,7 +25,8 @@ try {
         tableViewId: TABLEVIEW_ID,
         menuId: MENU_ID,
         preDataUrl: PRE_DATA_URL,
-        container: ARCGIS_SCENE
+        container: TABLEVIEW_ID,
+        recoverBtn: RECOV_BTN
     });
 } catch (e) {
     tools.mutter(`outermost error msg: ${e}`, "fatal");

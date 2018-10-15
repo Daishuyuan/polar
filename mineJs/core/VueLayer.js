@@ -7,23 +7,12 @@ export class VueLayer {
 
         // initialize the application
         var mainApp = new Vue({
-            el: MAIN_APP_ID,
+            el: tools.identify(MAIN_APP_ID),
             data: {
                 fakePage: MASK_HTML_PATH,
                 loaded: false,
                 title: "",
-                mbuttons: [],
-                tips: {
-                    id: `${MAIN_APP_ID.slice(1)}Tips`,
-                    cursor: "pointer",
-                    position: "absolute",
-                    width: "30px",
-                    height: "30px",
-                    left: "0px",
-                    top: "0px",
-                    visiable: false,
-                    text: ""
-                }
+                mbuttons: []
             },
             methods: {
                 mbtnEvent: function (event) {
@@ -38,10 +27,6 @@ export class VueLayer {
                     }
                 }
             }
-        });
-
-        $(`#${MAIN_APP_ID.slice(1)}Tips`).mouseover(function () {
-            layer.tips(mainApp.tips.text, this);
         });
 
         // private variables

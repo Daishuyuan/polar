@@ -17,6 +17,9 @@ export var Tools = (() => {
     var inner_lock = false;
 
     return {
+        identify: (id) => {
+            return id.startsWith("#")? id.slice(id.lastIndexOf("#")): "#" + id;
+        },
         hashCode: (strKey, max = 0x7fffffff, min = -0x80000000) => {
             var hash = 0;
             if (!(strKey == null || strKey.value == "")) {

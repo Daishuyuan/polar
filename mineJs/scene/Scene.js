@@ -3,6 +3,7 @@ import { DelayTime } from "../core/VueLayer.js";
 
 var SCENE_NAMES = new Map();
 var INNER_DOMS = new Map();
+var CUR_SCENE = null;
 
 export class Scene {
     constructor(props) {
@@ -19,6 +20,8 @@ export class Scene {
         this._wkid = props.wkid;
         this._eventName = props.eventName;
         this._preDataUrl = props.preDataUrl;
+        this._curScene = null;
+        this._curProps = null;
         SCENE_NAMES.set(this._wkid, this._eventName); // register wkid and eventName
     }
 
@@ -32,10 +35,23 @@ export class Scene {
         return SCENE_NAMES;
     }
 
+    recoverSite() {
+        let props = this._curProps;
+        if(props && this._map && this._view && props.viewField) {
+            this._view.goTo(props.viewField, {
+                animate: true
+            });
+        }
+    }
+
     // do the work of themes initialization
     themeInit(props) {
         // clear before status
-        $(this._tableViewId).children().hide();
+        if(CUR_SCENE && INNER_DOMS.get(CUR_SCENE)) {
+            INNER_DOMS.get(CUR_SCENE).forEach((dom) => $(dom).hide());
+        }
+        this._curProps = props;
+        CUR_SCENE = this._wkid;
         if (props.name) {
             this._vuePanel.application.title = props.name;
             tools.watch("curScene", `current scene:${props.name}-${this._wkid}-${this._eventName}`);
@@ -51,11 +67,7 @@ export class Scene {
             }
         });
         // look at defined view field
-        if (this._map && this._view && props.viewField) {
-            this._view.goTo(props.viewField, {
-                animate: true
-            });
-        }
+        this.recoverSite();
         // init tables
         if (INNER_DOMS.has(this._wkid)) {
             INNER_DOMS.get(this._wkid).forEach((dom) => $(dom).show());

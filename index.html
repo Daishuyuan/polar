@@ -32,17 +32,15 @@
         <!-- main layer -->
         <template v-cloak v-show="loaded">
             <div id="threeJsView" class="GlassPlate" style="background: url('./img/earth/background.jpg');background-size: 100%;"></div>
-            <div class="FullPlate">
+            <div class="titleBar">
                 <h1 class="homeTitle">{{ title }}</h1>
             </div>
-            <div id="tableView" class="FullPlate animate bounceIn"></div>
             <div id="menu" class="nav-bar">
                 <div v-for="mbtn in mbuttons" class="button button-small button-plain LSM-button-style button-pill animated bounceInRight menuButton"
                     v-bind:style="mbtn.delay" v-on:click="mbtnEvent(mbtn.event);">
                     <span>{{ mbtn.name }}</span>
                 </div>
             </div>
-            <div v-bind:id="tips.id" v-show="tips.visiable" v-bind:style="{cursor: tips.cursor, position: tips.position, left: tips.left, top: tips.top, width: tips.width, height: tips.height}"></div>
         </template>
     </div>
     <!-- core -->
