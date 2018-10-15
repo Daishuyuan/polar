@@ -78,6 +78,7 @@ export class Scene {
                     if (scene.tableLayer) {
                         for (let name in scene.tableLayer) {
                             let dom = this._factory.generate(this._tableViewId, scene.tableLayer[name]);
+                            dom.id = `${this._wkid}_${name}`;
                             dom_cache.push(dom);
                         }
                     } else {

@@ -51,12 +51,13 @@ export var SceneManager = () => {
                     $.ajax(`${props.preDataUrl}/Common`).done((common) => {
                         let ships = common.data.ships;
                         for (let ship of ships) {
-                            if (!isNaN(parseFloat(ship.lon)) && !isNaN(parseFloat(ship.lat))) {
+                            let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat);
+                            if (!isNaN(lon) && !isNaN(lat)) {
                                 ship_cache.push(new Graphic({
                                     geometry: {
                                         type: "point",
-                                        x: parseFloat(ship.lon),
-                                        y: parseFloat(ship.lat),
+                                        x: lon,
+                                        y: lat,
                                         z: 0
                                     },
                                     symbol: {
@@ -79,7 +80,7 @@ export var SceneManager = () => {
                     props.staticGLayer.addMany(ship_cache);
 
                     // init scenes
-                    let scenes = [];
+                    let scenes = [], dom = null;
                     scenes.push(new GlobalScene(props)); // scene 1
                     scenes.push(new LidarScene(props)); // scene 2
                     scenes.push(new AntarcticaScene(props)); // scene 3
@@ -87,8 +88,8 @@ export var SceneManager = () => {
                     scenes.forEach((scene) => {
                         props.vuePanel.menuEvents.set(scene.eventName, () => {
                             scene.load();
-                            if (props.recoverBtn) {
-                                $(props.recoverBtn).click(() => scene.recoverSite());
+                            if ((dom = $(tools.identify(props.recoverBtn)))) {
+                                dom.click(() => scene.recoverSite());
                             }
                         });
                     }); // load scene

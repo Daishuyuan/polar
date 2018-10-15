@@ -33,7 +33,7 @@
         <template v-cloak v-show="loaded">
             <div id="threeJsView" class="GlassPlate" style="background: url('./img/earth/background.jpg');background-size: 100%;"></div>
             <div class="titleBar">
-                <h1 class="homeTitle">{{ title }}</h1>
+                <h1 id="homeTitle" class="homeTitle">{{ title }}</h1>
             </div>
             <div id="menu" class="nav-bar">
                 <div v-for="mbtn in mbuttons" class="button button-small button-plain LSM-button-style button-pill animated bounceInRight menuButton"

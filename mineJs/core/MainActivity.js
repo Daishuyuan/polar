@@ -12,7 +12,7 @@ import { Tools as tools } from "../basic/BasicTools.js";
 var MAIN_APP_ID = "MainApp";
 var TABLEVIEW_ID = "threeJsView";
 var MASK_HTML_PATH = "/polar/cutscene.html";
-var RECOV_BTN = ".homeTitle";
+var RECOV_BTN = "homeTitle";
 var PRE_DATA_URL = "http://localhost:3000";
 
 tools.honour();
