@@ -32,17 +32,6 @@
         <!-- main layer -->
         <template v-cloak v-show="loaded">
             <div id="threeJsView" class="GlassPlate" style="background: url('./img/earth/background.jpg');background-size: 100%;"></div>
-            <!-- title template -->
-            <div class="titleBar">
-                <h1 id="homeTitle" class="homeTitle">{{ title }}</h1>
-            </div>
-            <!-- menu template -->
-            <div id="menu" class="nav-bar">
-                <div v-for="mbtn in mbuttons" class="button button-small button-plain LSM-button-style button-pill animated bounceInRight menuButton"
-                    v-bind:style="mbtn.delay" v-on:click="mbtnEvent(mbtn.event);">
-                    <span>{{ mbtn.name }}</span>
-                </div>
-            </div>
             <!-- popup template -->
             <div v-for="popup in popups" v-bind:id="popup.id" v-on:click="pop(popup.event);" class="WXY_label">
                 <div v-cloak v-show="popup.switch" class="WXY_floating_window WXY_img_font animated fadeIn pulse">
@@ -64,6 +53,17 @@
                     </div>
                 </div>
                 <div v-cloak v-show="popup.switch" class="WXY_line animated fadeIn pulse"></div>
+            </div>
+            <!-- title template -->
+            <div class="titleBar">
+                <h1 id="homeTitle" class="homeTitle">{{ title }}</h1>
+            </div>
+            <!-- menu template -->
+            <div id="menu" class="nav-bar">
+                <div v-for="mbtn in mbuttons" class="button button-small button-plain LSM-button-style button-pill animated bounceInRight menuButton"
+                    v-bind:style="mbtn.delay" v-on:click="mbtnEvent(mbtn.event);">
+                    <span>{{ mbtn.name }}</span>
+                </div>
             </div>
         </template>
     </div>
