@@ -54,8 +54,9 @@ function init_ships(layer, props, ships) {
                         props.view.goTo({
                             target: ship_model,
                             tilt: 60 
+                        }).then(() => {
+                            tools.getEventByName(ptable.events.SHIP_LOAD_EVENT)(ship_model);
                         });
-                        tools.getEventByName(ptable.events.SHIP_LOAD_EVENT)(ship_model);
                     });    
                 })(ship_model);
                 $(tools.identify(`${ship.name}_id`)).ready(() => {
