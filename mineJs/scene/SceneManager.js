@@ -12,11 +12,12 @@ function init_ships(layer, props, ships) {
         "esri/Graphic",
         "esri/geometry/Point"
     ], (Graphic, Point) => {
-        let ship_cache = [], lables_cache = [], ship_model;
+        let ship_cache = [], lables_cache = [];
         tools.gilgamesh(ptable.events.SHIP_LOAD_EVENT, () => {});
         ships.forEach((ship) => {
             let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat), dom = null;
             let eventName = `${ship.name}_event`;
+            let ship_model = null;
             let handle = {
                 id: `${ship.name}_id`,
                 name: ship.name,
@@ -55,8 +56,8 @@ function init_ships(layer, props, ships) {
                             target: ship_model,
                             tilt: 60 
                         });
-                    });
-                    tools.getEventByName(ptable.events.SHIP_LOAD_EVENT)();
+                        tools.getEventByName(ptable.events.SHIP_LOAD_EVENT)(ship_model);
+                    });    
                 })(ship_model);
                 $(tools.identify(`${ship.name}_id`)).ready(() => {
                     dom = $(tools.identify(`${ship.name}_id`));
