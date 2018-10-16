@@ -89,8 +89,9 @@ export var Tools = (() => {
     return {
         gilgamesh: (name, func) => {
             if (func && typeof(func) == "function") {
-                if (!ptable.events[name]) {
-                    ptable.events[name] = ptable.events_types.addition;
+                let wkid = name.toUpperCase();
+                if (!ptable.events[wkid]) {
+                    ptable.events[wkid] = name;
                 }
                 FULL_FIELD_EVENT_MAP.set(name, func);
             } else {
