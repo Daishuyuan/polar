@@ -7,107 +7,102 @@ import { Tools as tools } from "../basic/BasicTools.js";
 import { BoxModel as Box } from "../basic/BasicTools.js";
 import { PARAMS_TABLE as ptable} from "../basic/ParamsTable.js";
 
+function init_ships(layer, props, ships) {
+    require([
+        "esri/Graphic",
+        "esri/geometry/Point"
+    ], (Graphic, Point) => {
+        let ship_cache = [], lables_cache = [], ship_model;
+        tools.gilgamesh(ptable.events.SHIP_LOAD_EVENT, () => {});
+        ships.forEach((ship) => {
+            let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat), dom = null;
+            let eventName = `${ship.name}_event`;
+            let handle = {
+                id: `${ship.name}_id`,
+                name: ship.name,
+                site: `${ship.lon}, ${ship.lat}`,
+                switch: true,
+                box: null,
+                event: eventName
+            };
+            if (!isNaN(lon) && !isNaN(lat)) {
+                ship_model = new Graphic({
+                    geometry: {
+                        type: "point",
+                        x: lon,
+                        y: lat,
+                        z: 0
+                    },
+                    symbol: {
+                        type: "point-3d",
+                        symbolLayers: [{
+                            type: "object",
+                            width: 30000,
+                            height: 30000,
+                            depth: 30000,
+                            resource: {
+                                href: "./models/Ship/warShip.json"
+                            }
+                        }]
+                    },
+                    attributes: handle
+                });
+                ship_cache.push(ship_model);
+                props.vuePanel.application.popups.push(handle);
+                (function(ship_model) {
+                    props.vuePanel.popupEvents.set(eventName, () => {
+                        props.view.goTo({
+                            target: ship_model,
+                            tilt: 60 
+                        });
+                    });
+                    tools.getEventByName(ptable.events.SHIP_LOAD_EVENT)();
+                })(ship_model);
+                $(tools.identify(`${ship.name}_id`)).ready(() => {
+                    dom = $(tools.identify(`${ship.name}_id`));
+                    let width = dom.width(), height = dom.height();
+                    handle.box = new Box(
+                        () => parseFloat(dom.css("left")),
+                        () => parseFloat(dom.css("top")),
+                        () => width,
+                        () => height
+                    );
+                    lables_cache.push(handle.box);
+                });
+                handle.popup_id = setInterval(() => {
+                    let screen_point = props.view.toScreen(new Point({
+                        spatialReference: props.view.spatialReference,
+                        longitude: lon,
+                        latitude: lat
+                    }));
+                    let map_point = props.view.toMap(screen_point);
+                    dom.css({
+                        "left": `${screen_point.x}px`,
+                        "top": `${screen_point.y - dom.height()}px`
+                    });
+                    if (map_point &&
+                        !tools.floatBox.hitTest(handle.box, lables_cache) && 
+                        Math.abs(map_point.longitude - lon) <= 0.1 &&
+                        Math.abs(map_point.latitude - lat) <= 0.1) {
+                        handle.switch = true;
+                    } else {
+                        handle.switch = false;
+                    }
+                });
+            }
+        });
+        layer.addMany(ship_cache);
+    });
+}
+
 export var SceneManager = () => {
     const TABLE_DEBUG = false;
 
-    const __init_ship__= (layer, props) => {
-        require([
-            "esri/Graphic",
-            "esri/geometry/Point"
-        ], (Graphic, Point) => {
-            $.ajax(`${props.preDataUrl}/Common`).done((common) => {
-                let ships = common.data.ships, stations = common.data.stations;
-                let ship_cache = [], lables_cache = [], ship_model;
-                tools.gilgamesh(ptable.events.SHIP_LOAD_EVENT, () => {});
-                ships.forEach((ship) => {
-                    let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat), dom = null;
-                    let eventName = `${ship.name}_event`;
-                    let handle = {
-                        id: `${ship.name}_id`,
-                        name: ship.name,
-                        site: `${ship.lon}, ${ship.lat}`,
-                        switch: true,
-                        box: null,
-                        event: eventName
-                    };
-                    if (!isNaN(lon) && !isNaN(lat)) {
-                        ship_model = new Graphic({
-                            geometry: {
-                                type: "point",
-                                x: lon,
-                                y: lat,
-                                z: 0
-                            },
-                            symbol: {
-                                type: "point-3d",
-                                symbolLayers: [{
-                                    type: "object",
-                                    width: 30000,
-                                    height: 30000,
-                                    depth: 30000,
-                                    resource: {
-                                        href: "./models/Ship/warShip.json"
-                                    }
-                                }]
-                            },
-                            attributes: handle
-                        });
-                        ship_cache.push(ship_model);
-                        props.vuePanel.application.popups.push(handle);
-                        (function(ship_model) {
-                            props.vuePanel.popupEvents.set(eventName, () => {
-                                props.view.goTo({
-                                    target: ship_model,
-                                    tilt: 60 
-                                });
-                            });
-                            tools.getEventByName(ptable.events.SHIP_LOAD_EVENT)();
-                        })(ship_model);
-                        $(tools.identify(`${ship.name}_id`)).ready(() => {
-                            dom = $(tools.identify(`${ship.name}_id`));
-                            let width = dom.width(), height = dom.height();
-                            handle.box = new Box(
-                                () => parseFloat(dom.css("left")),
-                                () => parseFloat(dom.css("top")),
-                                () => width,
-                                () => height
-                            );
-                            lables_cache.push(handle.box);
-                        });
-                        handle.popup_id = setInterval(() => {
-                            let screen_point = props.view.toScreen(new Point({
-                                spatialReference: props.view.spatialReference,
-                                longitude: lon,
-                                latitude: lat
-                            }));
-                            let map_point = props.view.toMap(screen_point);
-                            dom.css({
-                                "left": `${screen_point.x}px`,
-                                "top": `${screen_point.y - dom.height()}px`
-                            });
-                            if (map_point &&
-                                !tools.floatBox.hitTest(handle.box, lables_cache) && 
-                                Math.abs(map_point.longitude - lon) <= 0.1 &&
-                                Math.abs(map_point.latitude - lat) <= 0.1) {
-                                handle.switch = true;
-                            } else {
-                                handle.switch = false;
-                            }
-                        });
-                    }
-                });
-                props.map.add(layer);
-                layer.addMany(ship_cache);
-            });
-        });
-    }
-
-    const __init_popup__ = (sceneView) => {
-        sceneView.on("click", function(event) {
-            event.stopPropagation(); // stop all propagation
-            if (event && event.mapPoint) {
-                console.log(event);
-            }
+    const __init_ship_and_stations_= (layer, props) => {
+        $.ajax(`${props.preDataUrl}/Common`).done((common) => {
+            let ships = common.data.ships, stations = common.data.stations;
+            init_ships(layer, props, ships);
+            props.map.add(layer);
         });
     }
 
@@ -149,8 +144,7 @@ export var SceneManager = () => {
                 props.view.ui._removeComponents(["attribution"]); // remove "Powered by esri"
                 props.view.when(() => {
                     // add bounded elements
-                    __init_ship__(props.staticGLayer = new GraphicsLayer(), props);
-                    __init_popup__(props.view);
+                    __init_ship_and_stations_(props.staticGLayer = new GraphicsLayer(), props);
 
                     // init scenes
                     let scenes = [], dom = null;
