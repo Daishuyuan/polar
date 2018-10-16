@@ -20,6 +20,7 @@
  * -----------------------------------------------------------> data_url(chart) 数据url拉取地址
  * -----------------------------------------------------------> data_proc(chart) 拉取到数据后的处理函数Str类型
  * -----------------------------------------------------------> prefix(title) 标题装饰性前缀
+ * -----------------------------------------------------------> event(title) 绑定变更函数名称
  * @requires jQuery
  * @requires echarts
  * @requires echarts-liquidfill
@@ -29,7 +30,17 @@
  **/
 import { Tools as tools } from "../basic/BasicTools.js"
 
+var ALL_EVENTS = new Map();
+
 export class TableFactory {
+
+    static getEventByName(name) {
+        if (ALL_EVENTS.has(name)) {
+            return ALL_EVENTS.get(name);
+        } else {
+            tools.mutter("you try to use a undefined function.", "warn");
+        }
+    }
 
     constructor() {
         const NO_MARGIN = "margin: 0px"; // no margin style
@@ -76,13 +87,21 @@ export class TableFactory {
                                 case "title":
                                     let prefix_content = "",
                                         title_content = "",
-                                        control = "";
+                                        control = "",
+                                        id = `TITLE${tools.guid().replace(/-/g, "")}`;
                                     if (node.prefix) {
                                         prefix_content = `<p class='${node.prefix}'></p>`;
                                         control = "style='display: inline-flex;'";
                                     }
-                                    title_content = `<p style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
+                                    title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
+                                    if (node.event && typeof(node.event) == "string") {
+                                        ALL_EVENTS.set(node.event, (name) => {
+                                            $(tools.identify(id)).ready(() => {
+                                                $(tools.identify(id)).html(name);
+                                            });
+                                        });
+                                    }
                                     break;
                                 case "chart":
                                     let _id = `ZXJ${guid()}`.replace(/-/g, ""),
@@ -97,6 +116,11 @@ export class TableFactory {
                                         id: _id,
                                         url: node.url
                                     });
+                                    if (node.event) {
+                                        ALL_EVENTS.set(node.event, () => {
+
+                                        });
+                                    }
                                     break;
                                 case "capsule":
                                     __row_owner__(node.rows);

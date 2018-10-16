@@ -26,7 +26,8 @@ export var SceneManager = () => {
                         site: `${ship.lon}, ${ship.lat}`,
                         switch: true,
                         box: null,
-                        event: eventName
+                        event: eventName,
+                        load: null
                     };
                     if (!isNaN(lon) && !isNaN(lat)) {
                         ship_model = new Graphic({
@@ -59,6 +60,9 @@ export var SceneManager = () => {
                                     tilt: 60 
                                 });
                             });
+                            if (handle.load && typeof(handle.load) == "function") {
+                                handle.load(ship_model);
+                            }
                         })(ship_model);
                         $(tools.identify(`${ship.name}_id`)).ready(() => {
                             dom = $(tools.identify(`${ship.name}_id`));
