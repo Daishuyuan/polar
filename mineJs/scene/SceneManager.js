@@ -4,6 +4,7 @@ import { ArcticScene } from "./ArcticScene.js"
 import { LidarScene } from "./LidarScene.js"
 import { TableFactory } from "../diagram/TableFactory.js";
 import { Tools as tools } from "../basic/BasicTools.js";
+import { BoxModel as Box } from "../basic/BasicTools.js";
 
 export var SceneManager = () => {
     const TABLE_DEBUG = false;
@@ -17,10 +18,13 @@ export var SceneManager = () => {
                 let ships = common.data.ships, stations = common.data.stations;
                 let ship_cache = [], lables_cache = [];
                 ships.forEach((ship) => {
-                    let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat);
+                    let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat), dom = null;
                     let handle = {
                         id: `${ship.name}_id`,
-                        name: ship.name
+                        name: ship.name,
+                        site: `${ship.lon},${ship.lat}`,
+                        switch: true,
+                        box: null
                     };
                     if (!isNaN(lon) && !isNaN(lat)) {
                         ship_cache.push(new Graphic({
@@ -45,6 +49,17 @@ export var SceneManager = () => {
                             attributes: handle
                         }));
                         props.vuePanel.application.popups.push(handle);
+                        $(tools.identify(`${ship.name}_id`)).ready(() => {
+                            dom = $(tools.identify(`${ship.name}_id`));
+                            let width = dom.width(), height = dom.height();
+                            handle.box = new Box(
+                                () => parseFloat(dom.css("left")),
+                                () => parseFloat(dom.css("top")),
+                                () => width,
+                                () => height
+                            );
+                            lables_cache.push(handle.box);
+                        });
                         handle.popup_id = setInterval(() => {
                             let screen_point = props.view.toScreen(new Point({
                                 spatialReference: props.view.spatialReference,
@@ -52,20 +67,23 @@ export var SceneManager = () => {
                                 latitude: lat
                             }));
                             let map_point = props.view.toMap(screen_point);
-                            let dom = $(tools.identify(`${ship.name}_id`));
-                            if (Math.abs(map_point.longitude - lon) <= 0.1 && Math.abs(map_point.latitude - lat) <= 0.1) {
-                                dom.show().css({
-                                    "left": `${screen_point.x}px`,
-                                    "top": `${screen_point.y - dom.height()}px`
-                                });
+                            dom.css({
+                                "left": `${screen_point.x}px`,
+                                "top": `${screen_point.y - dom.height()}px`
+                            });
+                            if (map_point &&
+                                !tools.floatBox.hitTest(handle.box, lables_cache) && 
+                                Math.abs(map_point.longitude - lon) <= 0.1 &&
+                                Math.abs(map_point.latitude - lat) <= 0.1) {
+                                handle.switch = true;
                             } else {
-                                dom.hide();
+                                handle.switch = false;
                             }
                         });
                     }
                 });
                 props.map.add(layer);
-                layer.addMany(ship_cache.concat(lables_cache));
+                layer.addMany(ship_cache);
             });
         });
     }

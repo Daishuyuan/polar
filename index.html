@@ -45,7 +45,7 @@
             </div>
             <!-- popup template -->
             <div v-for="popup in popups" v-bind:id="popup.id" v-on:click="pop(popup.event);" class="WXY_label">
-                <div class="WXY_floating_window WXY_img_font">
+                <div v-cloak v-show="popup.switch" class="WXY_floating_window WXY_img_font animated fadeIn pulse">
                     <div>
                         <img width="140px" src="./img/ui/observation_point.jpg" />
                     </div>
@@ -58,7 +58,10 @@
                         <div>气压:&ensp;<span>{{ popup.press }}</span>hPa</div>
                     </div>
                 </div>
-                <div class="WXY_line"></div>
+                <div v-cloak v-show="popup.switch" class="WXY_line animated fadeIn pulse"></div>
+                <div v-cloak v-show="!popup.switch">
+                    null
+                </div>
             </div>
         </template>
     </div>
