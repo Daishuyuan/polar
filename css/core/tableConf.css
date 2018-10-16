@@ -42,7 +42,7 @@
 
 .WXY_floating_window {
     position: relative;
-    left: 25px;
+    left: 14px;
     font-size: 11px;
     background-color: #000;
     color: #fff;
@@ -57,15 +57,12 @@
 }
 
 .WXY_line {
-    /*position: absolute;*/
-    /*bottom: 50%;*/
-    /*left: 50%;*/
-    height: 30px;
-    width: 30px;
+    height: 12px;
+    width: 8px;
     border-left: 2px solid black;
     transform: skew(-40deg);
     position: relative;
-    left: 12px;
+    left: 8px;
 }
 
 .WXY_img_font {
