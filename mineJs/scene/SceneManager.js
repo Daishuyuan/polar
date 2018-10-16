@@ -5,6 +5,7 @@ import { LidarScene } from "./LidarScene.js"
 import { TableFactory } from "../diagram/TableFactory.js";
 import { Tools as tools } from "../basic/BasicTools.js";
 import { BoxModel as Box } from "../basic/BasicTools.js";
+import { PARAMS_TABLE as ptable} from "../basic/ParamsTable.js";
 
 export var SceneManager = () => {
     const TABLE_DEBUG = false;
@@ -17,6 +18,7 @@ export var SceneManager = () => {
             $.ajax(`${props.preDataUrl}/Common`).done((common) => {
                 let ships = common.data.ships, stations = common.data.stations;
                 let ship_cache = [], lables_cache = [], ship_model;
+                tools.gilgamesh(ptable.events.SHIP_LOAD_EVENT, () => {});
                 ships.forEach((ship) => {
                     let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat), dom = null;
                     let eventName = `${ship.name}_event`;
@@ -26,8 +28,7 @@ export var SceneManager = () => {
                         site: `${ship.lon}, ${ship.lat}`,
                         switch: true,
                         box: null,
-                        event: eventName,
-                        load: null
+                        event: eventName
                     };
                     if (!isNaN(lon) && !isNaN(lat)) {
                         ship_model = new Graphic({
@@ -60,9 +61,7 @@ export var SceneManager = () => {
                                     tilt: 60 
                                 });
                             });
-                            if (handle.load && typeof(handle.load) == "function") {
-                                handle.load(ship_model);
-                            }
+                            tools.getEventByName(ptable.events.SHIP_LOAD_EVENT)();
                         })(ship_model);
                         $(tools.identify(`${ship.name}_id`)).ready(() => {
                             dom = $(tools.identify(`${ship.name}_id`));

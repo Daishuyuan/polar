@@ -30,18 +30,7 @@
  **/
 import { Tools as tools } from "../basic/BasicTools.js"
 
-var ALL_EVENTS = new Map();
-
 export class TableFactory {
-
-    static getEventByName(name) {
-        if (ALL_EVENTS.has(name)) {
-            return ALL_EVENTS.get(name);
-        } else {
-            tools.mutter("you try to use a undefined function.", "warn");
-        }
-    }
-
     constructor() {
         const NO_MARGIN = "margin: 0px"; // no margin style
         const ROW_MARGIN_STYLE = "margin-right: -0.79vw;margin-left: -0.79vw;"; // row margin style
@@ -96,7 +85,7 @@ export class TableFactory {
                                     title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
                                     if (node.event && typeof(node.event) == "string") {
-                                        ALL_EVENTS.set(node.event, (name) => {
+                                        tools.gilgamesh(node.event, (name) => {
                                             $(tools.identify(id)).ready(() => {
                                                 $(tools.identify(id)).html(name);
                                             });

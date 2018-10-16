@@ -1,3 +1,5 @@
+import { PARAMS_TABLE as ptable } from "./ParamsTable.js";
+
 export class BoxModel {
     constructor(func_x,func_y,func_w,func_h) {
         this.x = () => func_x();
@@ -39,10 +41,69 @@ export var Tools = (() => {
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
     const intValue = (num, MAX_VALUE, MIN_VALUE) => (num > MAX_VALUE || num < MIN_VALUE)? num &= 0xFFFFFFFF: num;
+    const _watch = (name, obj) => {
+        if (name in window.watcher) {
+            inner_lock = true;
+            window.watcher[name] = obj;
+        } else {
+            (function(inner_value) {
+                Object.defineProperty(window.watcher, name, {
+                    get() {
+                        return inner_value;
+                    },
+                    set (val) {
+                        if (inner_lock) {
+                            inner_lock = false;
+                            inner_value = val;
+                        }
+                    }
+                });
+            })(obj);
+        }
+    }
+    const _mutter = (msg, level) => {
+        let content = `WXY(id:${ider.next().value},lv:wxy_${level}):%c ${msg}`;
+        switch (level) {
+            case "fatal":
+                console.error(content, "color:#750000");
+                break;
+            case "error":
+                console.error(content, "color:#8600FF");
+                break;
+            case "warn":
+                console.warn(content, "color: #005AB5");
+                break;
+            case "info":
+                console.log(content, "color:#02C874");
+                break;
+            default:
+                console.warn(`unknown msg level:${level}`);
+                break;
+        }
+    }
     window.watcher = new Object();
     var inner_lock = false;
+    var FULL_FIELD_EVENT_MAP = new Map();
+    _watch("paramsTable", ptable);
 
     return {
+        gilgamesh: (name, func) => {
+            if (func && typeof(func) == "function") {
+                if (!ptable.events[name]) {
+                    ptable.events[name] = ptable.events_types.addition;
+                }
+                FULL_FIELD_EVENT_MAP.set(name, func);
+            } else {
+                _mutter("you must set function to full field function map.", "error");
+            }
+        },
+        getEventByName: (name) => {
+            if (FULL_FIELD_EVENT_MAP.has(name)) {
+                return FULL_FIELD_EVENT_MAP.get(name);
+            } else {
+                return () => {};
+            }
+        },
         identify: (id) => {
             return id.startsWith("#")? id.slice(id.lastIndexOf("#")): "#" + id;
         },
@@ -57,24 +118,7 @@ export var Tools = (() => {
             return hash;
         },
         watch: (name, obj) => {
-            if (name in window.watcher) {
-                inner_lock = true;
-                window.watcher[name] = obj;
-            } else {
-                (function(inner_value) {
-                    Object.defineProperty(window.watcher, name, {
-                        get() {
-                            return inner_value;
-                        },
-                        set (val) {
-                            if (inner_lock) {
-                                inner_lock = false;
-                                inner_value = val;
-                            }
-                        }
-                    });
-                })(obj);
-            }
+            _watch(name, obj);
         },
         sleep: (milliseconds) => {
             var deferred = $.Deferred();
@@ -118,24 +162,7 @@ export var Tools = (() => {
             console.log(`%c ${wxy.join('\n')}`, "color:green");
         },
         mutter: (msg, level) => {
-            let content = `WXY(id:${ider.next().value},lv:wxy_${level}):%c ${msg}`;
-            switch (level) {
-                case "fatal":
-                    console.error(content, "color:#750000");
-                    break;
-                case "error":
-                    console.error(content, "color:#8600FF");
-                    break;
-                case "warn":
-                    console.warn(content, "color: #005AB5");
-                    break;
-                case "info":
-                    console.log(content, "color:#02C874");
-                    break;
-                default:
-                    console.warn(`unknown msg level:${level}`);
-                    break;
-            }
+            _mutter(msg, level);
         },
         floatBox: {
             hitTest: (item, items) => {
