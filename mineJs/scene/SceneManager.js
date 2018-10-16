@@ -16,18 +16,20 @@ export var SceneManager = () => {
         ], (Graphic, Point) => {
             $.ajax(`${props.preDataUrl}/Common`).done((common) => {
                 let ships = common.data.ships, stations = common.data.stations;
-                let ship_cache = [], lables_cache = [];
+                let ship_cache = [], lables_cache = [], ship_model;
                 ships.forEach((ship) => {
                     let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat), dom = null;
+                    let eventName = `${ship.name}_event`;
                     let handle = {
                         id: `${ship.name}_id`,
                         name: ship.name,
-                        site: `${ship.lon},${ship.lat}`,
+                        site: `${ship.lon}, ${ship.lat}`,
                         switch: true,
-                        box: null
+                        box: null,
+                        event: eventName
                     };
                     if (!isNaN(lon) && !isNaN(lat)) {
-                        ship_cache.push(new Graphic({
+                        ship_model = new Graphic({
                             geometry: {
                                 type: "point",
                                 x: lon,
@@ -47,8 +49,17 @@ export var SceneManager = () => {
                                 }]
                             },
                             attributes: handle
-                        }));
+                        });
+                        ship_cache.push(ship_model);
                         props.vuePanel.application.popups.push(handle);
+                        (function(ship_model) {
+                            props.vuePanel.popupEvents.set(eventName, () => {
+                                props.view.goTo({
+                                    target: ship_model,
+                                    tilt: 60 
+                                });
+                            });
+                        })(ship_model);
                         $(tools.identify(`${ship.name}_id`)).ready(() => {
                             dom = $(tools.identify(`${ship.name}_id`));
                             let width = dom.width(), height = dom.height();
