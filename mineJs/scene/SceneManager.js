@@ -18,7 +18,10 @@ export var SceneManager = () => {
                 let ship_cache = [], lables_cache = [];
                 ships.forEach((ship) => {
                     let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat);
-                    let tips = {};
+                    let handle = {
+                        id: `${ship.name}_id`,
+                        name: ship.name
+                    };
                     if (!isNaN(lon) && !isNaN(lat)) {
                         ship_cache.push(new Graphic({
                             geometry: {
@@ -39,28 +42,28 @@ export var SceneManager = () => {
                                     }
                                 }]
                             },
-                            attributes: tips
+                            attributes: handle
                         }));
-                        props.vuePanel.application.popups.push({
-                            id: `${ship.name}_id`,
-                            name: ship.name
-                        });
-                        tips.popup_id = setInterval(() => {
+                        props.vuePanel.application.popups.push(handle);
+                        handle.popup_id = setInterval(() => {
                             let screen_point = props.view.toScreen(new Point({
+                                spatialReference: props.view.spatialReference,
                                 longitude: lon,
                                 latitude: lat
                             }));
+                            let map_point = props.view.toMap(screen_point);
                             let dom = $(tools.identify(`${ship.name}_id`));
-                            dom.css({
-                                "left": `${screen_point.x + 28}px`,
-                                "top": `${screen_point.y - dom.height()}px`
-                            });
+                            if (Math.abs(map_point.longitude - lon) <= 0.1 && Math.abs(map_point.latitude - lat) <= 0.1) {
+                                dom.show().css({
+                                    "left": `${screen_point.x}px`,
+                                    "top": `${screen_point.y - dom.height()}px`
+                                });
+                            } else {
+                                dom.hide();
+                            }
                         });
                     }
                 });
-
-                tools.watch("ships", ship_cache);
-                tools.watch("fullLayer", layer);
                 props.map.add(layer);
                 layer.addMany(ship_cache.concat(lables_cache));
             });

@@ -10,9 +10,9 @@ import { SceneManager } from "../scene/SceneManager.js";
 import { Tools as tools } from "../basic/BasicTools.js";
 
 (function() {
-    var MAIN_APP_ID = "MainApp";
+    var MAIN_APP_ID = "PolarApp";
     var TABLEVIEW_ID = "threeJsView";
-    var MASK_HTML_PATH = "/polar/cutscene.html";
+    var MASK_HTML_PATH = "./cutscene.html";
     var RECOV_BTN = "homeTitle";
     var PRE_DATA_URL = "http://localhost:3000";
     
