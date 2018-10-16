@@ -13,7 +13,6 @@ function init_ships(layer, props, ships) {
         "esri/geometry/Point"
     ], (Graphic, Point) => {
         let ship_cache = [], lables_cache = [];
-        tools.gilgamesh(ptable.events.SHIP_LOAD_EVENT, () => {});
         ships.forEach((ship) => {
             let lon = parseFloat(ship.lon), lat = parseFloat(ship.lat), dom = null;
             let eventName = `${ship.name}_event`;

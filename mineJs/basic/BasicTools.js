@@ -87,7 +87,7 @@ export var Tools = (() => {
     _watch("paramsTable", ptable);
 
     return {
-        gilgamesh: (name, func) => {
+        setEventInApp: (name, func) => {
             if (func && typeof(func) == "function") {
                 let wkid = name.toUpperCase();
                 if (!ptable.events[wkid]) {

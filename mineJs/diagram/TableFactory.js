@@ -85,7 +85,7 @@ export class TableFactory {
                                     title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
                                     if (node.event && typeof(node.event) == "string") {
-                                        tools.gilgamesh(node.event, (name) => {
+                                        tools.setEventInApp(node.event, (name) => {
                                             $(tools.identify(id)).ready(() => {
                                                 $(tools.identify(id)).html(name);
                                             });
