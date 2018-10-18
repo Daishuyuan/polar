@@ -65,19 +65,19 @@ export var Tools = (() => {
         let content = `WXY(id:${ider.next().value},lv:wxy_${level}):%c ${msg}`;
         switch (level) {
             case "fatal":
-                console.error(content, "color:#750000");
+                console.log(content, "color:#750000");
                 break;
             case "error":
-                console.error(content, "color:#8600FF");
+                console.log(content, "color:#8600FF");
                 break;
             case "warn":
-                console.warn(content, "color: #005AB5");
+                console.log(content, "color: #005AB5");
                 break;
             case "info":
                 console.log(content, "color:#02C874");
                 break;
             default:
-                console.warn(`unknown msg level:${level}`);
+                console.log(`unknown msg level:${level}`);
                 break;
         }
     }
@@ -85,6 +85,8 @@ export var Tools = (() => {
     var inner_lock = false;
     var FULL_FIELD_EVENT_MAP = new Map();
     _watch("paramsTable", ptable);
+    console.error = (str) => _mutter(str, "error");
+    console.warn = (str) => _mutter(str, "warn"); 
 
     return {
         setEventInApp: (name, func) => {
@@ -160,7 +162,7 @@ export var Tools = (() => {
                 `;!!;;$#$;;|&#&|;;;!|||!`, `::;;!$#%!!;$#&|;:::::;;`,
                 `\`''\`'%#|':'!@#$'.\`\`\`\`\`:`, `!::::%@|::''!@&|;;;'';;`
             ];
-            console.log(`%c ${wxy.join('\n')}`, "color:green");
+            console.log(`%c ${wxy.join('\n')}`, "color:#008B45;text-shadow:5px 5px 2px #fff, 5px 5px 2px #373E40, 5px 5px 5px #A2B4BA, 5px 5px 10px #82ABBA;font-weight:bolder;");
         },
         mutter: (msg, level) => {
             _mutter(msg, level);

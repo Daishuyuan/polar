@@ -20,7 +20,7 @@
  * -----------------------------------------------------------> data_url(chart) 数据url拉取地址
  * -----------------------------------------------------------> data_proc(chart) 拉取到数据后的处理函数Str类型
  * -----------------------------------------------------------> prefix(title) 标题装饰性前缀
- * -----------------------------------------------------------> event(title) 绑定变更函数名称
+ * -----------------------------------------------------------> event_id(title) 绑定变更函数名称
  * @requires jQuery
  * @requires echarts
  * @requires echarts-liquidfill
@@ -54,7 +54,7 @@ export class TableFactory {
                             setInterval(function () {
                                 option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
                                 myChar.setOption(option, true);
-                            }, 2000);
+                            }, 4000);
                         }
                     }
                 });
@@ -84,8 +84,8 @@ export class TableFactory {
                                     }
                                     title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
-                                    if (node.event && typeof(node.event) == "string") {
-                                        tools.setEventInApp(node.event, (name) => {
+                                    if (node.event_id && typeof(node.event_id) == "string") {
+                                        tools.setEventInApp(node.event_id, (name) => {
                                             $(tools.identify(id)).ready(() => {
                                                 $(tools.identify(id)).html(name);
                                             });

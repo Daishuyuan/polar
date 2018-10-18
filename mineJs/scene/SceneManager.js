@@ -20,7 +20,8 @@ function init_ships(layer, props, ships) {
             let handle = {
                 id: `${ship.name}_id`,
                 name: ship.name,
-                site: `${ship.lon}, ${ship.lat}`,
+                lon: ship.lon,
+                lat: ship.lat,
                 switch: true,
                 box: null,
                 event: eventName
@@ -68,30 +69,42 @@ function init_ships(layer, props, ships) {
                         () => width,
                         () => height
                     );
-                    lables_cache.push(handle.box);
-                });
-                handle.popup_id = setInterval(() => {
-                    let screen_point = props.view.toScreen(new Point({
-                        spatialReference: props.view.spatialReference,
-                        longitude: lon,
-                        latitude: lat
-                    }));
-                    let map_point = props.view.toMap(screen_point);
-                    dom.css({
-                        "left": `${screen_point.x}px`,
-                        "top": `${screen_point.y - dom.height()}px`
-                    });
-                    if (map_point &&
-                        !tools.floatBox.hitTest(handle.box, lables_cache) && 
-                        Math.abs(map_point.longitude - lon) <= 0.1 &&
-                        Math.abs(map_point.latitude - lat) <= 0.1) {
-                        handle.switch = true;
-                    } else {
-                        handle.switch = false;
-                    }
+                    lables_cache.push(handle);
                 });
             }
         });
+        // bind on drag event
+        const firePopup = () => {
+            let boxes = lables_cache.map((x) => x.box);
+            lables_cache.forEach((label) => {
+                let lon = label.lon, lat = label.lat;
+                let screen_point = props.view.toScreen(new Point({
+                    spatialReference: props.view.spatialReference,
+                    longitude: lon,
+                    latitude: lat
+                }));
+                let map_point = props.view.toMap(screen_point);
+                let dom = $(tools.identify(label.id));
+                dom.css({
+                    "left": `${screen_point.x}px`,
+                    "top": `${screen_point.y - dom.height()}px`
+                });
+                if (map_point &&
+                    !tools.floatBox.hitTest(label.box, boxes) && 
+                    Math.abs(map_point.longitude - lon) <= 0.1 &&
+                    Math.abs(map_point.latitude - lat) <= 0.1) {
+                    label.switch = true;
+                } else {
+                    label.switch = false;
+                }
+            });
+        };
+        setInterval(() => firePopup(), 100);
+        props.view.on("pointer-move", firePopup);
+        props.view.on("pointer-up", firePopup);
+        props.view.on("pointer-enter", firePopup);
+        props.view.on("resize", firePopup);
+        // add all ships
         layer.addMany(ship_cache);
     });
 }
@@ -172,7 +185,15 @@ export var SceneManager = () => {
 
     return {
         init: (props) => {
-            props? __init__(props): tools.mutter("props unsettled.", "error");
+            try {
+                if (props) {
+                    __init__(props);
+                } else {
+                    throw new Error("props unsettled.");
+                }
+            } catch(e) {
+                tools.mutter(e, "error");
+            }
         }
     }
 };
