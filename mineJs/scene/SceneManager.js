@@ -65,7 +65,7 @@ function init_ships(layer, props, ships) {
                     let width = dom.width(), height = dom.height();
                     handle.box = new Box(
                         () => parseFloat(dom.css("left")),
-                        () => parseFloat(dom.css("top")),
+                        () => parseFloat(dom.css("top")) - height,
                         () => width,
                         () => height
                     );

@@ -42,7 +42,8 @@
 - git commit -m '修改信息备注'
 - git push （上传所有修改代码）
 6. 下载代码步骤:
-- git pull （拉取代码）
+- git checkout arcgis <tips这个分支目前是我们的最新分支>
+- git pull （拉取代码 and 第一次拉取代码也请使用这个）
 7. 安装json-server <beta阶段>
 - npm install -g json-server
 8. 启动工程
