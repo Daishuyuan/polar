@@ -29,6 +29,7 @@
  * @exports TableFactory
  **/
 import { Tools as tools } from "../basic/BasicTools.js"
+import { TYPE_ECHARTS } from "../basic/DataPublisher.js"
 
 export class TableFactory {
     constructor() {
@@ -40,7 +41,8 @@ export class TableFactory {
         const nstd = (x) => !isNaN(parseFloat(x)) && x > 0 ? x : 0; // number standard
 
         // load chart
-        function loadChart(dom, url) {
+        function loadChart(node) {
+            let dom = jqDom.find(tools.identify(node.id));
             $(dom).ready(() => {
                 $.ajax({
                     url: url,
@@ -55,6 +57,14 @@ export class TableFactory {
                                 option.series[0].data[0].value = (Math.random() * 100 + 1).toFixed(1) - 0;
                                 myChar.setOption(option, true);
                             }, 4000);
+                        }
+                        if (node.event_id) {
+                            let entity = {
+                                type: TYPE_ECHARTS,
+                                url: node.url,
+                                target: myChar
+                            }
+                            ALL_EVENTS.set(node.event_id, () => entity);
                         }
                     }
                 });
@@ -108,14 +118,10 @@ export class TableFactory {
                                     }
                                     tbcnt.push(`<div id='${_id}' style='height:${100 - title_height}%;' class='${sstd(node.style)}'></div>`);
                                     echDelay.push({
+                                        event_id: node.event_id,
                                         id: _id,
                                         url: node.url
                                     });
-                                    if (node.event_id) {
-                                        ALL_EVENTS.set(node.event_id, () => {
-
-                                        });
-                                    }
                                     break;
                                 case "capsule":
                                     __row_owner__(node.rows);
@@ -168,10 +174,8 @@ export class TableFactory {
                             // echarts initialization
                             jqDom.append(tbcnt.join('\n'));
                             try {
-                                for (let i = 0; i < echDelay.length; ++i) {
-                                    let node = echDelay[i];
-                                    loadChart(jqDom.find(tools.identify(node.id)), node.url);
-                                }
+                                for (let i = 0; i < echDelay.length; ++i) 
+                                    loadChart(echDelay[i]);
                             } catch (e) {
                                 tools.mutter(e, "error");
                             }

@@ -1,5 +1,6 @@
 import { Tools as tools } from "./BasicTools.js"
 
+export var TYPE_ECHARTS = "echarts";
 var SHARE_RES_MAP = new Map();
 var SUBSCRIBERS = [];
 const CHECK_UPDATE_TICK = 500; 
@@ -9,7 +10,7 @@ export class DataPublisher {
         // update entity by type
         this._updateData = (entity, data) => {
             switch(entity.type) {
-                case "echarts":
+                case TYPE_ECHARTS:
                     entity.target.series = data;
                     break;
                 default:
