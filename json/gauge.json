@@ -430,7 +430,8 @@
             "class": "title_row",
             "cols": [{
               "type": "title",
-              "name": "南极科考站实时气象信息",
+              "event_id":"stations",
+              "name": "中山站实时气象信息",
               "style": "chart_title",
               "height": 6,
               "column": "col-md-8",
@@ -486,6 +487,7 @@
             "cols": [{
               "type": "title",
               "name": "雪龙船实时气象信息",
+              "event_id":"ships",
               "style": "chart_title",
               "height": 6,
               "column": "col-md-8",

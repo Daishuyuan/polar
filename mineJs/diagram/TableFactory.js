@@ -105,8 +105,8 @@ export class TableFactory {
                                         id: _id,
                                         url: node.url
                                     });
-                                    if (node.event) {
-                                        ALL_EVENTS.set(node.event, () => {
+                                    if (node.event_id) {
+                                        ALL_EVENTS.set(node.event_id, () => {
 
                                         });
                                     }

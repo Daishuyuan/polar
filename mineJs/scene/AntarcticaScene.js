@@ -1,4 +1,6 @@
 import { Scene } from "./Scene.js"
+import { Tools as tools} from "../basic/BasicTools.js"
+import { PARAMS_TABLE as ptable } from "../basic/ParamsTable.js"
 
 export class AntarcticaScene extends Scene {
     constructor(props) {
@@ -35,5 +37,9 @@ export class AntarcticaScene extends Scene {
             }],
             viewField: this.ANTARCTICA_VIEW_POINT
         });
+        tools.setEventInApp(ptable.events.SHIP_LOAD_EVENT, (ship) => {
+            tools.getEventByName("ships")(ship.attributes.name);
+        });
+        tools.getEventByName("stations")("中山站");
     }
 }
