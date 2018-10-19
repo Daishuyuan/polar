@@ -64,7 +64,7 @@ export class TableFactory {
                                 url: node.url,
                                 target: myChar
                             }
-                            ALL_EVENTS.set(node.event_id, () => entity);
+                            tools.setEventInApp(node.event_id, () => entity);
                         }
                     }
                 });
