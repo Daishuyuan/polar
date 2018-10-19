@@ -47,8 +47,10 @@ export class DataPublisher {
                     return _url;
                 },
                 set(url) {
-                    _url = url;
-                    this._reqRes(entity);
+                    if (url && url != _url) {
+                        _url = url;
+                        this._reqRes(entity);
+                    }
                 }
             });
             Object.defineProperty(entity, "type", {
@@ -56,8 +58,10 @@ export class DataPublisher {
                     return _type;
                 },
                 set(type) {
-                    _type = type;
-                    this._reqRes(entity);
+                    if (type && type != _type) {
+                        _type = type;
+                        this._reqRes(entity);
+                    }
                 }
             });
             Object.defineProperty(entity, "target", {

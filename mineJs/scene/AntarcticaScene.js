@@ -38,8 +38,8 @@ export class AntarcticaScene extends Scene {
             viewField: this.ANTARCTICA_VIEW_POINT
         });
         tools.setEventInApp(ptable.events.SHIP_LOAD_EVENT, (ship) => {
-            tools.getEventByName("ships")(ship.attributes.name);
+            console.log(tools.getEventByName("ships").title_name);
+            tools.getEventByName("ships")().title_name = ship.attributes.name;
         });
-        tools.getEventByName("stations")("中山站");
     }
 }

@@ -85,11 +85,16 @@ export class TableFactory {
                                     title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
                                     if (node.event_id && typeof(node.event_id) == "string") {
-                                        tools.setEventInApp(node.event_id, (name) => {
-                                            $(tools.identify(id)).ready(() => {
-                                                $(tools.identify(id)).html(name);
-                                            });
+                                        let entity = {}, jqId = tools.identify(id);
+                                        Object.defineProperty(entity, "title_name", {
+                                            get () {
+                                                return $(jqId).html();
+                                            },
+                                            set (name) {
+                                                $(jqId).html(name);
+                                            }
                                         });
+                                        tools.setEventInApp(node.event_id, () => entity);
                                     }
                                     break;
                                 case "chart":
