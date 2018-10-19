@@ -29,6 +29,7 @@
  * @exports TableFactory
  **/
 import { Tools as tools } from "../basic/BasicTools.js"
+import { PARAMS_TABLE as ptable } from "../basic/ParamsTable.js"
 import { TYPE_ECHARTS } from "../basic/DataPublisher.js"
 
 export class TableFactory {
@@ -95,7 +96,7 @@ export class TableFactory {
                                     }
                                     title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${content}</p>`;
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
-                                    if (node.event_id && typeof(node.event_id) == "string") {
+                                    if (ptable.exists(node.event_id)) {
                                         let jqId = tools.identify(id);
                                         Object.defineProperty(node, "name", {
                                             get () {

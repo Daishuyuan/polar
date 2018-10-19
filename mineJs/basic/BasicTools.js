@@ -84,11 +84,35 @@ export var Tools = (() => {
     window.watcher = new Object();
     var inner_lock = false;
     var FULL_FIELD_EVENT_MAP = new Map();
+    var LISTENERS_STATS = [];
     _watch("paramsTable", ptable);
+    _watch("listenersNum", LISTENERS_STATS);
     console.error = (str) => _mutter(str, "error");
     console.warn = (str) => _mutter(str, "warn"); 
 
     return {
+        // prevent memory leak because of recycle listener definition
+        safe_on: (obj, event, func) => {
+            let i = 0, len = LISTENERS_STATS.length;
+            for (; i < len; ++i) {
+                let elem = LISTENERS_STATS[i];
+                if (elem.obj == obj && elem.event == event) {
+                    _mutter(`common obj and event can't be defined again.`, "warn");
+                    break;
+                }
+            }
+            if (i >= len) {
+                LISTENERS_STATS.push({
+                    src: obj,
+                    evt: event,
+                    event_id: obj.on(event, func)
+                });
+                if (LISTENERS_STATS.length > 100) {
+                    _mutter(`Listeners could be too huge. please decrease some.`, "warn");
+                }
+            }
+        },
+        // set event in full field
         setEventInApp: (name, func) => {
             if (func && typeof(func) == "function") {
                 let wkid = name.toUpperCase();

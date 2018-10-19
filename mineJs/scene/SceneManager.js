@@ -100,10 +100,10 @@ function init_ships(layer, props, ships) {
             });
         };
         setInterval(() => firePopup(), 100);
-        props.view.on("pointer-move", firePopup);
-        props.view.on("pointer-up", firePopup);
-        props.view.on("pointer-enter", firePopup);
-        props.view.on("resize", firePopup);
+        tools.safe_on(props.view, "pointer-move", firePopup);
+        tools.safe_on(props.view, "pointer-up", firePopup);
+        tools.safe_on(props.view, "pointer-enter", firePopup);
+        tools.safe_on(props.view, "resize", firePopup);
         // add all ships
         layer.addMany(ship_cache);
     });
