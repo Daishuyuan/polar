@@ -339,7 +339,7 @@
                       "title_class": "title_col",
                       "name": "接收文件数量",
                       "height": 13,
-                      "url": "",
+                      "url": "http://localhost:3000/counter",
                       "column": "col-md-12",
                       "descrip": "第一列"
                     }]
@@ -353,7 +353,7 @@
                       "title_class": "title_col",
                       "name": "处理文件数量",
                       "height": 13,
-                      "url": "",
+                      "url": "http://localhost:3000/counter",
                       "column": "col-md-12",
                       "descrip": "第一列"
                     }]
@@ -29226,5 +29226,17 @@
         "name": "实际值"
       }]
     }]
+  },
+  "counter":{
+    "title": {
+      "text": 40000,
+      "x": "center",
+      "y": "center",
+      "textStyle": {
+        "color": "#98a0c4",
+        "fontWeight": "bolder",
+        "fontSize": 45
+      }
+    }
   }
 }
