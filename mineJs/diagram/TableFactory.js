@@ -77,21 +77,22 @@ export class TableFactory {
                                     let prefix_content = "",
                                         title_content = "",
                                         control = "",
+                                        content = sstd(node.name),
                                         id = `TITLE${tools.guid().replace(/-/g, "")}`;
                                     if (node.prefix) {
                                         prefix_content = `<p class='${node.prefix}'></p>`;
                                         control = "style='display: inline-flex;'";
                                     }
-                                    title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${sstd(node.name)}</p>`;
+                                    title_content = `<p id='${id}' style='${NO_MARGIN}' class='${sstd(node.style)}'>${content}</p>`;
                                     tbcnt.push(`<div ${control}>${prefix_content}${title_content}</div>`);
                                     if (node.event_id && typeof(node.event_id) == "string") {
-                                        let entity = {}, jqId = tools.identify(id);
-                                        Object.defineProperty(entity, "title_name", {
+                                        let jqId = tools.identify(id);
+                                        Object.defineProperty(node, "name", {
                                             get () {
-                                                return $(jqId).html();
+                                                return content;
                                             },
                                             set (name) {
-                                                $(jqId).html(name);
+                                                $(jqId).html(content = name);
                                             }
                                         });
                                         tools.setEventInApp(node.event_id, () => entity);
