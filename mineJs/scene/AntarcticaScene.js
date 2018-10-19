@@ -38,7 +38,7 @@ export class AntarcticaScene extends Scene {
             viewField: this.ANTARCTICA_VIEW_POINT
         });
         tools.setEventInApp(ptable.events.SHIP_LOAD_EVENT, (ship) => {
-            console.log(tools.getEventByName("ships").title_name);
+            console.log(tools.getEventByName("ships").name);
             tools.getEventByName("ships")().name = ship.attributes.name;
         });
     }
