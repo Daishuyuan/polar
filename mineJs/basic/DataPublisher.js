@@ -11,7 +11,9 @@ export class DataPublisher {
         this._updateData = (entity, data) => {
             switch(entity.type) {
                 case TYPE_ECHARTS:
-                    entity.target.series = data;
+                    let option = entity.target.getOption();
+                    option.series = data;
+                    entity.target.setOption(option, true);
                     break;
                 default:
                     tools.mutter(`type=${entity.type} is invalid.`, "error");
