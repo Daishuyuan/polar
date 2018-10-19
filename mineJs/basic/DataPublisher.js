@@ -1,87 +1,108 @@
 import { Tools as tools } from "./BasicTools.js"
 
-class ReqHashTable {
-    constructor(len) {
-        this.MAGIC_NUM = 0x9e353f7c;
-        this.nextIndex = (i) => i + 1 >= len? 0: i + 1;
-        if (len > 2**4 && !(len & (len - 1))) {
-            this.len = len;
-            this.threshold = parseInt(len * 2 / 3);
-            this.cycleArr = [];
-            this.size = 0;
-        } else {
-            tools.mutter(`len: ${len} must be the power of 2!`, "error");
-        }
-    }
-
-    addRes(name, params, data) {
-        let url = name + params,
-            hashcode = tools.hashCode(url, 0xFFFFFFFF, 0x0),
-            index = (hashcode + this.MAGIC_NUM) & (this.len - 1);
-        this.size++;
-        if (!this.cycleArr[index]) {
-            this.cycleArr[index] = {
-                url: name + params,
-                data: data
-            };
-        } else if (this.cycleArr[index].url === url) {
-            this.cycleArr[index].data = data;
-        } else {
-            while(this.cycleArr[index = this.nextIndex(index, this.len)]);
-            this.cycleArr[index] = {
-                url: name + params,
-                data: data
-            };
-        }
-        if (this.size >= this.threshold) {
-            this.len *= 2;
-            this.threshold = parseInt(this.len * 2 / 3);
-        }
-    }
-}
+var SHARE_RES_MAP = new Map();
+var SUBSCRIBERS = [];
+const CHECK_UPDATE_TICK = 500; 
 
 export class DataPublisher {
-    constructor(propsUrl, tick) {
-        this.subscribers = new Map();
-        setInterval(function () {
+    constructor(propsUrl) {
+        // update entity by type
+        this._updateData = (entity, data) => {
+            switch(entity.type) {
+                case "echarts":
+                    entity.target.series = data;
+                    break;
+                default:
+                    tools.mutter(`type=${entity.type} is invalid.`, "error");
+                    break;
+            }
+            entity.isInited = true;
+        }
+
+        // pull resouce from remote or local
+        this._reqRes = (entity) => {
+            if (SHARE_RES_MAP.has(entity.url)) {
+                if (!entity.isInited) {
+                    this._updateData(entity, SHARE_RES_MAP.get(entity.url));
+                }
+            } else {
+                $.ajax({
+                    url: entity.url,
+                    type: "POST",
+                    dataType: "json"
+                }).done((data) => {
+                    SHARE_RES_MAP.set(entity.url, data);
+                    this._updateData(entity, data);
+                });  
+            }
+        }
+
+        // innerify entity
+        this._innerify = (entity) => {
+            let _url = entity.url,
+                _type = entity.type,
+                _target = entity.target;
+            Object.defineProperty(entity, "url", {
+                get() {
+                    return _url;
+                },
+                set(url) {
+                    _url = url;
+                    this._reqRes(entity);
+                }
+            });
+            Object.defineProperty(entity, "type", {
+                get() {
+                    return _type;
+                },
+                set(type) {
+                    _type = type;
+                    this._reqRes(entity);
+                }
+            });
+            Object.defineProperty(entity, "target", {
+                get() {
+                    return _target;
+                }
+            });
+        }
+        
+        // check and pull data trigger 
+        setInterval(() => {
             $.ajax({
                 url: propsUrl,
                 type: "GET",
                 dataType: "json"
-            }).progress(function(option) {
-                for (let prop in props) {
-                    if (props[prop] && subscribers.has(prop)) {
-                        let subs = subscribers.get(prop);
-                        for (let name in subs) {
-                            !function (url, system_call) {
-                                $.ajax({
-                                    url: url,
-                                    type: "POST",
-                                    dataType: "json"
-                                }).progress(function(data) {
-                                    system_call(data);
-                                }).catch(function(e) {
-                                    tools.mutter(e, "error");
-                                });
-                            }(subs[name].url, subs[name].func);
+            }).done(function(props) {
+                // check data updating in props diagram
+                for (let name in props) {
+                    if (props[name]) {
+                        let it = SHARE_RES_MAP.keys(), e;
+                        while(!(e = it.next()).done) {
+                            if ((e.value + "").indexOf(name) >= 0) {
+                                SHARE_RES_MAP.delete(e.value);
+                            }
                         }
                     }
+                }
+                // check data validation in subscribers
+                for (let i=0; i < SUBSCRIBERS.length; ++i) {
+                    this._reqRes(SUBSCRIBERS[i]);
                 }
             }).catch(function(e) {
                 tools.mutter(e, "error");
             });
-        }, tick);
+        }, CHECK_UPDATE_TICK);
     }
 
-    subscrib(name, url, callback) {
-        if (!this.subscribers.has(name)) {
-            this.subscribers.set(name, []);
-        }
-        if (this.subscriber && url) {
-            this.subscribers.get(name).push({
-                url: url,
-                func: new Function("data", callback)
-            });
+    // subscrib entity to map(entity should be configured by url, target and type)
+    subscrib(entity) {
+        if(entity.url && entity.target && entity.type) {
+            this._innerify(entity);
+            this._reqRes(entity);
+            SUBSCRIBERS.push(entity);
+        } else {
+            tools.mutter(`entity.url=${entity.url}, entity.target=${entity.target}, entity.type=${entity.type} invalid.`, "error");
         }
     }
 }
