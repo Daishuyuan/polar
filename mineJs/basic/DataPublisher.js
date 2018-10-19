@@ -1,6 +1,7 @@
 import { Tools as tools } from "./BasicTools.js"
 
 export var TYPE_ECHARTS = "echarts";
+export var TYPE_CUSTOM = "custom";
 var SHARE_RES_MAP = new Map();
 var SUBSCRIBERS = [];
 const CHECK_UPDATE_TICK = 500; 
@@ -12,6 +13,9 @@ export class DataPublisher {
             switch(entity.type) {
                 case TYPE_ECHARTS:
                     entity.target.setOption(data, true);
+                    break;
+                case TYPE_CUSTOM:
+                    entity.target(data);
                     break;
                 default:
                     tools.mutter(`type=${entity.type} is invalid.`, "error");
