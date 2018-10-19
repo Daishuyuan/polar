@@ -154,6 +154,7 @@ export var SceneManager = () => {
                     }
                 });
                 tools.watch("view", props.view);
+                tools.setEventInApp(ptable.events.VUE_CONTROL, () => props.vuePanel.application);
                 props.view.ui.empty('top-left'); // remove control panel in top left
                 props.view.ui._removeComponents(["attribution"]); // remove "Powered by esri"
                 props.view.when(() => {
