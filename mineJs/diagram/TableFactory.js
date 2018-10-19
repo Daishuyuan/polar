@@ -43,10 +43,10 @@ export class TableFactory {
 
         // load chart
         function loadChart(node) {
-            let dom = jqDom.find(tools.identify(node.id));
+            let dom = node.dom;
             $(dom).ready(() => {
                 $.ajax({
-                    url: url,
+                    url: node.url,
                     type: "GET",
                     dataType: "json",
                     success: function (option) {
@@ -175,8 +175,11 @@ export class TableFactory {
                             // echarts initialization
                             jqDom.append(tbcnt.join('\n'));
                             try {
-                                for (let i = 0; i < echDelay.length; ++i) 
-                                    loadChart(echDelay[i]);
+                                for (let i = 0; i < echDelay.length; ++i) {
+                                    let node = echDelay[i];
+                                    node.dom = jqDom.find(tools.identify(node.id));
+                                    loadChart(node);
+                                }
                             } catch (e) {
                                 tools.mutter(e, "error");
                             }

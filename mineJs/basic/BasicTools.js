@@ -61,6 +61,8 @@ export var Tools = (() => {
             })(obj);
         }
     }
+    const log_error = console.error;
+    const log_warn = console.warn;
     const _mutter = (msg, level) => {
         let content = `WXY(id:${ider.next().value},lv:wxy_${level}):%c ${msg}`;
         switch (level) {
@@ -68,10 +70,10 @@ export var Tools = (() => {
                 console.log(content, "color:#750000");
                 break;
             case "error":
-                console.log(content, "color:#8600FF");
+                log_error(content, "color:#8600FF");
                 break;
             case "warn":
-                console.log(content, "color: #005AB5");
+                log_warn(content, "color: #005AB5");
                 break;
             case "info":
                 console.log(content, "color:#02C874");

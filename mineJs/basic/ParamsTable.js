@@ -7,7 +7,7 @@ export var PARAMS_TABLE = {
         "SHIP_TITLE_CHANGE": "ship_change"
     },
     exists: (event_id) => {
-        if (a.size <= 0) {
+        if (SEARCH_MAP.size <= 0) {
             for (let name in PARAMS_TABLE.events) {
                 SEARCH_MAP.set(PARAMS_TABLE.events[name], name);
             }
